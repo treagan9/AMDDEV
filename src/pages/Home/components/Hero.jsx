@@ -24,21 +24,62 @@ function Hero() {
       alignItems="center"
       justifyContent="center"
       overflow="hidden"
-      bg="brand.ivory"
     >
       <Box
         position="absolute"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-        w="900px"
-        h="900px"
-        borderRadius="full"
-        bg="radial-gradient(circle, rgba(196,162,101,0.04) 0%, transparent 70%)"
-        pointerEvents="none"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        zIndex={0}
+      >
+        <picture>
+          <source media="(max-width: 767px)" srcSet="/home/hero-mobile.png" />
+          <source media="(max-width: 991px)" srcSet="/home/hero-tablet.png" />
+          <img
+            src="/home/hero-desktop.png"
+            alt="AnswersMD concierge medicine office"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center'
+            }}
+          />
+        </picture>
+      </Box>
+
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        h="180px"
+        bg="linear-gradient(to bottom, rgba(250,250,247,0.85) 0%, rgba(250,250,247,0.4) 60%, transparent 100%)"
+        zIndex={1}
       />
 
-      <Box maxW="960px" mx="auto" px={{ base: 6, md: 4 }} textAlign="center">
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="rgba(250,250,247,0.45)"
+        zIndex={1}
+      />
+
+      <Box
+        position="absolute"
+        bottom={0}
+        left={0}
+        right={0}
+        h="200px"
+        bg="linear-gradient(to top, rgba(250,250,247,0.8) 0%, transparent 100%)"
+        zIndex={1}
+      />
+
+      <Box maxW="960px" mx="auto" px={{ base: 6, md: 4 }} textAlign="center" position="relative" zIndex={2}>
         <VStack spacing={7}>
           <MotionBox
             initial={{ opacity: 0, y: -10 }}
@@ -82,7 +123,7 @@ function Hero() {
               color="brand.champagne"
               lineHeight={1.05}
             >
-              Simplified<Text as="span" color="brand.champagne">.</Text>
+              Simplified.
             </Text>
           </MotionBox>
 
@@ -151,3 +192,4 @@ function Hero() {
 }
 
 export default Hero;
+
