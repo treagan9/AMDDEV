@@ -6,6 +6,7 @@ import Team from './pages/Team';
 import Services from './pages/Services';
 import NewPatients from './pages/NewPatients';
 import Contact from './pages/Contact';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/new-patients/" element={<NewPatients />} />
         <Route path="/contact/" element={<Contact />} />
       </Route>
+      <Route path="/signup/" element={<Signup />} />
     </Routes>
   );
 }
