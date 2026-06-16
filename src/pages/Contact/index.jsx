@@ -1,44 +1,3 @@
-#!/bin/bash
-set -e
-echo ""
-echo "  AnswersMD Dev - Contact page"
-echo "  =============================="
-echo ""
-mkdir -p src/pages/Contact
-echo "Writing files..."
-
-mkdir -p "src"
-echo "  -> src/App.jsx"
-cat > "src/App.jsx" << 'AMD_EOF_01'
-// src/App.jsx
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import Team from './pages/Team';
-import Services from './pages/Services';
-import NewPatients from './pages/NewPatients';
-import Contact from './pages/Contact';
-
-function App() {
-  return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/team/" element={<Team />} />
-        <Route path="/services/" element={<Services />} />
-        <Route path="/new-patients/" element={<NewPatients />} />
-        <Route path="/contact/" element={<Contact />} />
-      </Route>
-    </Routes>
-  );
-}
-
-export default App;
-AMD_EOF_01
-
-mkdir -p "src/pages/Contact"
-echo "  -> src/pages/Contact/index.jsx"
-cat > "src/pages/Contact/index.jsx" << 'AMD_EOF_02'
 // src/pages/Contact/index.jsx
 import { useState, useRef } from 'react';
 import {
@@ -354,16 +313,3 @@ function Contact() {
 }
 
 export default Contact;
-AMD_EOF_02
-
-
-echo ""
-echo "  Done. Contact page built (mobile-first)."
-echo "    - Form: same fields as production"
-echo "    - Honeypot + timestamp spam prevention"
-echo "    - Live phone formatting"
-echo "    - Submits to /.netlify/functions/submit-contact"
-echo "    - Route: /contact/"
-echo ""
-echo "  Run: yarn dev"
-echo ""
