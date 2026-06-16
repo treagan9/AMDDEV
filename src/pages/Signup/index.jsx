@@ -428,7 +428,7 @@ function Signup() {
         zIndex={100}
       >
         <Flex maxW="98%" mx="auto" px={{ base: 4, md: 4 }} py={4} justify="space-between" align="center">
-          <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: "28px", md: "36px" }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
+          <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: "32px", md: "42px" }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
           <Text as={Link} to="/" fontSize="sm" color="brand.warmGrayLight" _hover={{ color: 'brand.slate' }}>Exit</Text>
         </Flex>
         <Box pb={4}>
