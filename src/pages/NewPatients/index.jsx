@@ -99,7 +99,7 @@ function NewPatients() {
         <meta name="description" content="Your guide to joining AnswersMD. From your first consultation to comprehensive care, here's how we do things differently." />
       </Helmet>
 
-      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="brand.evergreen" ref={heroRef}>
+      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={heroRef}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox
             initial={{ opacity: 0, y: 24 }}
@@ -109,13 +109,13 @@ function NewPatients() {
             maxW="680px"
             mx="auto"
           >
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="whiteAlpha.500" mb={5}>
+            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={5}>
               New members
             </Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }} fontWeight={700} color="white" lineHeight={1.08} mb={6}>
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={6}>
               What to expect
             </Text>
-            <Text fontSize={{ base: 'md', md: 'lg' }} color="whiteAlpha.700" lineHeight={1.8} maxW="520px" mx="auto">
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">
               Your guide to joining AnswersMD. From your first consultation to
               comprehensive care, here's how we do things differently.
             </Text>
