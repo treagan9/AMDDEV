@@ -65,7 +65,7 @@ function Hero() {
         left={0}
         right={0}
         bottom={0}
-        bg="rgba(250,250,247,0.45)"
+        bg={{ base: "rgba(250,250,247,0.6)", md: "rgba(250,250,247,0.45)" }}
         zIndex={1}
       />
 
@@ -154,7 +154,7 @@ function Hero() {
                 to="/services/"
                 fontSize="sm"
                 fontWeight={500}
-                color="brand.bodyLight"
+                color="brand.body"
                 display="flex"
                 alignItems="center"
                 gap={2}
@@ -173,14 +173,14 @@ function Hero() {
             transition={{ duration: 0.5, delay: 0.85 }}
             pt={4}
           >
-            <HStack spacing={6} justify="center" divider={<Box w="4px" h="4px" borderRadius="full" bg="brand.champagneLine" />}>
-              <ChakraLink as={Link} to="/location-tampa/" fontSize="xs" color="brand.warmGrayLight" letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
+            <HStack spacing={6} justify="center" divider={<Box w="4px" h="4px" borderRadius="full" bg="brand.champagne" />}>
+              <ChakraLink as={Link} to="/location-tampa/" fontSize="xs" color="brand.body" fontWeight={500} letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
                 Tampa
               </ChakraLink>
-              <ChakraLink as={Link} to="/location-st-pete/" fontSize="xs" color="brand.warmGrayLight" letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
+              <ChakraLink as={Link} to="/location-st-pete/" fontSize="xs" color="brand.body" fontWeight={500} letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
                 St. Petersburg
               </ChakraLink>
-              <ChakraLink as={Link} to="/location-boca-raton/" fontSize="xs" color="brand.warmGrayLight" letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
+              <ChakraLink as={Link} to="/location-boca-raton/" fontSize="xs" color="brand.body" fontWeight={500} letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
                 Boca Raton
               </ChakraLink>
             </HStack>
