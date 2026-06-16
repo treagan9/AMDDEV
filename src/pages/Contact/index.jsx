@@ -133,7 +133,7 @@ function Contact() {
         <meta name="description" content="Contact AnswersMD to learn more about concierge medicine and schedule your consultation." />
       </Helmet>
 
-      <Box pt={{ base: 32, md: 40 }} pb={{ base: 12, md: 16 }} bg="brand.evergreen" ref={heroRef}>
+      <Box pt={{ base: 32, md: 40 }} pb={{ base: 12, md: 16 }} bg="brand.ivory" ref={heroRef}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox
             initial={{ opacity: 0, y: 24 }}
@@ -143,13 +143,13 @@ function Contact() {
             maxW="600px"
             mx="auto"
           >
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="whiteAlpha.500" mb={5}>
+            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={5}>
               Get in touch
             </Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '5xl' }} fontWeight={700} color="white" lineHeight={1.08} mb={4}>
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={4}>
               Contact us
             </Text>
-            <Text fontSize={{ base: 'md', md: 'lg' }} color="whiteAlpha.700" lineHeight={1.8}>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8}>
               Ready to experience healthcare differently? Schedule your consultation
               or reach out with any questions.
             </Text>
