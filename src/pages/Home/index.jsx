@@ -2,6 +2,7 @@
 import { Box } from '@chakra-ui/react';
 import { Helmet } from 'react-helmet-async';
 import Hero from './components/Hero';
+import PromoBanner from './components/PromoBanner';
 import About from './components/About';
 import Services from './components/Services';
 import HowItWorks from './components/HowItWorks';
@@ -15,10 +16,11 @@ function Home() {
     <>
       <Helmet>
         <title>AnswersMD | Concierge Medicine. Simplified.</title>
-        <meta name="description" content="Experience healthcare the way it should be: personalized, accessible, and designed around your life. Direct access to your physician, whenever you need it." />
+        <meta name="description" content="Direct access to your physician whenever you need it. Personalized, accessible and designed around your life. Tampa, St. Petersburg and Boca Raton." />
       </Helmet>
       <Box>
         <Hero />
+        <PromoBanner />
         <About />
         <Services />
         <HowItWorks />
