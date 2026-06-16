@@ -1,42 +1,3 @@
-#!/bin/bash
-set -e
-echo ""
-echo "  AnswersMD Dev - What to Expect page"
-echo "  ======================================"
-echo ""
-mkdir -p src/pages/NewPatients
-echo "Writing files..."
-
-mkdir -p "src"
-echo "  -> src/App.jsx"
-cat > "src/App.jsx" << 'AMD_EOF_01'
-// src/App.jsx
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import Team from './pages/Team';
-import Services from './pages/Services';
-import NewPatients from './pages/NewPatients';
-
-function App() {
-  return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/team/" element={<Team />} />
-        <Route path="/services/" element={<Services />} />
-        <Route path="/new-patients/" element={<NewPatients />} />
-      </Route>
-    </Routes>
-  );
-}
-
-export default App;
-AMD_EOF_01
-
-mkdir -p "src/pages/NewPatients"
-echo "  -> src/pages/NewPatients/index.jsx"
-cat > "src/pages/NewPatients/index.jsx" << 'AMD_EOF_02'
 // src/pages/NewPatients/index.jsx
 import {
   Box,
@@ -394,15 +355,3 @@ function NewPatients() {
 }
 
 export default NewPatients;
-AMD_EOF_02
-
-
-echo ""
-echo "  Done. What to Expect page built."
-echo "    - Hero, Healthcare Never Rushed, Your Comfort Level"
-echo "    - Journey steps, Deep-Dive visit, Lab panels (9 tests)"
-echo "    - How to Prepare, Ongoing Care, CTA"
-echo "    - Route: /new-patients/"
-echo ""
-echo "  Run: yarn dev"
-echo ""
