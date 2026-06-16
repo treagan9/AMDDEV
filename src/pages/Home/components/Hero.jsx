@@ -1,0 +1,153 @@
+// src/pages/Home/components/Hero.jsx
+import {
+  Box,
+  Text,
+  Button,
+  VStack,
+  HStack,
+  Link as ChakraLink,
+  Icon
+} from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { HiArrowRight } from 'react-icons/hi';
+
+var MotionBox = motion(Box);
+var MotionText = motion(Text);
+
+function Hero() {
+  return (
+    <Box
+      position="relative"
+      minH="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      overflow="hidden"
+      bg="brand.ivory"
+    >
+      <Box
+        position="absolute"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+        w="900px"
+        h="900px"
+        borderRadius="full"
+        bg="radial-gradient(circle, rgba(196,162,101,0.04) 0%, transparent 70%)"
+        pointerEvents="none"
+      />
+
+      <Box maxW="960px" mx="auto" px={{ base: 6, md: 4 }} textAlign="center">
+        <VStack spacing={7}>
+          <MotionBox
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+          >
+            <HStack spacing={3} justify="center">
+              <Box w="24px" h="1px" bg="brand.champagne" />
+              <Text
+                fontSize="xs"
+                fontWeight={600}
+                letterSpacing="2px"
+                textTransform="uppercase"
+                color="brand.champagne"
+              >
+                Now accepting members
+              </Text>
+              <Box w="24px" h="1px" bg="brand.champagne" />
+            </HStack>
+          </MotionBox>
+
+          <MotionBox
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+          >
+            <Text
+              as="h1"
+              fontFamily="heading"
+              fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }}
+              fontWeight={700}
+              color="brand.slate"
+              lineHeight={1.05}
+            >
+              Concierge medicine.
+            </Text>
+            <Text
+              fontFamily="heading"
+              fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }}
+              fontWeight={700}
+              color="brand.champagne"
+              lineHeight={1.05}
+            >
+              Simplified<Text as="span" color="brand.champagne">.</Text>
+            </Text>
+          </MotionBox>
+
+          <MotionText
+            fontSize={{ base: 'md', md: 'lg' }}
+            color="brand.body"
+            lineHeight={1.8}
+            maxW="560px"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+          >
+            Direct access to your physician whenever you need it.
+            Personalized, accessible and designed around your life.
+          </MotionText>
+
+          <MotionBox
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            <VStack spacing={4}>
+              <Button as={Link} to="/contact/" variant="primary" size="lg">
+                Schedule a consultation
+              </Button>
+              <ChakraLink
+                as={Link}
+                to="/services/"
+                fontSize="sm"
+                fontWeight={500}
+                color="brand.bodyLight"
+                display="flex"
+                alignItems="center"
+                gap={2}
+                _hover={{ color: 'brand.evergreen' }}
+                transition="color 0.2s ease"
+              >
+                Learn how it works
+                <Icon as={HiArrowRight} boxSize={4} />
+              </ChakraLink>
+            </VStack>
+          </MotionBox>
+
+          <MotionBox
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.85 }}
+            pt={4}
+          >
+            <HStack spacing={6} justify="center" divider={<Box w="4px" h="4px" borderRadius="full" bg="brand.champagneLine" />}>
+              <ChakraLink as={Link} to="/location-tampa/" fontSize="xs" color="brand.warmGrayLight" letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
+                Tampa
+              </ChakraLink>
+              <ChakraLink as={Link} to="/location-st-pete/" fontSize="xs" color="brand.warmGrayLight" letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
+                St. Petersburg
+              </ChakraLink>
+              <ChakraLink as={Link} to="/location-boca-raton/" fontSize="xs" color="brand.warmGrayLight" letterSpacing="1px" _hover={{ color: 'brand.champagne' }}>
+                Boca Raton
+              </ChakraLink>
+            </HStack>
+          </MotionBox>
+        </VStack>
+      </Box>
+    </Box>
+  );
+}
+
+export default Hero;
