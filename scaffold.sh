@@ -1,98 +1,159 @@
 #!/bin/bash
 set -e
 echo ""
-echo "  AnswersMD Dev - OG image fix"
-echo "  =============================="
+echo "  AnswersMD Dev - WhyUs fix"
+echo "  =========================="
 echo ""
+mkdir -p src/pages/Home/components
 echo "Writing files..."
 
-echo "  -> index.html"
-cat > "index.html" << 'AMD_EOF_01'
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+mkdir -p "src/pages/Home/components"
+echo "  -> src/pages/Home/components/WhyUs.jsx"
+cat > "src/pages/Home/components/WhyUs.jsx" << 'AMD_EOF_01'
+// src/pages/Home/components/WhyUs.jsx
+import {
+  Box,
+  SimpleGrid,
+  HStack,
+  VStack,
+  Flex,
+  Text,
+  Icon
+} from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import {
+  HiOutlineClock,
+  HiOutlineChat,
+  HiOutlineUserGroup,
+  HiOutlineCalendar
+} from 'react-icons/hi';
 
-    <title>Concierge Medicine Made Simple &middot; AnswersMD&#8482;</title>
-    <meta name="title" content="Concierge Medicine Made Simple &middot; AnswersMD&#8482;" />
-    <meta name="description" content="Direct access to your physician whenever you need it. Personalized, accessible and designed around your life. Tampa, St. Petersburg and Boca Raton." />
+var MotionBox = motion(Box);
 
-    <meta name="keywords" content="concierge medicine, direct primary care, concierge doctor Tampa, concierge doctor St Petersburg, concierge doctor Boca Raton, AnswersMD, executive health, house calls, 24/7 physician access, membership medicine Florida" />
-    <meta name="author" content="AnswersMD" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://answersmd01.netlify.app/" />
+var REASONS = [
+  {
+    icon: HiOutlineCalendar,
+    title: 'Same-day appointments',
+    description: 'No more waiting weeks to see your doctor. We guarantee same-day or next-day appointments.'
+  },
+  {
+    icon: HiOutlineChat,
+    title: 'Direct communication',
+    description: "Your doctor's personal cell phone number. Text, call or video chat anytime."
+  },
+  {
+    icon: HiOutlineUserGroup,
+    title: 'Limited enrollment',
+    description: 'We cap our patient panel to ensure quality time with every member.'
+  },
+  {
+    icon: HiOutlineClock,
+    title: 'Extended visits',
+    description: '30 to 60 minute appointments are standard. Your health deserves more than 7 minutes.'
+  }
+];
 
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://answersmd01.netlify.app/" />
-    <meta property="og:title" content="Concierge Medicine Made Simple &middot; AnswersMD&#8482;" />
-    <meta property="og:description" content="Direct access to your physician whenever you need it. Personalized, accessible and designed around your life. Tampa, St. Petersburg and Boca Raton." />
-    <meta property="og:image" content="https://answersmd01.netlify.app/answersmd-sms-1200x630.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="AnswersMD - Concierge Medicine Made Simple" />
-    <meta property="og:site_name" content="AnswersMD" />
-    <meta property="og:locale" content="en_US" />
+function ReasonCard({ icon, title, description, delay, inView }) {
+  return (
+    <MotionBox
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: delay }}
+    >
+      <HStack
+        align="flex-start"
+        spacing={5}
+        p={{ base: 6, md: 8 }}
+        bg="white"
+        borderRadius="card"
+        border="1px solid"
+        borderColor="brand.borderLight"
+        transition="all 0.3s ease"
+        _hover={{ borderColor: 'brand.champagneLine', shadow: '0 8px 24px rgba(27,58,52,0.04)' }}
+      >
+        <Flex
+          w={12}
+          h={12}
+          bg="brand.champagneSoft"
+          align="center"
+          justify="center"
+          borderRadius="full"
+          flexShrink={0}
+        >
+          <Icon as={icon} boxSize={5} color="brand.champagne" />
+        </Flex>
+        <VStack align="flex-start" spacing={2}>
+          <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="brand.slate">
+            {title}
+          </Text>
+          <Text fontSize="sm" color="brand.body" lineHeight={1.8}>
+            {description}
+          </Text>
+        </VStack>
+      </HStack>
+    </MotionBox>
+  );
+}
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://answersmd01.netlify.app/" />
-    <meta name="twitter:title" content="Concierge Medicine Made Simple &middot; AnswersMD&#8482;" />
-    <meta name="twitter:description" content="Direct access to your physician whenever you need it. Personalized, accessible and designed around your life." />
-    <meta name="twitter:image" content="https://answersmd01.netlify.app/answersmd-sms-1200x630.png" />
+function WhyUs() {
+  var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
-    <meta name="theme-color" content="#1B3A34" />
+  return (
+    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={ref}>
+      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+        <MotionBox
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          textAlign="center"
+          mb={{ base: 8, md: 12 }}
+        >
+          <Text
+            fontSize="xs"
+            fontWeight={600}
+            letterSpacing="2px"
+            textTransform="uppercase"
+            color="brand.champagne"
+            mb={4}
+          >
+            The difference
+          </Text>
+          <Text
+            as="h2"
+            fontFamily="heading"
+            fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
+            fontWeight={700}
+            color="brand.slate"
+            lineHeight={1.1}
+          >
+            Why our members stay
+          </Text>
+        </MotionBox>
 
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} maxW="960px" mx="auto">
+          {REASONS.map(function (reason, i) {
+            return (
+              <ReasonCard
+                key={reason.title}
+                {...reason}
+                delay={0.2 + i * 0.1}
+                inView={inView}
+              />
+            );
+          })}
+        </SimpleGrid>
+      </Box>
+    </Box>
+  );
+}
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "MedicalBusiness",
-      "name": "AnswersMD",
-      "url": "https://answersmd.com",
-      "logo": "https://answersmd.com/images/AnswersMD_logo_black.png",
-      "description": "AnswersMD is a concierge medicine practice delivering personalized, proactive primary care through a membership model in Tampa, St. Petersburg and Boca Raton, Florida.",
-      "telephone": "+1-813-727-3233",
-      "email": "info@answersmd.com",
-      "medicalSpecialty": "Family Medicine",
-      "address": [
-        {
-          "@type": "PostalAddress",
-          "addressLocality": "Tampa",
-          "addressRegion": "FL",
-          "addressCountry": "US"
-        },
-        {
-          "@type": "PostalAddress",
-          "addressLocality": "St. Petersburg",
-          "addressRegion": "FL",
-          "addressCountry": "US"
-        },
-        {
-          "@type": "PostalAddress",
-          "addressLocality": "Boca Raton",
-          "addressRegion": "FL",
-          "addressCountry": "US"
-        }
-      ],
-      "sameAs": [
-        "https://www.instagram.com/answersmd/"
-      ]
-    }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+export default WhyUs;
 AMD_EOF_01
 
 
 echo ""
-echo "  Done. OG image URL now points to answersmd01.netlify.app"
-echo "  Title: Concierge Medicine Made Simple . AnswersMD TM"
+echo "  Done. Why Our Members Stay - ivory bg, white cards, no green."
 echo ""
-echo "  Commit and push to see the SMS preview update."
+echo "  Run: yarn dev"
 echo ""

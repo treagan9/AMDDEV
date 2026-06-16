@@ -53,6 +53,12 @@ function ReasonCard({ icon, title, description, delay, inView }) {
         align="flex-start"
         spacing={5}
         p={{ base: 6, md: 8 }}
+        bg="white"
+        borderRadius="card"
+        border="1px solid"
+        borderColor="brand.borderLight"
+        transition="all 0.3s ease"
+        _hover={{ borderColor: 'brand.champagneLine', shadow: '0 8px 24px rgba(27,58,52,0.04)' }}
       >
         <Flex
           w={12}
@@ -109,11 +115,11 @@ function WhyUs() {
             color="brand.slate"
             lineHeight={1.1}
           >
-            Why our members love us
+            Why our members stay
           </Text>
         </MotionBox>
 
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={2} maxW="960px" mx="auto">
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} maxW="960px" mx="auto">
           {REASONS.map(function (reason, i) {
             return (
               <ReasonCard
