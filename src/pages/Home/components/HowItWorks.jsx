@@ -30,7 +30,7 @@ function HowItWorks() {
           <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">Join our practice in four steps and experience healthcare transformed.</Text>
         </MotionBox>
 
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 0, md: 0 }} maxW="1000px" mx="auto" display={{ base: 'none', md: 'grid' }}>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={{ base: 0, md: 0 }} mx="auto" display={{ base: "none", md: "grid" }}>
           {STEPS.map(function (step, i) {
             return (
               <MotionBox key={step.num} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }} px={6} borderLeft={i > 0 ? '1px solid' : 'none'} borderColor="brand.borderLight" textAlign="center">

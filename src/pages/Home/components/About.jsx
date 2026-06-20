@@ -20,7 +20,7 @@ var MotionBox = motion(Box);
 var TEAM = [
   { name: 'Sarah Juarez', role: 'Medical Assistant', photo: '/team/sarah-juarez.png' },
   { name: 'Emma Maddox', role: 'Patient Coordinator', photo: '/team/emma-maddox.png' },
-  { name: 'Laura Gore', role: 'Clinical Lead', photo: '/team/laura-gore.png' },
+  { name: 'Laura Gore', role: 'Nurse Manager', photo: '/team/laura-gore.png' },
   { name: 'Dr. Ellen Howard, MD, MPH', role: 'Family & Preventive Medicine', photo: '/team/dr-ellen-howard.png' },
   { name: 'Dr. Douglas Shapiro, DO', role: 'Founder & Lead Physician', photo: '/team/dr-doug-shapiro.png', featured: true },
   { name: 'Dr. Drew Meriwether, MD', role: 'Pediatric & Internal Medicine', photo: '/team/dr-drew-meriwether.png' },
@@ -31,7 +31,7 @@ var TEAM = [
 
 var CENTER = 4;
 var DEFAULT_ACTIVE = 4;
-var PHOTO_SIZE = { base: '84px', md: '130px', lg: '140px' };
+var PHOTO_SIZE = { base: '96px', md: '140px', lg: '160px' };
 var INACTIVE_SCALE = 0.72;
 
 function getArcY(index) {
@@ -51,13 +51,16 @@ function About() {
   var activeMember = TEAM[activeIndex];
 
   useEffect(function () {
-    if (scrollRef.current && !isDesktop) {
+    if (!isDesktop && scrollRef.current) {
       var container = scrollRef.current;
-      var scrollWidth = container.scrollWidth;
-      var clientWidth = container.clientWidth;
-      container.scrollLeft = (scrollWidth - clientWidth) / 2;
+      var photoWidth = 96;
+      var gap = 8;
+      var centerIndex = CENTER;
+      var centerOffset = centerIndex * (photoWidth + gap) + photoWidth / 2;
+      var scrollTarget = centerOffset - container.clientWidth / 2;
+      container.scrollLeft = Math.max(0, scrollTarget);
     }
-  }, [isDesktop]);
+  }, [isDesktop, inView]);
 
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref} overflow="visible">
@@ -79,7 +82,7 @@ function About() {
             justify="center"
             align="flex-start"
             gap={{ base: 2, md: 3, lg: 4 }}
-            minW={{ base: '820px', md: 'auto' }}
+            minW={{ base: '900px', md: 'auto' }}
           >
             {TEAM.map(function (member, i) {
               var isActive = activeIndex === i;
@@ -151,10 +154,10 @@ function About() {
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.2 }}
             >
-              <Text fontSize={{ base: 'md', md: 'lg' }} fontWeight={600} color="brand.slate">
+              <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate">
                 {activeMember.name}
               </Text>
-              <Text fontSize="sm" color="brand.champagne" fontWeight={500}>
+              <Text fontSize="md" color="brand.champagne" fontWeight={500}>
                 {activeMember.role}
               </Text>
             </MotionBox>
@@ -168,16 +171,6 @@ function About() {
           px={{ base: 6, md: 0 }}
         >
           <VStack spacing={5} textAlign="center" maxW="660px" mx="auto">
-            <Box w="32px" h="1px" bg="brand.champagne" />
-            <Text
-              fontSize="xs"
-              fontWeight={600}
-              letterSpacing="2px"
-              textTransform="uppercase"
-              color="brand.champagne"
-            >
-              Your care team
-            </Text>
             <Text
               as="h2"
               fontFamily="heading"
