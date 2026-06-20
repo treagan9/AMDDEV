@@ -34,15 +34,15 @@ function formatPhone(value) {
   return '(' + digits.substring(0, 3) + ') ' + digits.substring(3, 6) + '-' + digits.substring(6);
 }
 
-var inputStyles = {
+var fieldBase = {
   bg: 'white',
   border: '1px solid',
   borderColor: 'brand.borderLight',
   borderRadius: 'btn',
   fontSize: 'md',
-  py: 6,
-  px: 4,
   color: 'brand.slate',
+  height: '52px',
+  px: 4,
   _placeholder: { color: 'brand.warmGrayLight' },
   _hover: { borderColor: 'brand.bodyLight' },
   _focus: { borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }
@@ -173,34 +173,44 @@ function Contact() {
               <Box flex={{ base: 1, lg: 1.2 }}>
                 <Box bg="brand.ivory" borderRadius="card" p={{ base: 8, md: 12 }}>
                   <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Schedule a consultation</Text>
-                  <Text fontSize="md" color="brand.bodyLight" mb={8}>No commitment, no pressure</Text>
+                  <Text fontSize="md" color="brand.bodyLight" mb={10}>No commitment, no pressure</Text>
 
                   <form onSubmit={handleSubmit}>
-                    <VStack spacing={5}>
-                      <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="100%">
+                    <VStack spacing={6} align="stretch">
+                      <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
                         <FormControl isRequired>
                           <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>First name</FormLabel>
-                          <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="John" {...inputStyles} />
+                          <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="John" {...fieldBase} />
                         </FormControl>
                         <FormControl isRequired>
                           <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Last name</FormLabel>
-                          <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Doe" {...inputStyles} />
+                          <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Doe" {...fieldBase} />
                         </FormControl>
                       </SimpleGrid>
 
                       <FormControl isRequired>
                         <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Email address</FormLabel>
-                        <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com" {...inputStyles} />
+                        <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com" {...fieldBase} />
                       </FormControl>
 
                       <FormControl isRequired>
                         <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Phone number</FormLabel>
-                        <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...inputStyles} />
+                        <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...fieldBase} />
                       </FormControl>
 
                       <FormControl isRequired>
                         <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Preferred location</FormLabel>
-                        <Select name="location" value={form.location} onChange={handleChange} placeholder="Select a location" {...inputStyles}>
+                        <Select
+                          name="location"
+                          value={form.location}
+                          onChange={handleChange}
+                          placeholder="Select a location"
+                          {...fieldBase}
+                          sx={{
+                            '> option': { color: 'brand.slate', bg: 'white' },
+                            '&': { appearance: 'none', paddingRight: '2.5rem' }
+                          }}
+                        >
                           <option value="tampa">Tampa</option>
                           <option value="st-pete">St. Petersburg</option>
                           <option value="boca-raton">Boca Raton</option>
@@ -209,7 +219,17 @@ function Contact() {
 
                       <FormControl>
                         <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>I'm interested in</FormLabel>
-                        <Select name="interest" value={form.interest} onChange={handleChange} placeholder="Select an option" {...inputStyles}>
+                        <Select
+                          name="interest"
+                          value={form.interest}
+                          onChange={handleChange}
+                          placeholder="Select an option"
+                          {...fieldBase}
+                          sx={{
+                            '> option': { color: 'brand.slate', bg: 'white' },
+                            '&': { appearance: 'none', paddingRight: '2.5rem' }
+                          }}
+                        >
                           <option value="individual">Individual Membership</option>
                           <option value="family">Family Membership</option>
                           <option value="corporate">Corporate Membership</option>
@@ -219,7 +239,25 @@ function Contact() {
 
                       <FormControl>
                         <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Message</FormLabel>
-                        <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your healthcare needs..." rows={4} resize="vertical" {...inputStyles} />
+                        <Textarea
+                          name="message"
+                          value={form.message}
+                          onChange={handleChange}
+                          placeholder="Tell us about your healthcare needs..."
+                          rows={4}
+                          resize="vertical"
+                          bg="white"
+                          border="1px solid"
+                          borderColor="brand.borderLight"
+                          borderRadius="btn"
+                          fontSize="md"
+                          color="brand.slate"
+                          py={4}
+                          px={4}
+                          _placeholder={{ color: 'brand.warmGrayLight' }}
+                          _hover={{ borderColor: 'brand.bodyLight' }}
+                          _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }}
+                        />
                       </FormControl>
 
                       <Box position="absolute" left="-9999px" aria-hidden="true">
