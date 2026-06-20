@@ -20,47 +20,16 @@ function CTA() {
     <Box py={{ base: 'sectionMobile', md: '160px' }} bg="brand.evergreen" ref={ref}>
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
-          <Flex direction={{ base: 'column', lg: 'row' }} alignItems="center" justifyContent="space-between" gap={{ base: 10, lg: 16 }}>
-            <Box maxW={{ base: '100%', lg: '600px' }}>
+          <Flex direction={{ base: 'column', lg: 'row' }} alignItems={{ base: 'stretch', lg: 'center' }} justifyContent="space-between" gap={{ base: 10, lg: 16 }}>
+            <Box maxW={{ base: '100%', lg: '580px' }}>
               <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={5}>Take the first step</Text>
-              <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="white" lineHeight={1.08}>Ready to experience the difference?</Text>
+              <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="white" lineHeight={1.08} mb={4}>Ready to experience the difference?</Text>
+              <Text fontSize="md" color="whiteAlpha.600" lineHeight={1.8}>It starts with a conversation. No commitment, no pressure.</Text>
             </Box>
-            <VStack spacing={5} align={{ base: 'stretch', lg: 'flex-end' }} w={{ base: '100%', lg: 'auto' }}>
-              <Flex gap={4} direction={{ base: 'column', sm: 'row' }} w={{ base: '100%', sm: 'auto' }}>
-                <Button
-                  as={Link}
-                  to="/contact/"
-                  bg="white"
-                  color="brand.evergreen"
-                  borderRadius="btn"
-                  size="lg"
-                  fontSize="md"
-                  _hover={{ bg: 'brand.ivory', transform: 'translateY(-2px)', shadow: '0 8px 24px rgba(0,0,0,0.2)' }}
-                  transition="all 0.3s ease"
-                  w={{ base: '100%', sm: 'auto' }}
-                >
-                  Schedule a consultation
-                </Button>
-                <Button
-                  as={Link}
-                  to="/signup/"
-                  bg="transparent"
-                  color="white"
-                  border="1px solid"
-                  borderColor="whiteAlpha.300"
-                  borderRadius="btn"
-                  size="lg"
-                  fontSize="md"
-                  _hover={{ bg: 'whiteAlpha.100', borderColor: 'whiteAlpha.600' }}
-                  transition="all 0.3s ease"
-                  w={{ base: '100%', sm: 'auto' }}
-                >
-                  Join now
-                </Button>
-              </Flex>
-              <ChakraLink href="tel:8137273233" fontSize="md" color="whiteAlpha.500" _hover={{ color: 'brand.champagne' }} textAlign={{ base: 'center', lg: 'right' }}>
-                or call 813-727-3233
-              </ChakraLink>
+            <VStack spacing={4} align={{ base: 'stretch', lg: 'stretch' }} w={{ base: '100%', lg: 'auto' }} flexShrink={0}>
+              <Button as={Link} to="/contact/" bg="white" color="brand.evergreen" borderRadius="btn" size="lg" fontSize="md" _hover={{ bg: 'brand.ivory', transform: 'translateY(-2px)', shadow: '0 8px 24px rgba(0,0,0,0.2)' }} transition="all 0.3s ease">Schedule a consultation</Button>
+              <Button as={Link} to="/signup/" bg="transparent" color="white" border="1px solid" borderColor="whiteAlpha.300" borderRadius="btn" size="lg" fontSize="md" _hover={{ bg: 'whiteAlpha.100', borderColor: 'whiteAlpha.600' }} transition="all 0.3s ease">Join now</Button>
+              <ChakraLink href="tel:8137273233" fontSize="md" color="whiteAlpha.500" _hover={{ color: 'brand.champagne' }} textAlign="center" pt={1}>or call 813-727-3233</ChakraLink>
             </VStack>
           </Flex>
         </MotionBox>

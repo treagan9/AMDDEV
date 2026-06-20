@@ -10,7 +10,6 @@ import {
   IconButton,
   Image,
   Text,
-  Divider,
   useDisclosure
 } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
@@ -76,21 +75,10 @@ function Header() {
           justify="space-between"
           py={scrolled ? 3 : 5}
           px={{ base: 3, md: 0 }}
+          transition="padding 0.4s ease"
         >
-          <ChakraLink
-            as={Link}
-            to="/"
-            _hover={{ opacity: 0.85 }}
-            transition="opacity 0.3s ease"
-            display="flex"
-            alignItems="center"
-          >
-            <Image
-              src="/logo-dark.png"
-              alt="AnswersMD"
-              h={{ base: '32px', md: '42px' }}
-              objectFit="contain"
-            />
+          <ChakraLink as={Link} to="/" _hover={{ opacity: 0.85 }} transition="opacity 0.3s ease" display="flex" alignItems="center">
+            <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" />
           </ChakraLink>
 
           <HStack spacing={10} display={{ base: 'none', lg: 'flex' }} alignItems="center">
@@ -101,17 +89,21 @@ function Header() {
                   key={link.path}
                   as={Link}
                   to={link.path}
-                  fontSize="sm"
-                  fontWeight={isActive ? 500 : 400}
+                  fontSize="md"
+                  fontWeight={isActive ? 600 : 400}
                   color={isActive ? 'brand.slate' : 'brand.body'}
                   _hover={{ color: 'brand.slate' }}
                   transition="color 0.2s ease"
+                  position="relative"
                 >
                   {link.label}
+                  {isActive && (
+                    <Box position="absolute" bottom="-4px" left={0} right={0} h="2px" bg="brand.champagne" borderRadius="full" />
+                  )}
                 </ChakraLink>
               );
             })}
-            <Button as={Link} to="/signup/" variant="primary" size="sm">
+            <Button as={Link} to="/signup/" variant="primary" size="md">
               Join now
             </Button>
           </HStack>
@@ -147,11 +139,12 @@ function Header() {
             transition={{ duration: 0.25 }}
           >
             <Flex justify="center" pt={7}>
-              <Image src="/logo-dark.png" alt="AnswersMD" h="30px" />
+              <Image src="/logo-dark.png" alt="AnswersMD" h="32px" />
             </Flex>
 
             <VStack spacing={0} justify="center" align="center" flex={1}>
               {NAV_LINKS.map(function (link, i) {
+                var isActive = location.pathname === link.path;
                 return (
                   <MotionFlex
                     key={link.path}
@@ -165,10 +158,10 @@ function Header() {
                       as={Link}
                       to={link.path}
                       fontFamily="heading"
-                      fontSize="2xl"
+                      fontSize="3xl"
                       fontWeight={700}
-                      color="brand.slate"
-                      py={4}
+                      color={isActive ? 'brand.champagne' : 'brand.slate'}
+                      py={5}
                       _hover={{ color: 'brand.champagne' }}
                       transition="color 0.2s ease"
                     >
@@ -181,9 +174,9 @@ function Header() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.35 }}
-                mt={6}
+                mt={8}
               >
-                <Button as={Link} to="/signup/" variant="primary" size="lg">
+                <Button as={Link} to="/signup/" variant="primary" size="lg" px={12}>
                   Join now
                 </Button>
               </MotionBox>
@@ -193,24 +186,16 @@ function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.45, duration: 0.3 }}
-              pb={10}
+              pb={12}
               px={8}
             >
-              <Divider borderColor="brand.borderLight" mb={6} />
-              <HStack justify="center" spacing={8} flexWrap="wrap">
+              <Box h="1px" bg="brand.borderLight" mb={8} />
+              <HStack justify="center" spacing={10} flexWrap="wrap">
                 {LOCATIONS.map(function (loc) {
                   return (
-                    <ChakraLink
-                      key={loc.city}
-                      href={'tel:' + loc.tel}
-                      textAlign="center"
-                    >
-                      <Text fontSize="xs" fontWeight={600} color="brand.warmGrayLight" letterSpacing="1px" textTransform="uppercase" mb={1}>
-                        {loc.city}
-                      </Text>
-                      <Text fontSize="sm" color="brand.body">
-                        {loc.phone}
-                      </Text>
+                    <ChakraLink key={loc.city} href={'tel:' + loc.tel} textAlign="center" _hover={{ '& > p:last-child': { color: 'brand.champagne' } }}>
+                      <Text fontSize="xs" fontWeight={600} color="brand.warmGrayLight" letterSpacing="1.5px" textTransform="uppercase" mb={1}>{loc.city}</Text>
+                      <Text fontSize="md" color="brand.body" transition="color 0.2s ease">{loc.phone}</Text>
                     </ChakraLink>
                   );
                 })}
