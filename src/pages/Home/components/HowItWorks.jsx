@@ -36,7 +36,7 @@ function HowItWorks() {
               <MotionBox key={step.num} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }} px={6} borderLeft={i > 0 ? '1px solid' : 'none'} borderColor="brand.borderLight" textAlign="center">
                 <Text fontFamily="heading" fontSize="3xl" fontWeight={700} color="brand.champagne" lineHeight={1} mb={4}>{step.num}</Text>
                 <Text fontFamily="heading" fontSize="md" fontWeight={700} color="brand.slate" mb={3}>{step.title}</Text>
-                <Text fontSize="sm" color="brand.body" lineHeight={1.85}>{step.description}</Text>
+                <Text fontSize="md" color="brand.body" lineHeight={1.85}>{step.description}</Text>
               </MotionBox>
             );
           })}
@@ -50,7 +50,7 @@ function HowItWorks() {
                   <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="brand.champagne" mt={0.5} flexShrink={0}>{step.num}</Text>
                   <Box>
                     <Text fontSize="md" fontWeight={700} color="brand.slate" mb={2}>{step.title}</Text>
-                    <Text fontSize="sm" color="brand.body" lineHeight={1.85}>{step.description}</Text>
+                    <Text fontSize="md" color="brand.body" lineHeight={1.85}>{step.description}</Text>
                   </Box>
                 </Flex>
               </MotionBox>

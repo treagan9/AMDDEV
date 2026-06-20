@@ -33,7 +33,7 @@ function WhyUs() {
               <MotionBox key={reason.title} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}>
                 <Box borderTop="2px solid" borderColor="brand.champagne" pt={5}>
                   <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="brand.slate" mb={3}>{reason.title}</Text>
-                  <Text fontSize="sm" color="brand.body" lineHeight={1.85}>{reason.description}</Text>
+                  <Text fontSize="md" color="brand.body" lineHeight={1.85}>{reason.description}</Text>
                 </Box>
               </MotionBox>
             );
