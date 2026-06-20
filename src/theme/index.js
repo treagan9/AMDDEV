@@ -32,7 +32,7 @@ var theme = extendTheme({
   fontSizes: {
     xs: '0.75rem',
     sm: '0.875rem',
-    md: '1rem',
+    md: '1.0625rem',
     lg: '1.125rem',
     xl: '1.25rem',
     '2xl': '1.5rem',
@@ -92,7 +92,7 @@ var theme = extendTheme({
         primary: {
           bg: 'brand.evergreen',
           color: 'white',
-          fontSize: 'sm',
+          fontSize: 'md',
           borderRadius: 'btn',
           px: 8,
           py: 6,
@@ -108,7 +108,7 @@ var theme = extendTheme({
         secondary: {
           bg: 'transparent',
           color: 'brand.evergreen',
-          fontSize: 'sm',
+          fontSize: 'md',
           borderRadius: 'btn',
           border: '1px solid',
           borderColor: 'brand.border',
@@ -132,7 +132,7 @@ var theme = extendTheme({
         light: {
           bg: 'white',
           color: 'brand.evergreen',
-          fontSize: 'sm',
+          fontSize: 'md',
           borderRadius: 'btn',
           px: 8,
           py: 6,
@@ -146,7 +146,7 @@ var theme = extendTheme({
       sizes: {
         lg: { px: 10, py: 7, fontSize: 'md' },
         md: { px: 8, py: 6, fontSize: 'sm' },
-        sm: { px: 6, py: 5, fontSize: 'sm' }
+        sm: { px: 6, py: 5, fontSize: 'md' }
       }
     }
   },
