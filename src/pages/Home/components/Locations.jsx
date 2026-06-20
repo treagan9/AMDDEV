@@ -1,117 +1,106 @@
 // src/pages/Home/components/Locations.jsx
 import {
   Box,
-  SimpleGrid,
-  VStack,
-  HStack,
+  Grid,
+  GridItem,
   Text,
-  Image,
-  Badge,
-  Icon
+  Image
 } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { HiOutlinePhone } from 'react-icons/hi';
 
 var MotionBox = motion(Box);
 
 var LOCATIONS = [
   {
     city: 'Tampa',
-    subtitle: 'Flagship location',
     status: 'Now open',
-    phone: '813-727-3233',
-    tel: '8137273233',
     image: '/locations/tampa-office-main.png',
     path: '/location-tampa/'
   },
   {
     city: 'St. Petersburg',
-    subtitle: "St. Anthony's Hospital campus",
     status: 'Now open',
-    phone: '813-727-3233',
-    tel: '8137273233',
     image: '/locations/st-pete.png',
     path: '/location-st-pete/'
   },
   {
     city: 'Boca Raton',
-    subtitle: 'Royal Palm Yacht Club area',
     status: 'Coming soon',
-    phone: '561-933-3333',
-    tel: '5619333333',
     image: '/locations/boca-main.png',
     path: '/location-boca-raton/'
   }
 ];
 
-function LocationCard({ city, subtitle, status, phone, tel, image, path, delay, inView }) {
+function LocationSquare({ city, status, image, path, delay, inView }) {
   var navigate = useNavigate();
 
   return (
     <MotionBox
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: delay }}
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : {}}
+      transition={{ duration: 0.6, delay: delay }}
+      position="relative"
+      cursor="pointer"
+      onClick={function () { navigate(path); }}
+      role="group"
+      overflow="hidden"
     >
       <Box
+        position="relative"
+        w="100%"
+        pb="100%"
         overflow="hidden"
-        borderRadius="card"
-        bg="white"
-        border="1px solid"
-        borderColor="brand.borderLight"
-        transition="all 0.4s ease"
-        cursor="pointer"
-        onClick={function () { navigate(path); }}
-        role="group"
-        _hover={{
-          transform: 'translateY(-4px)',
-          shadow: '0 16px 40px rgba(27,58,52,0.08)',
-          borderColor: 'brand.champagneLine'
-        }}
       >
-        <Box h={{ base: '240px', md: '280px' }} overflow="hidden" borderRadius="18px 18px 0 0">
-          <Image
-            src={image}
-            alt={city + ' location'}
-            objectFit="cover"
-            w="100%"
-            h="100%"
-            transition="transform 0.6s ease"
-            _groupHover={{ transform: 'scale(1.04)' }}
-          />
-        </Box>
-        <Box p={6}>
-          <Badge
-            bg={status === 'Now open' ? 'brand.champagneSoft' : 'brand.mist'}
-            color={status === 'Now open' ? 'brand.champagneDark' : 'brand.warmGrayLight'}
+        <Image
+          src={image}
+          alt={city}
+          objectFit="cover"
+          position="absolute"
+          top={0}
+          left={0}
+          w="100%"
+          h="100%"
+          transition="transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+          _groupHover={{ transform: 'scale(1.06)' }}
+        />
+        <Box
+          position="absolute"
+          top={0}
+          left={0}
+          right={0}
+          bottom={0}
+          bg="linear-gradient(to top, rgba(27,58,52,0.7) 0%, rgba(27,58,52,0.1) 50%, transparent 100%)"
+          transition="opacity 0.4s ease"
+          _groupHover={{ opacity: 0.9 }}
+        />
+        <Box
+          position="absolute"
+          bottom={0}
+          left={0}
+          right={0}
+          p={{ base: 5, md: 8 }}
+        >
+          <Text
             fontSize="xs"
             fontWeight={600}
-            letterSpacing="1px"
+            letterSpacing="2px"
             textTransform="uppercase"
-            px={3}
-            py={1}
-            borderRadius="btn"
-            mb={3}
+            color="brand.champagne"
+            mb={2}
           >
             {status}
-          </Badge>
-          <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="brand.slate" mb={1}>
+          </Text>
+          <Text
+            fontFamily="heading"
+            fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }}
+            fontWeight={700}
+            color="white"
+            lineHeight={1.1}
+          >
             {city}
           </Text>
-          <Text fontSize="sm" color="brand.bodyLight" mb={3}>
-            {subtitle}
-          </Text>
-          <HStack
-            spacing={2}
-            onClick={function (e) { e.stopPropagation(); window.location.href = 'tel:' + tel; }}
-            cursor="pointer"
-            _hover={{ '& > *': { color: 'brand.champagneDark' } }}
-          >
-            <Icon as={HiOutlinePhone} boxSize={4} color="brand.champagne" />
-            <Text fontSize="sm" color="brand.champagne">{phone}</Text>
-          </HStack>
         </Box>
       </Box>
     </MotionBox>
@@ -119,28 +108,27 @@ function LocationCard({ city, subtitle, status, phone, tel, image, path, delay, 
 }
 
 function Locations() {
-  var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-        <MotionBox
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          textAlign="center"
-          mb={{ base: 10, md: 14 }}
-        >
-          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Our locations</Text>
-          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>Find us near you</Text>
-          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px" mx="auto">Three Florida locations delivering the same exceptional concierge care.</Text>
-        </MotionBox>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
-          {LOCATIONS.map(function (loc, i) {
-            return <LocationCard key={loc.city} {...loc} delay={0.2 + i * 0.1} inView={inView} />;
-          })}
-        </SimpleGrid>
-      </Box>
+    <Box ref={ref} bg="brand.ivory">
+      <Grid
+        templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
+        gap={0}
+        maxW="100%"
+      >
+        {LOCATIONS.map(function (loc, i) {
+          return (
+            <GridItem key={loc.city}>
+              <LocationSquare
+                {...loc}
+                delay={0.1 + i * 0.15}
+                inView={inView}
+              />
+            </GridItem>
+          );
+        })}
+      </Grid>
     </Box>
   );
 }
