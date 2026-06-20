@@ -1,5 +1,5 @@
 // src/pages/Signup/index.jsx
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import {
   Box,
   Flex,
@@ -51,13 +51,13 @@ var PRIORITY_OPTIONS = [
   { value: 'same-day', label: 'Same-day appointments' },
   { value: 'direct', label: 'Direct access to my doctor' },
   { value: 'unrushed', label: 'Long, unrushed visits' },
-  { value: 'longevity', label: 'Preventive & longevity planning' },
-  { value: 'coordination', label: 'Help coordinating specialists & hospitals' },
-  { value: 'flexible', label: 'Care that fits my life (home, office, travel)' }
+  { value: 'longevity', label: 'Preventive and longevity planning' },
+  { value: 'coordination', label: 'Help coordinating specialists and hospitals' },
+  { value: 'flexible', label: 'Care that fits my life' }
 ];
 
 var AGE_OPTIONS = [
-  { value: 'under35', label: '35 & under' },
+  { value: 'under35', label: '35 and under' },
   { value: '36-45', label: '36 to 45' },
   { value: '46-70', label: '46 to 70' },
   { value: '71+', label: '71+' }
@@ -69,10 +69,10 @@ var INCLUDED_ITEMS = [
   '3+ hour executive physical',
   'Advanced preventive screenings',
   'Unlimited primary care visits',
-  'Hospital & specialist coordination',
+  'Hospital and specialist coordination',
   'Travel medicine support',
   'Prescription management',
-  'Home & office visits',
+  'Home and office visits',
   'Personal health advocacy',
   'Comprehensive lab panels',
   'Longevity planning'
@@ -101,7 +101,7 @@ function ProgressDots({ current, total }) {
             w={isActive ? '24px' : '8px'}
             h="8px"
             borderRadius={isActive ? '4px' : 'full'}
-            bg={isCompleted ? 'brand.evergreen' : isActive ? 'brand.champagne' : 'brand.border'}
+            bg={isCompleted ? 'brand.evergreen' : isActive ? 'brand.champagne' : 'brand.borderLight'}
             transition="all 0.3s ease"
           />
         );
@@ -115,7 +115,8 @@ function OptionCard({ label, selected, onClick, multi }) {
     <Flex
       align="center"
       gap={4}
-      p={5}
+      py={5}
+      px={6}
       bg={selected ? 'brand.champagneSoft' : 'white'}
       border="2px solid"
       borderColor={selected ? 'brand.champagne' : 'brand.borderLight'}
@@ -123,30 +124,24 @@ function OptionCard({ label, selected, onClick, multi }) {
       cursor="pointer"
       onClick={onClick}
       transition="all 0.2s ease"
-      _hover={{ borderColor: selected ? 'brand.champagne' : 'brand.border' }}
+      _hover={{ borderColor: selected ? 'brand.champagne' : 'brand.bodyLight' }}
     >
       <Flex
-        w="20px"
-        h="20px"
-        borderRadius={multi ? '4px' : 'full'}
+        w="22px"
+        h="22px"
+        borderRadius={multi ? '6px' : 'full'}
         border="2px solid"
-        borderColor={selected ? 'brand.champagne' : 'brand.border'}
+        borderColor={selected ? 'brand.champagne' : 'brand.borderLight'}
         bg={selected && multi ? 'brand.champagne' : 'transparent'}
         align="center"
         justify="center"
         flexShrink={0}
         transition="all 0.2s ease"
       >
-        {selected && !multi && (
-          <Box w="10px" h="10px" borderRadius="full" bg="brand.champagne" />
-        )}
-        {selected && multi && (
-          <Icon as={HiCheck} boxSize={3} color="white" />
-        )}
+        {selected && !multi && <Box w="10px" h="10px" borderRadius="full" bg="brand.champagne" />}
+        {selected && multi && <Icon as={HiCheck} boxSize={3} color="white" />}
       </Flex>
-      <Text fontSize="md" color="brand.slate" fontWeight={selected ? 500 : 400}>
-        {label}
-      </Text>
+      <Text fontSize="md" color="brand.slate" fontWeight={selected ? 600 : 400}>{label}</Text>
     </Flex>
   );
 }
@@ -239,37 +234,35 @@ function Signup() {
     switch (slide) {
       case 1:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 1 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>A few quick questions</Text>
-            <Text fontSize="md" color="brand.body" lineHeight={1.8}>We'll use these to build your personalized AnswersMD membership. Takes about 2 minutes.</Text>
-            <Button onClick={goNext} variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />}>Continue</Button>
+          <VStack spacing={7} textAlign="center">
+            <Box w="32px" h="2px" bg="brand.champagne" />
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>A few quick questions</Text>
+            <Text fontSize="md" color="brand.body" lineHeight={1.8} maxW="400px">We'll use these to build your personalized AnswersMD membership. Takes about 2 minutes.</Text>
+            <Button onClick={goNext} variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />}>Let's go</Button>
           </VStack>
         );
       case 2:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 2 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>Let's start with you</Text>
-            <Text fontSize="md" color="brand.body" lineHeight={1.8}>We'll use this to personalize your membership details.</Text>
-            <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4} w="100%" textAlign="left">
-              <FormControl><FormLabel fontSize="sm" fontWeight={500} color="brand.body">First name</FormLabel><Input name="firstName" value={data.firstName} onChange={handleInput} placeholder="First name" {...inputStyles} /></FormControl>
-              <FormControl><FormLabel fontSize="sm" fontWeight={500} color="brand.body">Last name</FormLabel><Input name="lastName" value={data.lastName} onChange={handleInput} placeholder="Last name" {...inputStyles} /></FormControl>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Let's start with you</Text>
+            <Text fontSize="md" color="brand.bodyLight">We'll use this to personalize your membership details.</Text>
+            <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="100%" textAlign="left">
+              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>First name</FormLabel><Input name="firstName" value={data.firstName} onChange={handleInput} placeholder="First name" {...inputStyles} /></FormControl>
+              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Last name</FormLabel><Input name="lastName" value={data.lastName} onChange={handleInput} placeholder="Last name" {...inputStyles} /></FormControl>
             </SimpleGrid>
             <VStack spacing={4} w="100%" textAlign="left">
-              <FormControl><FormLabel fontSize="sm" fontWeight={500} color="brand.body">Email</FormLabel><Input name="email" type="email" value={data.email} onChange={handleInput} placeholder="you@example.com" {...inputStyles} /></FormControl>
-              <FormControl><FormLabel fontSize="sm" fontWeight={500} color="brand.body">Phone</FormLabel><Input name="phone" type="tel" value={data.phone} onChange={handleInput} placeholder="(555) 123-4567" maxLength={16} {...inputStyles} /></FormControl>
+              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Email</FormLabel><Input name="email" type="email" value={data.email} onChange={handleInput} placeholder="you@example.com" {...inputStyles} /></FormControl>
+              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Phone</FormLabel><Input name="phone" type="tel" value={data.phone} onChange={handleInput} placeholder="(555) 123-4567" maxLength={16} {...inputStyles} /></FormControl>
             </VStack>
             <Button onClick={goNext} variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />} isDisabled={!contactValid}>Next</Button>
           </VStack>
         );
       case 3:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 3 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>Who would you like covered?</Text>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Who would you like covered?</Text>
             <VStack spacing={3} w="100%">
-              {[{ v: 'individual', l: 'Just me' }, { v: 'couple', l: 'Me + a spouse or partner' }, { v: 'family', l: 'Family (includes children)' }].map(function (o) {
+              {[{ v: 'individual', l: 'Just me' }, { v: 'couple', l: 'Me and a spouse or partner' }, { v: 'family', l: 'Family including children' }].map(function (o) {
                 return <OptionCard key={o.v} label={o.l} selected={data.coverage === o.v} onClick={function () { setSingle('coverage', o.v); }} />;
               })}
             </VStack>
@@ -278,11 +271,10 @@ function Signup() {
         );
       case 4:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 4 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>Have you ever had a concierge doctor before?</Text>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Have you ever had a concierge doctor before?</Text>
             <VStack spacing={3} w="100%">
-              {[{ v: 'current', l: 'Yes, I have one now' }, { v: 'past', l: "Yes, I've had one in the past" }, { v: 'first', l: 'No, this would be my first time' }].map(function (o) {
+              {[{ v: 'current', l: 'Yes, I have one now' }, { v: 'past', l: 'Yes, I\'ve had one in the past' }, { v: 'first', l: 'No, this would be my first time' }].map(function (o) {
                 return <OptionCard key={o.v} label={o.l} selected={data.experience === o.v} onClick={function () { setSingle('experience', o.v); }} />;
               })}
             </VStack>
@@ -291,10 +283,9 @@ function Signup() {
         );
       case 5:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 5 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>Where have you received care in the last 12 months?</Text>
-            <Text fontSize="sm" color="brand.bodyLight">Select all that apply.</Text>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Where have you received care in the last 12 months?</Text>
+            <Text fontSize="md" color="brand.bodyLight">Select all that apply</Text>
             <VStack spacing={3} w="100%">
               {CARE_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} multi selected={data.careHistory.indexOf(o.value) > -1} onClick={function () { toggleMulti('careHistory', o.value); }} />;
@@ -305,10 +296,9 @@ function Signup() {
         );
       case 6:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 6 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>How do you wish healthcare worked?</Text>
-            <Text fontSize="sm" color="brand.bodyLight">If everything went perfectly, what would it look like?</Text>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>How do you wish healthcare worked?</Text>
+            <Text fontSize="md" color="brand.bodyLight">If everything went perfectly, what would it look like?</Text>
             <VStack spacing={3} w="100%">
               {IDEAL_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} selected={data.ideal === o.value} onClick={function () { setSingle('ideal', o.value); }} />;
@@ -319,10 +309,9 @@ function Signup() {
         );
       case 7:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 7 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>What matters most to you?</Text>
-            <Text fontSize="sm" color="brand.bodyLight">Choose what resonates. Don't overthink it.</Text>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>What matters most to you?</Text>
+            <Text fontSize="md" color="brand.bodyLight">Choose what resonates</Text>
             <VStack spacing={3} w="100%">
               {PRIORITY_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} multi selected={data.priorities.indexOf(o.value) > -1} onClick={function () { toggleMulti('priorities', o.value); }} />;
@@ -333,10 +322,9 @@ function Signup() {
         );
       case 8:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 8 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>How old are you?</Text>
-            <Text fontSize="sm" color="brand.bodyLight">This helps us match you with the right level of care.</Text>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>How old are you?</Text>
+            <Text fontSize="md" color="brand.bodyLight">This helps us match you with the right level of care</Text>
             <VStack spacing={3} w="100%">
               {AGE_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} selected={data.age === o.value} onClick={function () { setSingle('age', o.value); }} />;
@@ -347,12 +335,11 @@ function Signup() {
         );
       case 9:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 9 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>
+          <VStack spacing={7} textAlign="center">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>
               {data.coverage === 'family' ? 'Tell us about your family' : 'Tell us about your spouse'}
             </Text>
-            <Text fontSize="sm" color="brand.bodyLight">Select their age range.</Text>
+            <Text fontSize="md" color="brand.bodyLight">Select their age range</Text>
             <VStack spacing={3} w="100%">
               {AGE_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} selected={data.spouseAge === o.value} onClick={function () { setSingle('spouseAge', o.value); }} />;
@@ -360,7 +347,7 @@ function Signup() {
             </VStack>
             {data.coverage === 'family' && (
               <Box w="100%" mt={4}>
-                <Text fontSize="md" color="brand.body" mb={4}>How many children will be covered?</Text>
+                <Text fontSize="md" fontWeight={600} color="brand.slate" mb={4}>How many children will be covered?</Text>
                 <VStack spacing={3} w="100%">
                   {[{ v: '1', l: '1 child' }, { v: '2', l: '2 children' }, { v: '3', l: '3 children' }, { v: '4+', l: '4+ children' }].map(function (o) {
                     return <OptionCard key={o.v} label={o.l} selected={data.childrenCount === o.v} onClick={function () { setSingle('childrenCount', o.v); }} />;
@@ -368,20 +355,19 @@ function Signup() {
                 </VStack>
               </Box>
             )}
-            <Button onClick={goNext} variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />} isDisabled={!slide9Valid} mt={4}>Next</Button>
+            <Button onClick={goNext} variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />} isDisabled={!slide9Valid} mt={2}>Next</Button>
           </VStack>
         );
       case 10:
         return (
-          <VStack spacing={6} textAlign="center" maxW="700px">
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.warmGrayLight">Step 10 of 11</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>What every AnswersMD membership includes</Text>
+          <VStack spacing={7} textAlign="center" maxW="700px">
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>What every membership includes</Text>
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} w="100%" textAlign="left">
               {INCLUDED_ITEMS.map(function (item) {
                 return (
-                  <HStack key={item} spacing={3} p={4} bg="white" borderRadius="btn">
-                    <Icon as={HiCheck} boxSize={5} color="brand.champagne" flexShrink={0} />
-                    <Text fontSize="sm" color="brand.slate">{item}</Text>
+                  <HStack key={item} spacing={3} py={4} px={5} bg="white" borderRadius="btn">
+                    <Box color="brand.champagne" flexShrink={0}><HiCheck size={18} /></Box>
+                    <Text fontSize="md" color="brand.slate">{item}</Text>
                   </HStack>
                 );
               })}
@@ -391,16 +377,13 @@ function Signup() {
         );
       case 11:
         return (
-          <VStack spacing={6} textAlign="center">
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>Ready when you are</Text>
+          <VStack spacing={7} textAlign="center">
+            <Box w="32px" h="2px" bg="brand.champagne" />
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Ready when you are</Text>
             <Text fontSize="md" color="brand.body" lineHeight={1.8} maxW="400px">Memberships are limited so we can maintain exceptional access and care.</Text>
-            <VStack spacing={3} w="100%" maxW="320px">
-              <Button as={Link} to="/contact/" variant="primary" size="lg" w="100%" rightIcon={<Icon as={HiArrowRight} />}>
-                Schedule a private call
-              </Button>
-              <Button as={Link} to="/contact/" variant="secondary" size="lg" w="100%">
-                Have questions? We'll reach out
-              </Button>
+            <VStack spacing={4} w="100%" maxW="320px" pt={2}>
+              <Button as={Link} to="/contact/" variant="primary" size="lg" w="100%" rightIcon={<Icon as={HiArrowRight} />}>Schedule a private call</Button>
+              <Button as={Link} to="/contact/" variant="secondary" size="lg" w="100%">Have questions? We'll reach out</Button>
             </VStack>
           </VStack>
         );
@@ -428,8 +411,8 @@ function Signup() {
         zIndex={100}
       >
         <Flex maxW="98%" mx="auto" px={{ base: 4, md: 4 }} py={4} justify="space-between" align="center">
-          <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: "32px", md: "42px" }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
-          <Text as={Link} to="/" fontSize="sm" color="brand.warmGrayLight" _hover={{ color: 'brand.slate' }}>Exit</Text>
+          <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
+          <Text as={Link} to="/" fontSize="md" color="brand.warmGrayLight" fontWeight={500} _hover={{ color: 'brand.slate' }} transition="color 0.2s ease">Exit</Text>
         </Flex>
         <Box pb={4}>
           <ProgressDots current={slide} total={TOTAL_SLIDES} />
