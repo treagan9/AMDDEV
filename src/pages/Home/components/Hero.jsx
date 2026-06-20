@@ -72,7 +72,7 @@ function Hero() {
               <Button as={Link} to="/contact/" variant="primary" size="lg">
                 Schedule a consultation
               </Button>
-              <ChakraLink as={Link} to="/services/" fontSize="sm" fontWeight={500} color="brand.body" display="flex" alignItems="center" gap={2} _hover={{ color: 'brand.evergreen' }} transition="color 0.2s ease">
+              <ChakraLink as={Link} to="/services/" fontSize="md" fontWeight={500} color="brand.body" display="flex" alignItems="center" gap={2} _hover={{ color: 'brand.evergreen' }} transition="color 0.2s ease">
                 Learn how it works
                 <Icon as={HiArrowRight} boxSize={4} />
               </ChakraLink>
