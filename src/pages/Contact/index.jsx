@@ -118,7 +118,7 @@ function Contact() {
         <meta name="description" content="Contact AnswersMD to learn more about concierge medicine and schedule your consultation." />
       </Helmet>
 
-      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory">
+      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="white">
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} maxW="800px">
             <HStack spacing={3} mb={5}>
