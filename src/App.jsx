@@ -6,12 +6,11 @@ import Team from './pages/Team';
 import Services from './pages/Services';
 import NewPatients from './pages/NewPatients';
 import Contact from './pages/Contact';
-import Signup from './pages/Signup'
-import FAQ from './pages/FAQ'
-import FAQ from './pages/FAQ'
-import Insurance from './pages/Insurance'
-import Executive from './pages/Executive'
-import Pricing from './pages/Pricing'
+import Signup from './pages/Signup';
+import FAQ from './pages/FAQ';
+import Insurance from './pages/Insurance';
+import Executive from './pages/Executive';
+import Pricing from './pages/Pricing';
 import Stories from './pages/Stories';
 import Tampa from './pages/Locations/Tampa';
 import StPete from './pages/Locations/StPete';
@@ -26,7 +25,6 @@ function App() {
         <Route path="/services/" element={<Services />} />
         <Route path="/new-patients/" element={<NewPatients />} />
         <Route path="/contact/" element={<Contact />} />
-        <Route path="/faq/" element={<FAQ />} />
         <Route path="/faq/" element={<FAQ />} />
         <Route path="/insurance/" element={<Insurance />} />
         <Route path="/executive/" element={<Executive />} />
