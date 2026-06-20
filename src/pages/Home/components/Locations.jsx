@@ -23,7 +23,7 @@ var LOCATIONS = [
     status: 'Now open',
     phone: '813-727-3233',
     tel: '8137273233',
-    image: 'https://answersmd.com/images/tampa_suite.jpg',
+    image: '/locations/tampa-office-main.png',
     path: '/location-tampa/'
   },
   {
@@ -32,7 +32,7 @@ var LOCATIONS = [
     status: 'Now open',
     phone: '813-727-3233',
     tel: '8137273233',
-    image: 'https://answersmd.com/images/location_st_pete.jpg',
+    image: '/locations/st-pete.png',
     path: '/location-st-pete/'
   },
   {
@@ -41,22 +41,13 @@ var LOCATIONS = [
     status: 'Coming soon',
     phone: '561-933-3333',
     tel: '5619333333',
-    image: 'https://answersmd.com/images/location_royal_palm.jpg',
+    image: '/locations/boca-main.png',
     path: '/location-boca-raton/'
   }
 ];
 
 function LocationCard({ city, subtitle, status, phone, tel, image, path, delay, inView }) {
   var navigate = useNavigate();
-
-  function handleCardClick() {
-    navigate(path);
-  }
-
-  function handlePhoneClick(e) {
-    e.stopPropagation();
-    window.location.href = 'tel:' + tel;
-  }
 
   return (
     <MotionBox
@@ -72,7 +63,7 @@ function LocationCard({ city, subtitle, status, phone, tel, image, path, delay, 
         borderColor="brand.borderLight"
         transition="all 0.4s ease"
         cursor="pointer"
-        onClick={handleCardClick}
+        onClick={function () { navigate(path); }}
         role="group"
         _hover={{
           transform: 'translateY(-4px)',
@@ -80,7 +71,7 @@ function LocationCard({ city, subtitle, status, phone, tel, image, path, delay, 
           borderColor: 'brand.champagneLine'
         }}
       >
-        <Box h={{ base: '200px', md: '240px' }} overflow="hidden" borderRadius="18px 18px 0 0">
+        <Box h={{ base: '240px', md: '280px' }} overflow="hidden" borderRadius="18px 18px 0 0">
           <Image
             src={image}
             alt={city + ' location'}
@@ -114,15 +105,12 @@ function LocationCard({ city, subtitle, status, phone, tel, image, path, delay, 
           </Text>
           <HStack
             spacing={2}
-            onClick={handlePhoneClick}
+            onClick={function (e) { e.stopPropagation(); window.location.href = 'tel:' + tel; }}
             cursor="pointer"
             _hover={{ '& > *': { color: 'brand.champagneDark' } }}
-            transition="color 0.2s ease"
           >
             <Icon as={HiOutlinePhone} boxSize={4} color="brand.champagne" />
-            <Text fontSize="sm" color="brand.champagne">
-              {phone}
-            </Text>
+            <Text fontSize="sm" color="brand.champagne">{phone}</Text>
           </HStack>
         </Box>
       </Box>
@@ -143,48 +131,13 @@ function Locations() {
           textAlign="center"
           mb={{ base: 10, md: 14 }}
         >
-          <Text
-            fontSize="xs"
-            fontWeight={600}
-            letterSpacing="2px"
-            textTransform="uppercase"
-            color="brand.champagne"
-            mb={4}
-          >
-            Our locations
-          </Text>
-          <Text
-            as="h2"
-            fontFamily="heading"
-            fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}
-            fontWeight={700}
-            color="brand.slate"
-            lineHeight={1.1}
-            mb={4}
-          >
-            Find us near you
-          </Text>
-          <Text
-            fontSize={{ base: 'md', md: 'lg' }}
-            color="brand.body"
-            lineHeight={1.8}
-            maxW="560px"
-            mx="auto"
-          >
-            Three Florida locations delivering the same exceptional concierge care.
-          </Text>
+          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Our locations</Text>
+          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>Find us near you</Text>
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px" mx="auto">Three Florida locations delivering the same exceptional concierge care.</Text>
         </MotionBox>
-
         <SimpleGrid columns={{ base: 1, md: 3 }} spacing={5}>
           {LOCATIONS.map(function (loc, i) {
-            return (
-              <LocationCard
-                key={loc.city}
-                {...loc}
-                delay={0.2 + i * 0.1}
-                inView={inView}
-              />
-            );
+            return <LocationCard key={loc.city} {...loc} delay={0.2 + i * 0.1} inView={inView} />;
           })}
         </SimpleGrid>
       </Box>
