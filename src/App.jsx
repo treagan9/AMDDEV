@@ -11,7 +11,8 @@ import FAQ from './pages/FAQ'
 import FAQ from './pages/FAQ'
 import Insurance from './pages/Insurance'
 import Executive from './pages/Executive'
-import Pricing from './pages/Pricing';
+import Pricing from './pages/Pricing'
+import Stories from './pages/Stories';
 import Tampa from './pages/Locations/Tampa';
 import StPete from './pages/Locations/StPete';
 import BocaRaton from './pages/Locations/BocaRaton';
@@ -30,6 +31,7 @@ function App() {
         <Route path="/insurance/" element={<Insurance />} />
         <Route path="/executive/" element={<Executive />} />
         <Route path="/pricing/" element={<Pricing />} />
+        <Route path="/stories/" element={<Stories />} />
         <Route path="/location-tampa/" element={<Tampa />} />
         <Route path="/location-st-pete/" element={<StPete />} />
         <Route path="/location-boca-raton/" element={<BocaRaton />} />
