@@ -34,20 +34,6 @@ function formatPhone(value) {
   return '(' + digits.substring(0, 3) + ') ' + digits.substring(3, 6) + '-' + digits.substring(6);
 }
 
-var fieldBase = {
-  bg: 'white',
-  border: '1px solid',
-  borderColor: 'brand.borderLight',
-  borderRadius: 'btn',
-  fontSize: 'md',
-  color: 'brand.slate',
-  height: '52px',
-  px: 4,
-  _placeholder: { color: 'brand.warmGrayLight' },
-  _hover: { borderColor: 'brand.bodyLight' },
-  _focus: { borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }
-};
-
 function Contact() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   var formLoadedAt = useRef(Date.now());
@@ -111,6 +97,39 @@ function Contact() {
     setSubmitting(false);
   }
 
+  var fieldStyles = {
+    bg: 'transparent',
+    border: 'none',
+    borderBottom: '1.5px solid',
+    borderColor: 'brand.borderLight',
+    borderRadius: '0',
+    fontSize: 'md',
+    color: 'brand.slate',
+    height: '52px',
+    px: 0,
+    _placeholder: { color: 'brand.warmGrayLight', fontWeight: 300 },
+    _hover: { borderColor: 'brand.champagne' },
+    _focus: { borderColor: 'brand.champagne', boxShadow: 'none' }
+  };
+
+  var selectStyles = {
+    bg: 'transparent',
+    border: 'none',
+    borderBottom: '1.5px solid',
+    borderColor: 'brand.borderLight',
+    borderRadius: '0',
+    fontSize: 'md',
+    color: 'brand.slate',
+    height: '52px',
+    px: 0,
+    _hover: { borderColor: 'brand.champagne' },
+    _focus: { borderColor: 'brand.champagne', boxShadow: 'none' },
+    sx: {
+      '> option': { color: 'brand.slate', bg: 'white' },
+      '&[value=""]': { color: 'brand.warmGrayLight', fontWeight: 300 }
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -133,141 +152,146 @@ function Contact() {
         </Box>
       </Box>
 
-      <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
+      <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.mist" ref={ref}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-            <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 14, lg: 20 }} maxW="1100px" mx="auto">
-              <Box flex={1}>
+            <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 16, lg: 0 }} maxW="1200px" mx="auto">
+
+              <Box flex={1} pr={{ base: 0, lg: 20 }} borderRight={{ base: 'none', lg: '1px solid' }} borderColor="brand.borderLight">
                 <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" mb={4}>Let's start a conversation</Text>
-                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={12}>
-                  Whether you're ready to become a member or simply want to learn more about concierge medicine, we're here to help.
+                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={14}>
+                  Whether you're ready to become a member or simply want to learn more, we're here to help.
                 </Text>
 
                 <VStack align="flex-start" spacing={10}>
                   <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={3}>Phone</Text>
-                    <ChakraLink href="tel:8137273233" fontSize="lg" fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" display="block" mb={1}>813-727-3233</ChakraLink>
-                    <Text fontSize="md" color="brand.bodyLight">Tampa and St. Petersburg</Text>
-                    <ChakraLink href="tel:5619333333" fontSize="lg" fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" display="block" mt={4} mb={1}>561-933-3333</ChakraLink>
-                    <Text fontSize="md" color="brand.bodyLight">Boca Raton</Text>
+                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Phone</Text>
+                    <Box mb={4}>
+                      <ChakraLink href="tel:8137273233" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" display="block">813-727-3233</ChakraLink>
+                      <Text fontSize="md" color="brand.bodyLight" mt={1}>Tampa and St. Petersburg</Text>
+                    </Box>
+                    <Box>
+                      <ChakraLink href="tel:5619333333" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" display="block">561-933-3333</ChakraLink>
+                      <Text fontSize="md" color="brand.bodyLight" mt={1}>Boca Raton</Text>
+                    </Box>
                   </Box>
 
                   <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={3}>Email</Text>
-                    <ChakraLink href="mailto:info@answersmd.com" fontSize="lg" fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease">info@answersmd.com</ChakraLink>
+                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Email</Text>
+                    <ChakraLink href="mailto:info@answersmd.com" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease">info@answersmd.com</ChakraLink>
                   </Box>
 
-                  <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={3}>Locations</Text>
-                    <Text fontSize="md" color="brand.slate" fontWeight={500} lineHeight={1.8}>Tampa, St. Petersburg, Boca Raton</Text>
-                  </Box>
-
-                  <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={3}>Hours</Text>
-                    <Text fontSize="md" color="brand.slate" fontWeight={500}>Members have 24/7 access</Text>
-                    <Text fontSize="md" color="brand.bodyLight" mt={1}>Office hours Monday through Friday, 8am to 5pm</Text>
-                  </Box>
+                  <SimpleGrid columns={2} spacing={8}>
+                    <Box>
+                      <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Locations</Text>
+                      <Text fontSize="md" color="brand.slate" fontWeight={500} lineHeight={1.8}>Tampa</Text>
+                      <Text fontSize="md" color="brand.slate" fontWeight={500} lineHeight={1.8}>St. Petersburg</Text>
+                      <Text fontSize="md" color="brand.slate" fontWeight={500} lineHeight={1.8}>Boca Raton</Text>
+                    </Box>
+                    <Box>
+                      <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Hours</Text>
+                      <Text fontSize="md" color="brand.slate" fontWeight={500}>24/7 member access</Text>
+                      <Text fontSize="md" color="brand.bodyLight" mt={1}>Office Mon through Fri</Text>
+                      <Text fontSize="md" color="brand.bodyLight">8am to 5pm</Text>
+                    </Box>
+                  </SimpleGrid>
                 </VStack>
               </Box>
 
-              <Box flex={{ base: 1, lg: 1.2 }}>
-                <Box bg="brand.ivory" borderRadius="card" p={{ base: 8, md: 12 }}>
-                  <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Schedule a consultation</Text>
-                  <Text fontSize="md" color="brand.bodyLight" mb={10}>No commitment, no pressure</Text>
+              <Box flex={1.1} pl={{ base: 0, lg: 20 }}>
+                <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Schedule a consultation</Text>
+                <Text fontSize="md" color="brand.bodyLight" mb={12}>No commitment, no pressure</Text>
 
-                  <form onSubmit={handleSubmit}>
-                    <VStack spacing={6} align="stretch">
-                      <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
-                        <FormControl isRequired>
-                          <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>First name</FormLabel>
-                          <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="John" {...fieldBase} />
-                        </FormControl>
-                        <FormControl isRequired>
-                          <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Last name</FormLabel>
-                          <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Doe" {...fieldBase} />
-                        </FormControl>
-                      </SimpleGrid>
-
+                <form onSubmit={handleSubmit}>
+                  <VStack spacing={8} align="stretch">
+                    <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={{ base: 8, sm: 6 }}>
                       <FormControl isRequired>
-                        <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Email address</FormLabel>
-                        <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com" {...fieldBase} />
+                        <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>First name</FormLabel>
+                        <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="John" {...fieldStyles} />
                       </FormControl>
-
                       <FormControl isRequired>
-                        <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Phone number</FormLabel>
-                        <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...fieldBase} />
+                        <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Last name</FormLabel>
+                        <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Doe" {...fieldStyles} />
                       </FormControl>
+                    </SimpleGrid>
 
-                      <FormControl isRequired>
-                        <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Preferred location</FormLabel>
-                        <Select
-                          name="location"
-                          value={form.location}
-                          onChange={handleChange}
-                          placeholder="Select a location"
-                          {...fieldBase}
-                          sx={{
-                            '> option': { color: 'brand.slate', bg: 'white' },
-                            '&': { appearance: 'none', paddingRight: '2.5rem' }
-                          }}
-                        >
-                          <option value="tampa">Tampa</option>
-                          <option value="st-pete">St. Petersburg</option>
-                          <option value="boca-raton">Boca Raton</option>
-                        </Select>
-                      </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Email address</FormLabel>
+                      <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com" {...fieldStyles} />
+                    </FormControl>
 
-                      <FormControl>
-                        <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>I'm interested in</FormLabel>
-                        <Select
-                          name="interest"
-                          value={form.interest}
-                          onChange={handleChange}
-                          placeholder="Select an option"
-                          {...fieldBase}
-                          sx={{
-                            '> option': { color: 'brand.slate', bg: 'white' },
-                            '&': { appearance: 'none', paddingRight: '2.5rem' }
-                          }}
-                        >
-                          <option value="individual">Individual Membership</option>
-                          <option value="family">Family Membership</option>
-                          <option value="corporate">Corporate Membership</option>
-                          <option value="learn">Just Learning More</option>
-                        </Select>
-                      </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Phone number</FormLabel>
+                      <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...fieldStyles} />
+                    </FormControl>
 
-                      <FormControl>
-                        <FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Message</FormLabel>
-                        <Textarea
-                          name="message"
-                          value={form.message}
-                          onChange={handleChange}
-                          placeholder="Tell us about your healthcare needs..."
-                          rows={4}
-                          resize="vertical"
-                          bg="white"
-                          border="1px solid"
-                          borderColor="brand.borderLight"
-                          borderRadius="btn"
-                          fontSize="md"
-                          color="brand.slate"
-                          py={4}
-                          px={4}
-                          _placeholder={{ color: 'brand.warmGrayLight' }}
-                          _hover={{ borderColor: 'brand.bodyLight' }}
-                          _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }}
-                        />
-                      </FormControl>
+                    <FormControl isRequired>
+                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Preferred location</FormLabel>
+                      <Select name="location" value={form.location} onChange={handleChange} placeholder="Select a location" {...selectStyles}>
+                        <option value="tampa">Tampa</option>
+                        <option value="st-pete">St. Petersburg</option>
+                        <option value="boca-raton">Boca Raton</option>
+                      </Select>
+                    </FormControl>
 
-                      <Box position="absolute" left="-9999px" aria-hidden="true">
-                        <Input name="website" value={form.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
-                      </Box>
+                    <FormControl>
+                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>I'm interested in</FormLabel>
+                      <Select name="interest" value={form.interest} onChange={handleChange} placeholder="Select an option" {...selectStyles}>
+                        <option value="individual">Individual Membership</option>
+                        <option value="family">Family Membership</option>
+                        <option value="corporate">Corporate Membership</option>
+                        <option value="learn">Just Learning More</option>
+                      </Select>
+                    </FormControl>
 
-                      <Button type="submit" variant="primary" size="lg" w="100%" isLoading={submitting} loadingText="Sending..." mt={2}>Submit inquiry</Button>
-                    </VStack>
-                  </form>
-                </Box>
+                    <FormControl>
+                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Message</FormLabel>
+                      <Textarea
+                        name="message"
+                        value={form.message}
+                        onChange={handleChange}
+                        placeholder="Tell us about your healthcare needs..."
+                        rows={3}
+                        resize="vertical"
+                        bg="transparent"
+                        border="none"
+                        borderBottom="1.5px solid"
+                        borderColor="brand.borderLight"
+                        borderRadius="0"
+                        fontSize="md"
+                        color="brand.slate"
+                        px={0}
+                        py={3}
+                        _placeholder={{ color: 'brand.warmGrayLight', fontWeight: 300 }}
+                        _hover={{ borderColor: 'brand.champagne' }}
+                        _focus={{ borderColor: 'brand.champagne', boxShadow: 'none' }}
+                      />
+                    </FormControl>
+
+                    <Box position="absolute" left="-9999px" aria-hidden="true">
+                      <Input name="website" value={form.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+                    </Box>
+
+                    <Box pt={4}>
+                      <Button
+                        type="submit"
+                        bg="brand.champagne"
+                        color="white"
+                        borderRadius="btn"
+                        size="lg"
+                        fontSize="md"
+                        w="100%"
+                        _hover={{ bg: 'brand.champagneDark', transform: 'translateY(-1px)', shadow: '0 6px 20px rgba(196,162,101,0.25)' }}
+                        _active={{ transform: 'translateY(0)' }}
+                        transition="all 0.3s ease"
+                        isLoading={submitting}
+                        loadingText="Sending..."
+                      >
+                        Submit inquiry
+                      </Button>
+                    </Box>
+                  </VStack>
+                </form>
               </Box>
             </Flex>
           </MotionBox>
