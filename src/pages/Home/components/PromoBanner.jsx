@@ -11,18 +11,14 @@ import { HiArrowRight } from 'react-icons/hi';
 
 function PromoBanner() {
   return (
-    <Box bg="brand.evergreen" py={3}>
-      <Flex
-        maxW="98%"
-        mx="auto"
-        px={{ base: 4, md: 4 }}
-        justify="center"
-        align="center"
-        gap={3}
-      >
-        <Box w="6px" h="6px" borderRadius="full" bg="#7EBF7A" flexShrink={0} />
-        <Text fontSize="sm" color="whiteAlpha.800" fontWeight={500} textAlign="center">
-          Limited availability. Enroll today.
+    <Box bg="brand.champagne" py={{ base: 2.5, md: 3 }}>
+      <Flex maxW="98%" mx="auto" px={{ base: 4, md: 4 }} justify="center" align="center" gap={{ base: 2, md: 3 }}>
+        <Box w="6px" h="6px" borderRadius="full" bg="white" flexShrink={0} display={{ base: 'none', md: 'block' }} />
+        <Text fontSize={{ base: 'xs', md: 'sm' }} color="white" fontWeight={500} textAlign="center" display={{ base: 'none', md: 'block' }}>
+          Now accepting new members in Tampa, St. Petersburg and Boca Raton.
+        </Text>
+        <Text fontSize="xs" color="white" fontWeight={500} textAlign="center" display={{ base: 'block', md: 'none' }}>
+          Now accepting members
         </Text>
         <ChakraLink
           as={Link}
@@ -30,15 +26,16 @@ function PromoBanner() {
           display="flex"
           alignItems="center"
           gap={1}
-          fontSize="sm"
-          fontWeight={600}
-          color="whiteAlpha.900"
-          _hover={{ color: 'white' }}
-          transition="color 0.2s ease"
+          fontSize={{ base: 'xs', md: 'sm' }}
+          fontWeight={700}
+          color="white"
+          _hover={{ opacity: 0.85 }}
+          transition="opacity 0.2s ease"
           flexShrink={0}
+          ml={1}
         >
-          Get started
-          <Icon as={HiArrowRight} boxSize={4} />
+          Enroll
+          <Icon as={HiArrowRight} boxSize={{ base: 3, md: 4 }} />
         </ChakraLink>
       </Flex>
     </Box>
