@@ -1,9 +1,5 @@
 // src/pages/Pricing/components/Hero.jsx
-import {
-  Box,
-  Text,
-  HStack
-} from '@chakra-ui/react';
+import { Box, Text, HStack } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 
 var MotionBox = motion(Box);

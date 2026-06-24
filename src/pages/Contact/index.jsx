@@ -40,60 +40,35 @@ function Contact() {
   var toast = useToast();
   var [submitting, setSubmitting] = useState(false);
   var [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    location: '',
-    interest: '',
-    message: '',
-    website: ''
+    firstName: '', lastName: '', email: '', phone: '',
+    location: '', interest: '', message: '', website: ''
   });
 
   function handleChange(e) {
     var name = e.target.name;
     var value = e.target.value;
-    if (name === 'phone') {
-      value = formatPhone(value);
-    }
+    if (name === 'phone') value = formatPhone(value);
     setForm(function (prev) { return Object.assign({}, prev, { [name]: value }); });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
-
     try {
       var response = await fetch('/.netlify/functions/submit-contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(Object.assign({}, form, { formLoadedAt: formLoadedAt.current }))
       });
-
       if (response.ok) {
-        toast({
-          title: 'Message sent',
-          description: "We'll be in touch shortly.",
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-          position: 'top'
-        });
+        toast({ title: 'Message sent', description: "We'll be in touch shortly.", status: 'success', duration: 5000, isClosable: true, position: 'top' });
         setForm({ firstName: '', lastName: '', email: '', phone: '', location: '', interest: '', message: '', website: '' });
       } else {
         throw new Error('Server error');
       }
     } catch (err) {
-      toast({
-        title: 'Something went wrong',
-        description: 'Please try again or call us at 813-727-3233.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-        position: 'top'
-      });
+      toast({ title: 'Something went wrong', description: 'Please try again or call us at 813-727-3233.', status: 'error', duration: 5000, isClosable: true, position: 'top' });
     }
-
     setSubmitting(false);
   }
 
@@ -156,13 +131,11 @@ function Contact() {
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
             <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 16, lg: 0 }} maxW="1200px" mx="auto">
-
               <Box flex={1} pr={{ base: 0, lg: 20 }} borderRight={{ base: 'none', lg: '1px solid' }} borderColor="brand.borderLight">
                 <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" mb={4}>Let's start a conversation</Text>
                 <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={14}>
                   Whether you're ready to become a member or simply want to learn more, we're here to help.
                 </Text>
-
                 <VStack align="flex-start" spacing={10}>
                   <Box>
                     <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Phone</Text>
@@ -175,12 +148,10 @@ function Contact() {
                       <Text fontSize="md" color="brand.bodyLight" mt={1}>Boca Raton</Text>
                     </Box>
                   </Box>
-
                   <Box>
                     <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Email</Text>
                     <ChakraLink href="mailto:info@answersmd.com" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease">info@answersmd.com</ChakraLink>
                   </Box>
-
                   <SimpleGrid columns={2} spacing={8}>
                     <Box>
                       <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Locations</Text>
@@ -197,11 +168,9 @@ function Contact() {
                   </SimpleGrid>
                 </VStack>
               </Box>
-
               <Box flex={1.1} pl={{ base: 0, lg: 20 }}>
                 <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Schedule a consultation</Text>
                 <Text fontSize="md" color="brand.bodyLight" mb={12}>No commitment, no pressure</Text>
-
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={8} align="stretch">
                     <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={{ base: 8, sm: 6 }}>
@@ -214,17 +183,14 @@ function Contact() {
                         <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Doe" {...fieldStyles} />
                       </FormControl>
                     </SimpleGrid>
-
                     <FormControl isRequired>
                       <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Email address</FormLabel>
                       <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com" {...fieldStyles} />
                     </FormControl>
-
                     <FormControl isRequired>
                       <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Phone number</FormLabel>
                       <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...fieldStyles} />
                     </FormControl>
-
                     <FormControl isRequired>
                       <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Preferred location</FormLabel>
                       <Select name="location" value={form.location} onChange={handleChange} placeholder="Select a location" {...selectStyles}>
@@ -233,7 +199,6 @@ function Contact() {
                         <option value="boca-raton">Boca Raton</option>
                       </Select>
                     </FormControl>
-
                     <FormControl>
                       <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>I'm interested in</FormLabel>
                       <Select name="interest" value={form.interest} onChange={handleChange} placeholder="Select an option" {...selectStyles}>
@@ -243,52 +208,15 @@ function Contact() {
                         <option value="learn">Just Learning More</option>
                       </Select>
                     </FormControl>
-
                     <FormControl>
                       <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Message</FormLabel>
-                      <Textarea
-                        name="message"
-                        value={form.message}
-                        onChange={handleChange}
-                        placeholder="Tell us about your healthcare needs..."
-                        rows={3}
-                        resize="vertical"
-                        bg="transparent"
-                        border="none"
-                        borderBottom="1.5px solid"
-                        borderColor="brand.borderLight"
-                        borderRadius="0"
-                        fontSize="md"
-                        color="brand.slate"
-                        px={0}
-                        py={3}
-                        _placeholder={{ color: 'brand.warmGrayLight', fontWeight: 300 }}
-                        _hover={{ borderColor: 'brand.champagne' }}
-                        _focus={{ borderColor: 'brand.champagne', boxShadow: 'none' }}
-                      />
+                      <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your healthcare needs..." rows={3} resize="vertical" bg="transparent" border="none" borderBottom="1.5px solid" borderColor="brand.borderLight" borderRadius="0" fontSize="md" color="brand.slate" px={0} py={3} _placeholder={{ color: 'brand.warmGrayLight', fontWeight: 300 }} _hover={{ borderColor: 'brand.champagne' }} _focus={{ borderColor: 'brand.champagne', boxShadow: 'none' }} />
                     </FormControl>
-
                     <Box position="absolute" left="-9999px" aria-hidden="true">
                       <Input name="website" value={form.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
                     </Box>
-
                     <Box pt={4}>
-                      <Button
-                        type="submit"
-                        bg="brand.champagne"
-                        color="white"
-                        borderRadius="btn"
-                        size="lg"
-                        fontSize="md"
-                        w="100%"
-                        _hover={{ bg: 'brand.champagneDark', transform: 'translateY(-1px)', shadow: '0 6px 20px rgba(196,162,101,0.25)' }}
-                        _active={{ transform: 'translateY(0)' }}
-                        transition="all 0.3s ease"
-                        isLoading={submitting}
-                        loadingText="Sending..."
-                      >
-                        Submit inquiry
-                      </Button>
+                      <Button type="submit" bg="brand.champagne" color="white" borderRadius="btn" size="lg" fontSize="md" w="100%" _hover={{ bg: 'brand.champagneDark', transform: 'translateY(-1px)', shadow: '0 6px 20px rgba(196,162,101,0.25)' }} _active={{ transform: 'translateY(0)' }} transition="all 0.3s ease" isLoading={submitting} loadingText="Sending...">Submit inquiry</Button>
                     </Box>
                   </VStack>
                 </form>
