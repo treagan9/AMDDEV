@@ -17,6 +17,7 @@ import Terms from './pages/Terms';
 import Tampa from './pages/Locations/Tampa';
 import StPete from './pages/Locations/StPete';
 import BocaRaton from './pages/Locations/BocaRaton';
+import AdminApp from './admin/AdminApp';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/location-boca-raton/" element={<BocaRaton />} />
       </Route>
       <Route path="/signup/" element={<Signup />} />
+      <Route path="/answersmd-admin/*" element={<AdminApp />} />
     </Routes>
   );
 }
