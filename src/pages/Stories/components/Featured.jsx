@@ -1,7 +1,6 @@
 // src/pages/Stories/components/Featured.jsx
 import {
   Box,
-  Flex,
   Text
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
@@ -51,32 +50,21 @@ function StorySpread({ story, index }) {
   var isEven = index % 2 === 0;
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg={isEven ? 'white' : 'brand.ivory'} ref={ref}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+    <Box py={{ base: 'sectionMobile', md: 'section' }} bg={isEven ? 'brand.ivory' : 'white'} ref={ref}>
+      <Box maxW={{ base: '98%', lg: '60%' }} mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-          <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 8, lg: 20 }}>
-            <Box w={{ base: '100%', lg: '380px' }} flexShrink={0}>
-              <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={5}>{story.category}</Text>
-              <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} fontStyle="italic" mb={8}>"{story.headline}"</Text>
-              <Box display={{ base: 'none', lg: 'block' }}>
-                <Box w="32px" h="2px" bg="brand.champagne" mb={4} />
-                <Text fontSize="md" fontWeight={600} color="brand.slate">{story.attribution}</Text>
-                <Text fontSize="md" color="brand.bodyLight">{story.detail}</Text>
-              </Box>
-            </Box>
-            <Box flex={1}>
-              {story.paragraphs.map(function (p, i) {
-                return (
-                  <Text key={i} fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.9} mb={i < story.paragraphs.length - 1 ? 5 : 0}>{p}</Text>
-                );
-              })}
-              <Box display={{ base: 'block', lg: 'none' }} mt={8}>
-                <Box w="32px" h="2px" bg="brand.champagne" mb={4} />
-                <Text fontSize="md" fontWeight={600} color="brand.slate">{story.attribution}</Text>
-                <Text fontSize="md" color="brand.bodyLight">{story.detail}</Text>
-              </Box>
-            </Box>
-          </Flex>
+          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={5}>{story.category}</Text>
+          <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={{ base: 8, md: 10 }}>"{story.headline}"</Text>
+          {story.paragraphs.map(function (p, i) {
+            return (
+              <Text key={i} fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.9} mb={i < story.paragraphs.length - 1 ? 6 : 0}>{p}</Text>
+            );
+          })}
+          <Box mt={{ base: 8, md: 10 }}>
+            <Box w="24px" h="2px" bg="brand.champagne" mb={3} />
+            <Text fontSize="md" fontWeight={600} color="brand.slate">{story.attribution}</Text>
+            <Text fontSize="md" color="brand.bodyLight">{story.detail}</Text>
+          </Box>
         </MotionBox>
       </Box>
     </Box>

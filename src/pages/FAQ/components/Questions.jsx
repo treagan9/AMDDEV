@@ -52,15 +52,15 @@ var CATEGORIES = [
 function FAQItem({ q, a }) {
   var [open, setOpen] = useState(false);
   return (
-    <Box borderBottom="1px solid" borderColor="brand.borderLight" py={{ base: 5, md: 6 }}>
+    <Box borderBottom="1px solid" borderColor="#E8E2D8" py={{ base: 6, md: 7 }}>
       <Flex justify="space-between" align="flex-start" cursor="pointer" onClick={function () { setOpen(!open); }} role="group" gap={6}>
         <Text fontFamily="heading" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={700} color="brand.slate" lineHeight={1.2} _groupHover={{ color: 'brand.champagne' }} transition="color 0.2s ease">{q}</Text>
-        <Flex w={{ base: '36px', md: '40px' }} h={{ base: '36px', md: '40px' }} borderRadius="full" border="1px solid" borderColor={open ? 'brand.champagne' : 'brand.borderLight'} align="center" justify="center" flexShrink={0} mt={0.5} transition="all 0.2s ease" _groupHover={{ borderColor: 'brand.champagne' }}>
+        <Flex w="36px" h="36px" borderRadius="full" border="1px solid" borderColor={open ? 'brand.champagne' : '#D5D0C8'} align="center" justify="center" flexShrink={0} mt={0.5} transition="all 0.2s ease" _groupHover={{ borderColor: 'brand.champagne' }}>
           <Box color={open ? 'brand.champagne' : 'brand.bodyLight'}>{open ? <HiMinus size={16} /> : <HiPlus size={16} />}</Box>
         </Flex>
       </Flex>
       <Collapse in={open}>
-        <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.85} pt={5} pb={2} maxW="700px">{a}</Text>
+        <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.85} pt={5} pb={2}>{a}</Text>
       </Collapse>
     </Box>
   );
@@ -68,31 +68,38 @@ function FAQItem({ q, a }) {
 
 function Questions() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.02 });
+  var [activeCategory, setActiveCategory] = useState(0);
 
   return (
     <Box ref={ref}>
-      {CATEGORIES.map(function (cat, catIndex) {
-        var isEven = catIndex % 2 === 0;
-        return (
-          <Box key={cat.title} py={{ base: 'sectionMobile', md: 'section' }} bg={isEven ? 'white' : 'brand.ivory'}>
-            <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-              <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.1 }}>
-                <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 8, lg: 20 }}>
-                  <Box w={{ base: '100%', lg: '300px' }} flexShrink={0} position={{ base: 'relative', lg: 'sticky' }} top={{ lg: '140px' }} alignSelf="flex-start">
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={3}>{cat.title}</Text>
-                    <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15}>{cat.questions.length} questions</Text>
-                  </Box>
-                  <Box flex={1} borderTop="1px solid" borderColor="brand.borderLight">
-                    {cat.questions.map(function (faq) {
-                      return <FAQItem key={faq.q} q={faq.q} a={faq.a} />;
-                    })}
-                  </Box>
-                </Flex>
-              </MotionBox>
+      <Box bg="brand.ivory" py={{ base: 0, md: 3 }} position="sticky" top={{ base: '60px', md: '68px' }} zIndex={10}>
+        <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
+          <Flex gap={{ base: 2, md: 3 }} overflowX="auto" py={3} sx={{ '&::-webkit-scrollbar': { display: 'none' }, scrollbarWidth: 'none' }}>
+            {CATEGORIES.map(function (cat, i) {
+              var isActive = activeCategory === i;
+              return (
+                <Box key={cat.title} onClick={function () { setActiveCategory(i); }} cursor="pointer" px={{ base: 4, md: 6 }} py={{ base: 2.5, md: 3 }} borderRadius="btn" bg={isActive ? 'white' : 'transparent'} border="1px solid" borderColor={isActive ? '#D5D0C8' : 'transparent'} transition="all 0.2s ease" flexShrink={0} _hover={{ bg: isActive ? 'white' : 'brand.mist' }}>
+                  <Text fontSize={{ base: 'sm', md: 'md' }} fontWeight={isActive ? 600 : 400} color={isActive ? 'brand.slate' : 'brand.body'} whiteSpace="nowrap">{cat.title}</Text>
+                </Box>
+              );
+            })}
+          </Flex>
+        </Box>
+      </Box>
+
+      <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white">
+        <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
+          <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
+            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>{CATEGORIES[activeCategory].title}</Text>
+            <Text as="h2" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={{ base: 8, md: 10 }}>{CATEGORIES[activeCategory].questions.length} questions</Text>
+            <Box borderTop="1px solid" borderColor="#E8E2D8">
+              {CATEGORIES[activeCategory].questions.map(function (faq) {
+                return <FAQItem key={faq.q} q={faq.q} a={faq.a} />;
+              })}
             </Box>
-          </Box>
-        );
-      })}
+          </MotionBox>
+        </Box>
+      </Box>
     </Box>
   );
 }
