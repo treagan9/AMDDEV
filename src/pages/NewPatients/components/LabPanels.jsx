@@ -25,36 +25,30 @@ function LabPanels() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} mb={{ base: 10, md: 14 }}>
+    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.mist" ref={ref}>
+      <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
+        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 14 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Comprehensive testing</Text>
-          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={4} maxW="600px">We don't guess. We test.</Text>
-          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px">Your welcome visit includes an extensive panel of laboratory tests that goes far beyond the standard annual physical.</Text>
+          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={4}>We don't guess. We test.</Text>
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">Your welcome visit includes an extensive panel of laboratory tests that goes far beyond the standard annual physical.</Text>
         </MotionBox>
 
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={0}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, md: 5 }}>
           {PANELS.map(function (panel, i) {
-            var row = Math.floor(i / 3);
-            var col = i % 3;
             return (
               <MotionBox
                 key={panel.name}
                 initial={{ opacity: 0, y: 12 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.2 + i * 0.05 }}
-                py={{ base: 6, md: 8 }}
-                pr={{ base: 0, md: 8 }}
-                pl={{ base: 0, md: col > 0 ? 8 : 0 }}
-                borderTop={row > 0 || (row === 0 && col > 0) ? { base: '1px solid', md: row > 0 ? '1px solid' : 'none' } : 'none'}
-                borderLeft={{ base: 'none', md: col > 0 ? '1px solid' : 'none' }}
-                borderColor="brand.borderLight"
-                borderTopColor={{ base: 'brand.borderLight', md: 'brand.borderLight' }}
+                bg="white"
+                borderRadius="card"
+                py={{ base: 7, md: 8 }}
+                px={{ base: 6, md: 8 }}
               >
-                <Box borderTop={{ base: 'none', md: row === 0 ? '3px solid' : 'none' }} borderColor="brand.champagne" pt={{ base: 0, md: row === 0 ? 6 : 0 }}>
-                  <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="brand.slate" mb={3}>{panel.name}</Text>
-                  <Text fontSize="md" color="brand.body" lineHeight={1.8}>{panel.description}</Text>
-                </Box>
+                <Box w="24px" h="3px" bg="brand.champagne" mb={5} />
+                <Text fontFamily="heading" fontSize={{ base: 'md', md: 'lg' }} fontWeight={700} color="brand.slate" mb={3}>{panel.name}</Text>
+                <Text fontSize="md" color="brand.body" lineHeight={1.8}>{panel.description}</Text>
               </MotionBox>
             );
           })}

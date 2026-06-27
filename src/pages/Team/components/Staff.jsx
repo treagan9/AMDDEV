@@ -1,9 +1,7 @@
 // src/pages/Team/components/Staff.jsx
 import {
   Box,
-  Flex,
   SimpleGrid,
-  VStack,
   Text,
   Image
 } from '@chakra-ui/react';
@@ -23,12 +21,12 @@ var STAFF = [
 function StaffMember({ member, delay, inView }) {
   return (
     <MotionBox initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: delay }} textAlign="center">
-      <Box w={{ base: '120px', md: '140px' }} h={{ base: '120px', md: '140px' }} borderRadius="full" overflow="hidden" mx="auto" mb={6} border="3px solid" borderColor="brand.champagne" bg="brand.ivory">
+      <Box w={{ base: '120px', md: '140px' }} h={{ base: '120px', md: '140px' }} borderRadius="full" overflow="hidden" mx="auto" mb={6} border="2px solid" borderColor="#D5D0C8" bg="brand.ivory">
         <Image src={member.photo} alt={member.name} objectFit="cover" objectPosition="top" w="100%" h="100%" />
       </Box>
       <Text fontFamily="heading" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={700} color="brand.slate" mb={1}>{member.name}</Text>
-      <Text fontSize="md" color="brand.champagne" fontWeight={500} mb={4}>{member.role}</Text>
-      <Text fontSize="md" color="brand.body" lineHeight={1.85} maxW="320px" mx="auto">{member.description}</Text>
+      <Text fontSize="md" color="brand.body" fontWeight={500} mb={4}>{member.role}</Text>
+      <Text fontSize="md" color="brand.body" lineHeight={1.85}>{member.description}</Text>
     </MotionBox>
   );
 }
@@ -38,19 +36,19 @@ function Staff() {
 
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.mist" ref={ref}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+      <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 12, md: 16 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Behind the scenes</Text>
           <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08}>The people behind your care</Text>
         </MotionBox>
 
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 14, md: 12 }} maxW="1000px" mx="auto" mb={{ base: 14, md: 16 }}>
+        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 12, md: 10 }} mb={{ base: 12, md: 14 }}>
           {STAFF.slice(0, 3).map(function (member, i) {
             return <StaffMember key={member.name} member={member} delay={0.2 + i * 0.1} inView={inView} />;
           })}
         </SimpleGrid>
 
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 14, md: 12 }} maxW="660px" mx="auto">
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 12, md: 10 }} maxW={{ base: '100%', md: '66%' }} mx="auto">
           {STAFF.slice(3).map(function (member, i) {
             return <StaffMember key={member.name} member={member} delay={0.5 + i * 0.1} inView={inView} />;
           })}

@@ -6,19 +6,19 @@ import Header from './Header';
 import Footer from './Footer';
 
 function ScrollToTop() {
-  var { pathname } = useLocation();
-  useEffect(() => {
+  var location = useLocation();
+  useEffect(function () {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [location.pathname]);
   return null;
 }
 
 function Layout() {
   return (
-    <Box minH="100vh" display="flex" flexDirection="column">
+    <Box w="100%" maxW="100%" overflowX="hidden" position="relative">
       <ScrollToTop />
       <Header />
-      <Box as="main" flex="1">
+      <Box as="main" minH="100vh" w="100%" maxW="100%">
         <Outlet />
       </Box>
       <Footer />

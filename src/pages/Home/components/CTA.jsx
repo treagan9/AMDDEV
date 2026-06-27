@@ -17,19 +17,23 @@ function CTA() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
+    <Box py={{ base: 'sectionMobile', md: '120px' }} bg="white" ref={ref}>
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }}>
-          <VStack spacing={8} textAlign="center" maxW="600px" mx="auto">
-            <Box w="32px" h="1px" bg="brand.champagne" />
-            <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1}>Ready to meet your care team?</Text>
-            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8}>Schedule a consultation to learn how AnswersMD can transform your healthcare experience.</Text>
-            <Flex gap={4} direction={{ base: 'column', sm: 'row' }} w={{ base: '100%', sm: 'auto' }}>
-              <Button as={Link} to="/contact/" variant="primary" size="lg" w={{ base: '100%', sm: 'auto' }}>Schedule a consultation</Button>
-              <Button as={Link} to="/signup/" variant="secondary" size="lg" w={{ base: '100%', sm: 'auto' }}>Join now</Button>
+        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} maxW={{ base: '100%', lg: '70%' }} mx="auto">
+          <Box bg="brand.ivory" borderRadius="32px" py={{ base: 12, md: 16 }} px={{ base: 8, md: 16 }}>
+            <Flex direction={{ base: 'column', lg: 'row' }} alignItems={{ base: 'stretch', lg: 'center' }} justifyContent="space-between" gap={{ base: 8, lg: 12 }}>
+              <Box flex={1}>
+                <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Take the first step</Text>
+                <Text as="h2" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl', lg: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={3}>Ready to meet your care team?</Text>
+                <Text fontSize="md" color="brand.body" lineHeight={1.8}>Schedule a consultation to learn how AnswersMD can transform your healthcare experience.</Text>
+              </Box>
+              <VStack spacing={3} align={{ base: 'stretch', lg: 'stretch' }} w={{ base: '100%', lg: 'auto' }} flexShrink={0}>
+                <Button as={Link} to="/contact/" variant="primary" size="lg">Schedule a consultation</Button>
+                <Button as={Link} to="/signup/" variant="secondary" size="lg">Join now</Button>
+                <ChakraLink href="tel:8137273233" fontSize="md" color="brand.bodyLight" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" textAlign="center" pt={1}>or call 813-727-3233</ChakraLink>
+              </VStack>
             </Flex>
-            <ChakraLink href="tel:8137273233" fontSize="sm" color="brand.bodyLight" _hover={{ color: 'brand.champagne' }}>or call 813-727-3233</ChakraLink>
-          </VStack>
+          </Box>
         </MotionBox>
       </Box>
     </Box>

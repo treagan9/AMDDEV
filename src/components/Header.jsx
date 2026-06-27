@@ -4,20 +4,12 @@ import {
   Box,
   Flex,
   HStack,
-  VStack,
   Link as ChakraLink,
   Button,
-  IconButton,
-  Image,
-  Text,
-  useDisclosure
+  Image
 } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
-import { HiOutlineMenu, HiOutlineX } from 'react-icons/hi';
-import { AnimatePresence, motion } from 'framer-motion';
-
-var MotionBox = motion(Box);
-var MotionFlex = motion(Flex);
+import MobileDrawer from './MobileDrawer';
 
 var NAV_LINKS = [
   { label: 'Our Approach', path: '/services/' },
@@ -26,15 +18,9 @@ var NAV_LINKS = [
   { label: 'Contact', path: '/contact/' }
 ];
 
-var LOCATIONS = [
-  { city: 'Tampa', phone: '813-727-3233', tel: '8137273233' },
-  { city: 'St. Petersburg', phone: '813-727-3233', tel: '8137273233' },
-  { city: 'Boca Raton', phone: '561-933-3333', tel: '5619333333' }
-];
-
 function Header() {
   var [scrolled, setScrolled] = useState(false);
-  var { isOpen, onToggle, onClose } = useDisclosure();
+  var [drawerOpen, setDrawerOpen] = useState(false);
   var location = useLocation();
 
   useEffect(function () {
@@ -44,14 +30,18 @@ function Header() {
   }, []);
 
   useEffect(function () {
-    onClose();
+    setDrawerOpen(false);
     document.body.style.overflow = '';
   }, [location.pathname]);
 
   useEffect(function () {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+    document.body.style.overflow = drawerOpen ? 'hidden' : '';
     return function () { document.body.style.overflow = ''; };
-  }, [isOpen]);
+  }, [drawerOpen]);
+
+  function toggleDrawer() {
+    setDrawerOpen(!drawerOpen);
+  }
 
   return (
     <>
@@ -61,11 +51,11 @@ function Header() {
         top={0}
         left={0}
         right={0}
-        zIndex={100}
-        bg={scrolled ? 'rgba(250, 250, 247, 0.92)' : 'transparent'}
-        backdropFilter={scrolled ? 'blur(20px)' : 'none'}
-        borderBottom={scrolled ? '1px solid' : '1px solid transparent'}
-        borderColor={scrolled ? 'brand.borderLight' : 'transparent'}
+        zIndex={101}
+        bg={drawerOpen ? 'transparent' : scrolled ? 'rgba(255,255,255,0.92)' : 'transparent'}
+        backdropFilter={drawerOpen ? 'none' : scrolled ? 'blur(20px)' : 'none'}
+        borderBottom={drawerOpen ? 'none' : scrolled ? '1px solid' : '1px solid transparent'}
+        borderColor={scrolled ? '#E8E2D8' : 'transparent'}
         transition="all 0.4s ease"
       >
         <Flex
@@ -74,10 +64,19 @@ function Header() {
           align="center"
           justify="space-between"
           py={scrolled ? 3 : 5}
-          px={{ base: 3, md: 0 }}
+          px={{ base: 5, md: 0 }}
           transition="padding 0.4s ease"
         >
-          <ChakraLink as={Link} to="/" _hover={{ opacity: 0.85 }} transition="opacity 0.3s ease" display="flex" alignItems="center">
+          <ChakraLink
+            as={Link}
+            to="/"
+            _hover={{ opacity: 0.85 }}
+            transition="opacity 0.3s ease"
+            display="flex"
+            alignItems="center"
+            opacity={drawerOpen ? 0 : 1}
+            pointerEvents={drawerOpen ? 'none' : 'auto'}
+          >
             <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" />
           </ChakraLink>
 
@@ -97,113 +96,32 @@ function Header() {
                   position="relative"
                 >
                   {link.label}
-                  {isActive && (
-                    <Box position="absolute" bottom="-4px" left={0} right={0} h="2px" bg="brand.champagne" borderRadius="full" />
-                  )}
+                  {isActive && <Box position="absolute" bottom="-4px" left={0} right={0} h="2px" bg="brand.champagne" borderRadius="full" />}
                 </ChakraLink>
               );
             })}
-            <Button as={Link} to="/signup/" variant="primary" size="md">
-              Join now
-            </Button>
+            <Button as={Link} to="/signup/" variant="primary" size="md">Join now</Button>
           </HStack>
 
-          <IconButton
+          <Box
             display={{ base: 'flex', lg: 'none' }}
-            icon={isOpen ? <HiOutlineX size={24} /> : <HiOutlineMenu size={24} />}
-            variant="ghost"
-            aria-label="Toggle menu"
-            onClick={onToggle}
-            color="brand.slate"
-            size="lg"
-            zIndex={101}
-          />
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            w="44px"
+            h="44px"
+            cursor="pointer"
+            onClick={toggleDrawer}
+            position="relative"
+          >
+            <Box w="22px" h="2px" bg="brand.slate" borderRadius="full" transition="all 0.3s ease" transform={drawerOpen ? 'rotate(45deg) translateY(0px)' : 'translateY(-4px)'} position={drawerOpen ? 'absolute' : 'relative'} />
+            <Box w="22px" h="2px" bg="brand.slate" borderRadius="full" transition="all 0.3s ease" opacity={drawerOpen ? 0 : 1} />
+            <Box w="22px" h="2px" bg="brand.slate" borderRadius="full" transition="all 0.3s ease" transform={drawerOpen ? 'rotate(-45deg) translateY(0px)' : 'translateY(4px)'} position={drawerOpen ? 'absolute' : 'relative'} />
+          </Box>
         </Flex>
       </Box>
 
-      <AnimatePresence>
-        {isOpen && (
-          <MotionBox
-            position="fixed"
-            top={0}
-            left={0}
-            right={0}
-            bottom={0}
-            bg="brand.ivory"
-            zIndex={99}
-            display="flex"
-            flexDirection="column"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <Flex justify="center" pt={7}>
-              <Image src="/logo-dark.png" alt="AnswersMD" h="32px" />
-            </Flex>
-
-            <VStack spacing={0} justify="center" align="center" flex={1}>
-              {NAV_LINKS.map(function (link, i) {
-                var isActive = location.pathname === link.path;
-                return (
-                  <MotionFlex
-                    key={link.path}
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.08 + i * 0.05, duration: 0.35 }}
-                    w="100%"
-                    justify="center"
-                  >
-                    <ChakraLink
-                      as={Link}
-                      to={link.path}
-                      fontFamily="heading"
-                      fontSize="3xl"
-                      fontWeight={700}
-                      color={isActive ? 'brand.champagne' : 'brand.slate'}
-                      py={5}
-                      _hover={{ color: 'brand.champagne' }}
-                      transition="color 0.2s ease"
-                    >
-                      {link.label}
-                    </ChakraLink>
-                  </MotionFlex>
-                );
-              })}
-              <MotionBox
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35, duration: 0.35 }}
-                mt={8}
-              >
-                <Button as={Link} to="/signup/" variant="primary" size="lg" px={12}>
-                  Join now
-                </Button>
-              </MotionBox>
-            </VStack>
-
-            <MotionBox
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.45, duration: 0.3 }}
-              pb={12}
-              px={8}
-            >
-              <Box h="1px" bg="brand.borderLight" mb={8} />
-              <HStack justify="center" spacing={10} flexWrap="wrap">
-                {LOCATIONS.map(function (loc) {
-                  return (
-                    <ChakraLink key={loc.city} href={'tel:' + loc.tel} textAlign="center" _hover={{ '& > p:last-child': { color: 'brand.champagne' } }}>
-                      <Text fontSize="xs" fontWeight={600} color="brand.warmGrayLight" letterSpacing="1.5px" textTransform="uppercase" mb={1}>{loc.city}</Text>
-                      <Text fontSize="md" color="brand.body" transition="color 0.2s ease">{loc.phone}</Text>
-                    </ChakraLink>
-                  );
-                })}
-              </HStack>
-            </MotionBox>
-          </MotionBox>
-        )}
-      </AnimatePresence>
+      <MobileDrawer isOpen={drawerOpen} onClose={function () { setDrawerOpen(false); }} currentPath={location.pathname} />
     </>
   );
 }

@@ -26,58 +26,20 @@ var FAQS = [
   { q: 'How do I get started?', a: 'Start with a consultation. It\'s a pressure-free conversation where we learn about your health goals and you learn about our practice. If it\'s a good fit, enrollment takes minutes and your membership begins immediately.' }
 ];
 
-function FAQItem({ q, a, index }) {
+function FAQItem({ q, a }) {
   var [open, setOpen] = useState(false);
   return (
-    <MotionBox
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
-      borderBottom="1px solid"
-      borderColor="brand.borderLight"
-      py={{ base: 6, md: 8 }}
-    >
-      <Flex
-        justify="space-between"
-        align="flex-start"
-        cursor="pointer"
-        onClick={function () { setOpen(!open); }}
-        role="group"
-        gap={6}
-      >
-        <Text
-          fontFamily="heading"
-          fontSize={{ base: 'lg', md: 'xl', lg: '2xl' }}
-          fontWeight={700}
-          color="brand.slate"
-          lineHeight={1.2}
-          _groupHover={{ color: 'brand.champagne' }}
-          transition="color 0.2s ease"
-        >
-          {q}
-        </Text>
-        <Flex
-          w={{ base: '36px', md: '44px' }}
-          h={{ base: '36px', md: '44px' }}
-          borderRadius="full"
-          border="1px solid"
-          borderColor={open ? 'brand.champagne' : 'brand.borderLight'}
-          align="center"
-          justify="center"
-          flexShrink={0}
-          mt={1}
-          transition="all 0.2s ease"
-          _groupHover={{ borderColor: 'brand.champagne' }}
-        >
-          <Box color={open ? 'brand.champagne' : 'brand.bodyLight'}>
-            {open ? <HiMinus size={18} /> : <HiPlus size={18} />}
-          </Box>
+    <Box borderBottom="1px solid" borderColor="#E8E2D8" py={{ base: 6, md: 7 }}>
+      <Flex justify="space-between" align="flex-start" cursor="pointer" onClick={function () { setOpen(!open); }} role="group" gap={6}>
+        <Text fontFamily="heading" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={700} color="brand.slate" lineHeight={1.2} _groupHover={{ color: 'brand.champagne' }} transition="color 0.2s ease">{q}</Text>
+        <Flex w="36px" h="36px" borderRadius="full" border="1px solid" borderColor={open ? 'brand.champagne' : '#D5D0C8'} align="center" justify="center" flexShrink={0} mt={0.5} transition="all 0.2s ease" _groupHover={{ borderColor: 'brand.champagne' }}>
+          <Box color={open ? 'brand.champagne' : 'brand.bodyLight'}>{open ? <HiMinus size={16} /> : <HiPlus size={16} />}</Box>
         </Flex>
       </Flex>
       <Collapse in={open}>
-        <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.85} pt={5} pb={2} maxW="640px">{a}</Text>
+        <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.85} pt={5} pb={2}>{a}</Text>
       </Collapse>
-    </MotionBox>
+    </Box>
   );
 }
 
@@ -86,25 +48,25 @@ function FAQ() {
 
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={ref}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-        <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 12, lg: 20 }}>
-          <Box w={{ base: '100%', lg: '380px' }} flexShrink={0} position={{ base: 'relative', lg: 'sticky' }} top={{ lg: '140px' }} alignSelf="flex-start">
-            <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-              <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={5}>Common questions</Text>
-              <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={6}>Frequently asked</Text>
-              <Text fontSize="md" color="brand.body" lineHeight={1.8} mb={8}>Everything you need to know about membership, coverage and how our practice works.</Text>
-              <VStack align="flex-start" spacing={4}>
-                <Button as={Link} to="/contact/" variant="primary" size="lg">Schedule a consultation</Button>
-                <ChakraLink href="tel:8137273233" fontSize="md" color="brand.bodyLight" _hover={{ color: 'brand.champagne' }}>or call 813-727-3233</ChakraLink>
-              </VStack>
-            </MotionBox>
-          </Box>
-          <Box flex={1} borderTop="1px solid" borderColor="brand.borderLight">
-            {FAQS.map(function (faq, i) {
-              return <FAQItem key={faq.q} q={faq.q} a={faq.a} index={i} />;
-            })}
-          </Box>
-        </Flex>
+      <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
+        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 14 }}>
+          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Common questions</Text>
+          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={4}>Frequently asked</Text>
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">Everything you need to know about membership, coverage and how our practice works.</Text>
+        </MotionBox>
+
+        <Box borderTop="1px solid" borderColor="#E8E2D8">
+          {FAQS.map(function (faq) {
+            return <FAQItem key={faq.q} q={faq.q} a={faq.a} />;
+          })}
+        </Box>
+
+        <MotionBox initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.4 }} textAlign="center" mt={12}>
+          <VStack spacing={3}>
+            <Button as={Link} to="/contact/" variant="primary" size="lg">Schedule a consultation</Button>
+            <ChakraLink href="tel:8137273233" fontSize="md" color="brand.bodyLight" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease">or call 813-727-3233</ChakraLink>
+          </VStack>
+        </MotionBox>
       </Box>
     </Box>
   );

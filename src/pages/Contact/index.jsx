@@ -33,8 +33,56 @@ function formatPhone(value) {
   return '(' + digits.substring(0, 3) + ') ' + digits.substring(3, 6) + '-' + digits.substring(6);
 }
 
+function CustomSelect({ name, value, onChange, placeholder, children }) {
+  return (
+    <Box position="relative">
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        style={{
+          width: '100%',
+          height: '54px',
+          padding: '0 40px 0 16px',
+          fontSize: '1.0625rem',
+          color: value ? '#2D2D2D' : '#9B9488',
+          backgroundColor: 'white',
+          border: '1px solid #D5D0C8',
+          borderRadius: '8px',
+          appearance: 'none',
+          WebkitAppearance: 'none',
+          outline: 'none',
+          cursor: 'pointer'
+        }}
+        onFocus={function (e) { e.target.style.borderColor = '#C4A265'; e.target.style.boxShadow = '0 0 0 1px #C4A265'; }}
+        onBlur={function (e) { e.target.style.borderColor = '#D5D0C8'; e.target.style.boxShadow = 'none'; }}
+      >
+        <option value="" disabled>{placeholder}</option>
+        {children}
+      </select>
+      <Box position="absolute" right="16px" top="50%" transform="translateY(-50%)" pointerEvents="none" color="#9B9488">
+        <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      </Box>
+    </Box>
+  );
+}
+
+var inputProps = {
+  bg: 'white',
+  border: '1px solid',
+  borderColor: '#D5D0C8',
+  borderRadius: 'btn',
+  fontSize: 'md',
+  color: 'brand.slate',
+  h: '54px',
+  px: 4,
+  _placeholder: { color: '#9B9488' },
+  _hover: { borderColor: 'brand.champagne' },
+  _focus: { borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }
+};
+
 function Contact() {
-  var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   var formLoadedAt = useRef(Date.now());
   var toast = useToast();
   var [submitting, setSubmitting] = useState(false);
@@ -71,54 +119,6 @@ function Contact() {
     setSubmitting(false);
   }
 
-  var inputProps = {
-    bg: 'white',
-    border: '1px solid',
-    borderColor: '#D5D0C8',
-    borderRadius: 'btn',
-    fontSize: 'md',
-    color: 'brand.slate',
-    h: '54px',
-    px: 4,
-    _placeholder: { color: '#9B9488' },
-    _hover: { borderColor: 'brand.champagne' },
-    _focus: { borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }
-  };
-
-  function CustomSelect({ name, value, onChange, placeholder, children }) {
-    return (
-      <Box position="relative">
-        <select
-          name={name}
-          value={value}
-          onChange={onChange}
-          style={{
-            width: '100%',
-            height: '54px',
-            padding: '0 40px 0 16px',
-            fontSize: '1.0625rem',
-            color: value ? '#2D2D2D' : '#9B9488',
-            backgroundColor: 'white',
-            border: '1px solid #D5D0C8',
-            borderRadius: '8px',
-            appearance: 'none',
-            WebkitAppearance: 'none',
-            outline: 'none',
-            cursor: 'pointer'
-          }}
-          onFocus={function (e) { e.target.style.borderColor = '#C4A265'; e.target.style.boxShadow = '0 0 0 1px #C4A265'; }}
-          onBlur={function (e) { e.target.style.borderColor = '#D5D0C8'; e.target.style.boxShadow = 'none'; }}
-        >
-          <option value="" disabled>{placeholder}</option>
-          {children}
-        </select>
-        <Box position="absolute" right="16px" top="50%" transform="translateY(-50%)" pointerEvents="none" color="#9B9488">
-          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-        </Box>
-      </Box>
-    );
-  }
-
   return (
     <>
       <Helmet>
@@ -126,41 +126,31 @@ function Contact() {
         <meta name="description" content="Contact AnswersMD to learn more about concierge medicine and schedule your consultation." />
       </Helmet>
 
-      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="white">
-        <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-          <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} maxW="800px">
-            <HStack spacing={3} mb={5}>
-              <Box w="24px" h="1px" bg="brand.champagne" />
-              <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne">Get in touch</Text>
-            </HStack>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={6}>Contact us</Text>
-            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px">
+      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
+        <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
+          <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} textAlign="center" mb={{ base: 14, md: 20 }}>
+            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Get in touch</Text>
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={4}>Contact us</Text>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="480px" mx="auto">
               Ready to experience healthcare differently? Schedule your consultation or reach out with any questions.
             </Text>
           </MotionBox>
-        </Box>
-      </Box>
 
-      <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.mist" ref={ref}>
-        <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-          <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={0} maxW="1200px" mx="auto">
-              <Box pr={{ base: 0, lg: 16 }} pb={{ base: 16, lg: 0 }} borderRight={{ base: 'none', lg: '1px solid' }} borderBottom={{ base: '1px solid', lg: 'none' }} borderColor="brand.borderLight">
-                <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Reach out directly</Text>
-                <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>Let's start a conversation</Text>
-                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={12}>
-                  Whether you're ready to become a member or simply want to learn more, we're here to help.
-                </Text>
-                <VStack align="flex-start" spacing={10}>
+          <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={0}>
+              <Box pr={{ base: 0, lg: 14 }} pb={{ base: 14, lg: 0 }} borderRight={{ base: 'none', lg: '1px solid' }} borderBottom={{ base: '1px solid', lg: 'none' }} borderColor="#E8E2D8">
+                <VStack align="flex-start" spacing={8}>
                   <Box>
                     <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Phone</Text>
                     <Box mb={4}>
                       <ChakraLink href="tel:8137273233" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" display="block">813-727-3233</ChakraLink>
                       <Text fontSize="md" color="brand.bodyLight" mt={1}>Tampa and St. Petersburg</Text>
+                      <Text fontSize="xs" color="#B5AD9E" mt={1}>Fax 833-941-5028</Text>
                     </Box>
                     <Box>
                       <ChakraLink href="tel:5619333333" fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" display="block">561-933-3333</ChakraLink>
                       <Text fontSize="md" color="brand.bodyLight" mt={1}>Boca Raton</Text>
+                      <Text fontSize="xs" color="#B5AD9E" mt={1}>Fax 844-670-8963</Text>
                     </Box>
                   </Box>
                   <Box>
@@ -183,10 +173,9 @@ function Contact() {
                   </SimpleGrid>
                 </VStack>
               </Box>
-              <Box pl={{ base: 0, lg: 16 }} pt={{ base: 16, lg: 0 }}>
-                <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Schedule online</Text>
-                <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>Request a consultation</Text>
-                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={12}>No commitment, no pressure. Fill out the form below and we'll be in touch shortly.</Text>
+              <Box pl={{ base: 0, lg: 14 }} pt={{ base: 14, lg: 0 }}>
+                <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Request a consultation</Text>
+                <Text fontSize="md" color="brand.bodyLight" mb={10}>No commitment, no pressure</Text>
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={6} align="stretch">
                     <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>

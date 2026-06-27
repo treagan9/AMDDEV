@@ -54,7 +54,11 @@ var theme = extendTheme({
   },
   styles: {
     global: {
-      'html, body': {
+      'html': {
+        overflowX: 'hidden',
+        width: '100%'
+      },
+      'body': {
         bg: 'brand.ivory',
         color: 'brand.body',
         fontFamily: 'body',
@@ -62,7 +66,14 @@ var theme = extendTheme({
         lineHeight: 1.7,
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
-        overflowX: 'hidden'
+        overflowX: 'hidden',
+        width: '100%',
+        position: 'relative'
+      },
+      '#root': {
+        overflowX: 'hidden',
+        width: '100%',
+        position: 'relative'
       },
       'h1, h2, h3, h4, h5, h6': {
         fontFamily: 'heading',

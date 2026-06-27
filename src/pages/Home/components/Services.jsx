@@ -24,11 +24,11 @@ function Services() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
-    <Box ref={ref}>
+    <Box ref={ref} w="100%" overflow="hidden">
       <Box display={{ base: 'block', lg: 'none' }}>
         <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" overflow="hidden">
-          <Box position="relative" pb="75%">
-            <Image src="/home/home-services-portrait.png" alt="AnswersMD concierge care" objectFit="cover" objectPosition="right center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">home-services-portrait.png (900x1200)</Text></Box>} />
+          <Box position="relative" pb="100%">
+            <Image src="/home/home-services-square.png" alt="AnswersMD concierge care" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">home-services-square.png (1200x1200)</Text></Box>} />
           </Box>
         </MotionBox>
         <Box py={{ base: 'sectionMobile' }} bg="white" px={6}>
@@ -51,10 +51,10 @@ function Services() {
         </Box>
       </Box>
 
-      <Flex display={{ base: 'none', lg: 'flex' }}>
-        <Box w="50%" position="relative" overflow="hidden">
-          <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="absolute" top={0} left={0} right={0} bottom={0}>
-            <Image src="/home/home-services-portrait.png" alt="AnswersMD concierge care" objectFit="cover" objectPosition="center" w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">home-services-portrait.png (900x1200)</Text></Box>} />
+      <Flex display={{ base: 'none', lg: 'flex' }} w="100%" overflow="hidden">
+        <Box w="50%" overflow="hidden">
+          <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" pb="100%">
+            <Image src="/home/home-services-square.png" alt="AnswersMD concierge care" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">home-services-square.png (1200x1200)</Text></Box>} />
           </MotionBox>
         </Box>
         <Flex w="50%" bg="white" alignItems="center" py={20} px={{ lg: 14, xl: 20 }}>

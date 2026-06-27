@@ -14,7 +14,7 @@ var MotionBox = motion(Box);
 var PHYSICIANS = [
   {
     name: 'Douglas Shapiro, DO',
-    role: 'Founder & Lead Physician',
+    role: 'Founder and Lead Physician',
     credentials: 'Board Certified Family Medicine',
     location: 'Tampa, FL',
     photo: '/team/dr-doug-shapiro.png',
@@ -22,23 +22,23 @@ var PHYSICIANS = [
   },
   {
     name: 'Drew Meriwether, MD',
-    role: 'Pediatric & Internal Medicine',
-    credentials: 'Board Certified Pediatrics & Internal Medicine',
+    role: 'Pediatric and Internal Medicine',
+    credentials: 'Board Certified Pediatrics and Internal Medicine',
     location: 'Tampa, FL',
     photo: '/team/dr-drew-meriwether.png',
     bio: 'A USF Health Clinician of the Year, Dr. Meriwether brings exceptional versatility with dual board certifications in Pediatrics and Internal Medicine. A rare combination that allows him to provide seamless care for entire families from newborns to grandparents. His training across both specialties means fewer referrals, better coordination and a physician who understands how a child\'s health history connects to their care as an adult.'
   },
   {
     name: "Divino D'Alessio Jr., MD",
-    role: 'Sports & Family Medicine',
-    credentials: 'Board Certified Family Medicine & Sports Medicine',
+    role: 'Sports and Family Medicine',
+    credentials: 'Board Certified Family Medicine and Sports Medicine',
     location: 'Boca Raton, FL',
     photo: '/team/dr-divino-dalessio.png',
     bio: "Dr. D'Alessio brings board-certified Family Medicine paired with advanced Sports Medicine training. He has served as team physician for NCAA Division I athletes at Coastal Carolina University and provided sideline coverage for regional high school programs. His clinical focus includes diagnostic musculoskeletal ultrasound, ultrasound-guided procedures and concussion management. He delivers athletic-medicine precision to active adults, athletes and families who want evidence-based care centered on performance, prevention and long-term health."
   },
   {
     name: 'Ellen Howard, MD, MPH',
-    role: 'Family & Preventive Medicine',
+    role: 'Family and Preventive Medicine',
     credentials: 'Board Certified Family Medicine',
     location: 'St. Petersburg, FL',
     photo: '/team/dr-ellen-howard.png',
@@ -52,42 +52,16 @@ function PhysicianSpread({ physician, index }) {
 
   return (
     <Box ref={ref} py={{ base: 'sectionMobile', md: 'section' }} bg={isEven ? 'white' : 'brand.ivory'}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+      <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
           <Flex
             direction={{ base: 'column', lg: isEven ? 'row' : 'row-reverse' }}
-            gap={{ base: 10, lg: 16 }}
-            maxW="1100px"
-            mx="auto"
+            gap={{ base: 10, lg: 14 }}
             alignItems={{ base: 'stretch', lg: 'center' }}
           >
-            <Box w={{ base: '100%', lg: '400px' }} flexShrink={0}>
-              <Box
-                position="relative"
-                pb="130%"
-                borderRadius="image"
-                overflow="hidden"
-                bg="brand.mist"
-              >
-                <Image
-                  src={physician.photo}
-                  alt={physician.name}
-                  objectFit="cover"
-                  objectPosition="top"
-                  position="absolute"
-                  top={0}
-                  left={0}
-                  w="100%"
-                  h="100%"
-                />
-                <Box
-                  position="absolute"
-                  top={0}
-                  left={0}
-                  right={0}
-                  bottom={0}
-                  bg="rgba(27,58,52,0.04)"
-                />
+            <Box w={{ base: '100%', lg: '380px' }} flexShrink={0}>
+              <Box position="relative" pb="130%" borderRadius="image" overflow="hidden" bg="brand.mist">
+                <Image src={physician.photo} alt={physician.name} objectFit="cover" objectPosition="top" position="absolute" top={0} left={0} w="100%" h="100%" />
               </Box>
             </Box>
             <VStack align="flex-start" spacing={5} flex={1} py={{ base: 0, lg: 4 }}>

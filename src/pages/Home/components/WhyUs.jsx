@@ -20,21 +20,30 @@ function WhyUs() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={ref}>
+    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }} textAlign="center" mb={{ base: 10, md: 14 }}>
+        <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 14 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>The difference</Text>
-          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1}>Why our members stay</Text>
+          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>Why our members stay</Text>
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">Once you experience healthcare without the waiting, the rushing and the runaround, it's hard to go back.</Text>
         </MotionBox>
 
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 8, md: 12 }} maxW="900px" mx="auto">
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={5} maxW={{ base: '100%', lg: '60%' }} mx="auto">
           {REASONS.map(function (reason, i) {
             return (
-              <MotionBox key={reason.title} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}>
-                <Box borderTop="2px solid" borderColor="brand.champagne" pt={5}>
-                  <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="brand.slate" mb={3}>{reason.title}</Text>
-                  <Text fontSize="md" color="brand.body" lineHeight={1.85}>{reason.description}</Text>
-                </Box>
+              <MotionBox
+                key={reason.title}
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
+                bg="brand.ivory"
+                borderRadius="card"
+                py={{ base: 8, md: 10 }}
+                px={{ base: 7, md: 10 }}
+              >
+                <Box w="32px" h="3px" bg="brand.champagne" mb={6} />
+                <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={4}>{reason.title}</Text>
+                <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.85}>{reason.description}</Text>
               </MotionBox>
             );
           })}

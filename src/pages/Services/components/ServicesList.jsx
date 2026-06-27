@@ -24,87 +24,31 @@ function ServiceSpread({ title, description, image, index }) {
   var isEven = index % 2 === 0;
 
   return (
-    <Box ref={ref}>
+    <Box ref={ref} w="100%" overflow="hidden">
       <Box display={{ base: 'block', lg: 'none' }}>
-        <MotionBox
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
-          position="relative"
-          overflow="hidden"
-          role="group"
-        >
-          <Box position="relative" pb="75%">
-            <Image
-              src={image}
-              alt={title}
-              objectFit="cover"
-              objectPosition="center"
-              position="absolute"
-              top={0}
-              left={0}
-              w="100%"
-              h="100%"
-              fallback={
-                <Box w="100%" h="100%" bg="brand.mist" display="flex" alignItems="center" justifyContent="center">
-                  <Text fontSize="sm" color="brand.warmGrayLight">{image.split('/').pop()}</Text>
-                </Box>
-              }
-            />
-            <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="rgba(27,58,52,0.06)" />
+        <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" overflow="hidden">
+          <Box position="relative" pb="100%">
+            <Image src={image} alt={title} objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">{image.split('/').pop()}</Text></Box>} />
           </Box>
         </MotionBox>
-        <Box py={12} px={6} bg={isEven ? 'white' : 'brand.ivory'}>
+        <Box py={12} px={6} bg="white">
           <MotionBox initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.15 }}>
-            <Text fontFamily="heading" fontSize="2xl" fontWeight={700} color="brand.slate" lineHeight={1.12} mb={5}>{title}</Text>
+            <Text fontFamily="heading" fontSize="2xl" fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>{title}</Text>
             <Text fontSize="md" color="brand.body" lineHeight={1.9}>{description}</Text>
           </MotionBox>
         </Box>
       </Box>
 
-      <Flex display={{ base: 'none', lg: 'flex' }} direction={isEven ? 'row' : 'row-reverse'}>
-        <Box w="50%" position="relative" overflow="hidden" role="group">
-          <MotionBox
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6 }}
-            position="relative"
-            pb="75%"
-          >
-            <Image
-              src={image}
-              alt={title}
-              objectFit="cover"
-              objectPosition="center"
-              position="absolute"
-              top={0}
-              left={0}
-              w="100%"
-              h="100%"
-              transition="transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-              _groupHover={{ transform: 'scale(1.04)' }}
-              fallback={
-                <Box w="100%" h="100%" bg="brand.mist" display="flex" alignItems="center" justifyContent="center">
-                  <Text fontSize="sm" color="brand.warmGrayLight">{image.split('/').pop()}</Text>
-                </Box>
-              }
-            />
-            <Box
-              position="absolute"
-              top={0}
-              left={0}
-              right={0}
-              bottom={0}
-              bg="rgba(27,58,52,0.06)"
-              transition="background 0.4s ease"
-              _groupHover={{ bg: 'rgba(27,58,52,0.12)' }}
-            />
+      <Flex display={{ base: 'none', lg: 'flex' }} direction={isEven ? 'row' : 'row-reverse'} w="100%" overflow="hidden">
+        <Box w="50%" overflow="hidden">
+          <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" pb="75%">
+            <Image src={image} alt={title} objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" transition="transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)" _hover={{ transform: 'scale(1.03)' }} fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">{image.split('/').pop()}</Text></Box>} />
           </MotionBox>
         </Box>
         <Flex w="50%" bg={isEven ? 'white' : 'brand.ivory'} alignItems="center" px={{ lg: 14, xl: 20 }}>
           <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 }} maxW="480px">
             <Text fontFamily="heading" fontSize={{ lg: '3xl', xl: '4xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={6}>{title}</Text>
-            <Text fontSize="lg" color="brand.body" lineHeight={1.9}>{description}</Text>
+            <Text fontSize={{ lg: 'md', xl: 'lg' }} color="brand.body" lineHeight={1.9}>{description}</Text>
           </MotionBox>
         </Flex>
       </Flex>
@@ -114,7 +58,7 @@ function ServiceSpread({ title, description, image, index }) {
 
 function ServicesList() {
   return (
-    <Box>
+    <Box w="100%" overflow="hidden">
       {SERVICES.map(function (svc, i) {
         return <ServiceSpread key={svc.title} {...svc} index={i} />;
       })}
