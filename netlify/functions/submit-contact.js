@@ -9,89 +9,116 @@ exports.handler = async (event) => {
   try {
     const data = JSON.parse(event.body);
 
-    // ── Spam prevention ───────────────────────────────────────
     if (data.website && data.website.trim() !== '') {
-      console.log('Spam rejected: honeypot filled');
       return { statusCode: 200, body: JSON.stringify({ success: true }) };
     }
     if (data.formLoadedAt) {
       const elapsed = Date.now() - parseInt(data.formLoadedAt);
       if (elapsed < 2000) {
-        console.log('Spam rejected: submitted in ' + elapsed + 'ms');
         return { statusCode: 200, body: JSON.stringify({ success: true }) };
       }
     }
 
-    const { error: dbError } = await supabase.from('contacts').insert({
-      first_name: data.firstName,
-      last_name: data.lastName,
-      email: data.email,
-      phone: data.phone || null,
-      location: data.location || null,
-      interest: data.interest || null,
-      message: data.message || null
+    // Legacy contacts table
+    await supabase.from('contacts').insert({
+      first_name: data.firstName, last_name: data.lastName, email: data.email,
+      phone: data.phone || null, location: data.location || null,
+      interest: data.interest || null, message: data.message || null
     });
 
-    if (dbError) { console.error('DB error:', dbError); return { statusCode: 500, body: JSON.stringify({ error: 'DB error' }) }; }
+    // New leads table
+    const { data: lead, error: leadError } = await supabase.from('leads').insert({
+      first_name: data.firstName, last_name: data.lastName, email: data.email,
+      phone: data.phone || null, location: data.location || null,
+      interest: data.interest || null, message: data.message || null,
+      source: 'contact', status: 'new'
+    }).select().single();
 
-    var interest = data.interest || 'General Inquiry';
+    if (leadError) console.error('Lead insert error:', leadError);
+
+    // Form submission snapshot
+    await supabase.from('form_submissions').insert({
+      form_type: 'contact',
+      raw_payload: data,
+      lead_id: lead ? lead.id : null,
+      ip_address: event.headers['x-forwarded-for'] || event.headers['client-ip'] || null,
+      user_agent: event.headers['user-agent'] || null
+    });
+
+    // Activity log
+    await supabase.from('activity_log').insert({
+      action: 'lead_created', entity_type: 'lead', entity_id: lead ? lead.id : null,
+      details: { source: 'contact', name: data.firstName + ' ' + data.lastName, email: data.email }
+    });
+
     var loc = { tampa: 'Tampa', 'st-pete': 'St. Petersburg', 'boca-raton': 'Boca Raton' }[data.location] || data.location || 'Not specified';
+    var interest = data.interest || 'General Inquiry';
     var d = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     var t = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     var phoneRaw = (data.phone || '').replace(/\D/g, '');
-    var phoneLink = phoneRaw ? '<a href="tel:' + phoneRaw + '" style="color:#b89b5d;text-decoration:none;">' + data.phone + '</a>' : 'Not provided';
-    var emailLink = '<a href="mailto:' + data.email + '" style="color:#b89b5d;text-decoration:none;">' + data.email + '</a>';
+    var phoneLink = phoneRaw ? '<a href="tel:' + phoneRaw + '" style="color:#C4A265;text-decoration:none;">' + data.phone + '</a>' : 'Not provided';
+    var emailLink = '<a href="mailto:' + data.email + '" style="color:#C4A265;text-decoration:none;">' + data.email + '</a>';
 
-    var html = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>'
-      + 'body{margin:0;padding:0;background:#faf8f5;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%;}'
-      + '.wrap{max-width:600px;margin:0 auto;padding:24px 16px;}'
-      + '.card{background:#fff;margin-bottom:2px;}'
-      + '.header{background:#2a3f3b;padding:28px 24px;text-align:center;}'
-      + '.header h1{color:#fff;font-size:18px;margin:0;font-weight:400;letter-spacing:2px;}'
-      + '.header p{color:#b89b5d;font-size:11px;margin:8px 0 0;letter-spacing:2.5px;text-transform:uppercase;}'
-      + '.hero{padding:24px;border-left:4px solid #b89b5d;}'
-      + '.hero h2{color:#2a3f3b;font-size:22px;margin:0 0 6px;font-weight:500;line-height:1.3;}'
-      + '.hero p{color:#6b6560;font-size:14px;margin:0 0 14px;line-height:1.5;}'
-      + '.chip{display:inline-block;background:#2a3f3b;color:#fff;padding:8px 16px;font-size:13px;font-weight:500;border-radius:4px;}'
-      + '.section{padding:20px 24px;}'
-      + '.section h3{color:#2a3f3b;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;margin:0 0 12px;border-bottom:1px solid #e8e4de;padding-bottom:10px;font-weight:600;}'
-      + '.row{display:table;width:100%;border-bottom:1px solid #f0ece5;}'
-      + '.row:last-child{border-bottom:none;}'
-      + '.row .k{display:table-cell;padding:10px 0;color:#6b6560;font-size:13px;width:35%;}'
-      + '.row .v{display:table-cell;padding:10px 0;color:#2a3f3b;font-weight:500;font-size:13px;word-break:break-word;}'
-      + '.msg{padding:18px;background:#faf8f5;border-left:3px solid #b89b5d;color:#2a3f3b;font-size:14px;line-height:1.7;margin-top:4px;}'
-      + '.foot{text-align:center;padding:20px;color:#a09890;font-size:11px;}'
-      + '@media (max-width:480px){'
-      + '.wrap{padding:12px 0;}'
-      + '.hero{padding:20px 18px;}'
-      + '.hero h2{font-size:20px;}'
-      + '.section{padding:18px;}'
-      + '.row .k{width:40%;font-size:12px;}'
-      + '.row .v{font-size:12px;}'
-      + '}'
-      + '</style></head><body>'
-      + '<div class="wrap">'
-      + '<div class="card header"><h1>ANSWERSMD</h1><p>New Contact Inquiry</p></div>'
-      + '<div class="card hero"><h2>' + data.firstName + ' ' + data.lastName + '</h2>'
-      + '<p>' + emailLink + (data.phone ? ' &middot; ' + phoneLink : '') + '</p>'
-      + '<span class="chip">' + loc + ' &middot; ' + interest + '</span></div>'
-      + '<div class="card section"><h3>Details</h3>'
-      + '<div class="row"><div class="k">Name</div><div class="v">' + data.firstName + ' ' + data.lastName + '</div></div>'
-      + '<div class="row"><div class="k">Email</div><div class="v">' + emailLink + '</div></div>'
-      + '<div class="row"><div class="k">Phone</div><div class="v">' + phoneLink + '</div></div>'
-      + '<div class="row"><div class="k">Location</div><div class="v">' + loc + '</div></div>'
-      + '<div class="row"><div class="k">Interest</div><div class="v">' + interest + '</div></div>'
-      + '</div>'
-      + (data.message ? '<div class="card section"><h3>Message</h3><div class="msg">' + data.message.replace(/\n/g, '<br>') + '</div></div>' : '')
-      + '<div class="foot">AnswersMD Contact Form &middot; ' + d + ' at ' + t + '</div>'
-      + '</div></body></html>';
+    // Admin notification email
+    var adminHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+      + '<body style="margin:0;padding:0;background:#FAFAF7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">'
+      + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF7;padding:32px 16px;"><tr><td align="center">'
+      + '<table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;">'
+      + '<tr><td align="center" style="padding-bottom:24px;"><img src="https://answersmd01.netlify.app/logo-dark.png" alt="AnswersMD" height="32" style="height:32px;" /></td></tr>'
+      + '<tr><td style="background:#FFFFFF;border-radius:18px;border:1px solid #E8E2D8;overflow:hidden;">'
+      + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
+      + '<tr><td style="padding:32px 32px 24px;border-bottom:1px solid #E8E2D8;">'
+      + '<p style="margin:0 0 4px;font-size:12px;color:#C4A265;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">New Contact Inquiry</p>'
+      + '<h1 style="margin:0 0 8px;font-family:Georgia,serif;font-size:24px;font-weight:700;color:#2D2D2D;">' + data.firstName + ' ' + data.lastName + '</h1>'
+      + '<p style="margin:0;font-size:15px;color:#6B6560;">' + emailLink + (data.phone ? ' &middot; ' + phoneLink : '') + '</p>'
+      + '</td></tr>'
+      + '<tr><td style="padding:24px 32px;">'
+      + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0">'
+      + '<tr><td style="padding:10px 0;border-bottom:1px solid #F0EDE8;color:#6B6560;font-size:13px;width:35%;">Location</td><td style="padding:10px 0;border-bottom:1px solid #F0EDE8;color:#2D2D2D;font-weight:500;font-size:14px;">' + loc + '</td></tr>'
+      + '<tr><td style="padding:10px 0;border-bottom:1px solid #F0EDE8;color:#6B6560;font-size:13px;">Interest</td><td style="padding:10px 0;border-bottom:1px solid #F0EDE8;color:#2D2D2D;font-weight:500;font-size:14px;">' + interest + '</td></tr>'
+      + '<tr><td style="padding:10px 0;color:#6B6560;font-size:13px;">Submitted</td><td style="padding:10px 0;color:#2D2D2D;font-weight:500;font-size:14px;">' + d + ' at ' + t + '</td></tr>'
+      + '</table>'
+      + '</td></tr>'
+      + (data.message ? '<tr><td style="padding:0 32px 24px;"><div style="background:#FAFAF7;border-radius:8px;padding:16px 20px;border-left:3px solid #C4A265;"><p style="margin:0;font-size:14px;color:#2D2D2D;line-height:1.7;">' + data.message.replace(/\n/g, '<br>') + '</p></div></td></tr>' : '')
+      + '<tr><td style="padding:16px 32px 24px;"><a href="https://answersmd01.netlify.app/answersmd-admin/leads/" style="display:inline-block;background:#1B3A34;color:#FFFFFF;font-size:14px;font-weight:500;text-decoration:none;padding:12px 28px;border-radius:8px;">View in Pulse</a></td></tr>'
+      + '</table></td></tr>'
+      + '<tr><td align="center" style="padding-top:24px;"><p style="margin:0;font-size:11px;color:#9A9590;">AnswersMD Pulse &middot; ' + d + '</p></td></tr>'
+      + '</table></td></tr></table></body></html>';
 
     await resend.emails.send({
       from: 'AnswersMD <requests@answersmd.com>',
       to: ['info@answersmd.com'],
       bcc: ['admin@answersmd.com', 'blipscomb@gmail.com', 'bryan.lipscomb@answersmd.com', 'doug.shapiro@answersmd.com'],
-      subject: '⚕ New Inquiry · ' + data.firstName + ' ' + data.lastName + ' · ' + loc,
-      html: html
+      subject: 'New Inquiry from ' + data.firstName + ' ' + data.lastName + ' in ' + loc,
+      html: adminHtml
+    });
+
+    // Client confirmation email
+    var clientHtml = '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>'
+      + '<body style="margin:0;padding:0;background:#FAFAF7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">'
+      + '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF7;padding:48px 16px;"><tr><td align="center">'
+      + '<table role="presentation" width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">'
+      + '<tr><td align="center" style="padding-bottom:32px;"><img src="https://answersmd01.netlify.app/logo-dark.png" alt="AnswersMD" height="36" style="height:36px;" /></td></tr>'
+      + '<tr><td style="background:#FFFFFF;border-radius:18px;border:1px solid #E8E2D8;padding:48px 40px;">'
+      + '<h1 style="margin:0 0 8px;font-family:Georgia,serif;font-size:24px;font-weight:700;color:#2D2D2D;text-align:center;">Thank you, ' + data.firstName + '</h1>'
+      + '<p style="margin:0 0 32px;font-size:16px;color:#6B6560;text-align:center;line-height:1.6;">We received your inquiry and a member of our team will be in touch shortly.</p>'
+      + '<div style="background:#FAFAF7;border-radius:12px;padding:24px;margin-bottom:32px;">'
+      + '<p style="margin:0 0 12px;font-size:13px;color:#C4A265;font-weight:600;letter-spacing:1px;text-transform:uppercase;">What happens next</p>'
+      + '<p style="margin:0 0 8px;font-size:15px;color:#2D2D2D;line-height:1.6;">A team member will reach out within one business day to schedule your complimentary consultation.</p>'
+      + '<p style="margin:0;font-size:15px;color:#2D2D2D;line-height:1.6;">In the meantime, feel free to call us directly at <a href="tel:8137273233" style="color:#C4A265;text-decoration:none;font-weight:500;">813-727-3233</a>.</p>'
+      + '</div>'
+      + '<p style="margin:0;font-size:14px;color:#9A9590;text-align:center;line-height:1.6;">We look forward to meeting you.</p>'
+      + '</td></tr>'
+      + '<tr><td align="center" style="padding-top:32px;">'
+      + '<p style="margin:0 0 4px;font-size:12px;color:#9A9590;">AnswersMD</p>'
+      + '<p style="margin:0;font-size:12px;color:#9A9590;">813-727-3233 &middot; info@answersmd.com</p>'
+      + '</td></tr></table></td></tr></table></body></html>';
+
+    await resend.emails.send({
+      from: 'AnswersMD <noreply@answersmd.com>',
+      to: [data.email],
+      subject: 'Thank you for contacting AnswersMD',
+      html: clientHtml
     });
 
     return { statusCode: 200, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ success: true }) };
