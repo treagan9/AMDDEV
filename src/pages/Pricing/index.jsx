@@ -9,7 +9,7 @@ function Pricing() {
   return (
     <>
       <Helmet>
-        <title>Membership & Pricing | AnswersMD&trade;</title>
+        <title>Membership and Pricing | AnswersMD&trade;</title>
         <meta name="description" content="AnswersMD concierge medicine membership pricing. Transparent pricing based on age with family options available." />
       </Helmet>
       <Hero />
