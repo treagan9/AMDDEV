@@ -37,9 +37,30 @@ function Hero() {
         </picture>
       </Box>
 
-      <Box position="absolute" top={0} left={0} right={0} h="180px" bg="linear-gradient(to bottom, rgba(250,250,247,0.85) 0%, rgba(250,250,247,0.4) 60%, transparent 100%)" zIndex={1} />
-      <Box position="absolute" top={0} left={0} right={0} bottom={0} bg={{ base: 'rgba(250,250,247,0.6)', md: 'rgba(250,250,247,0.45)' }} zIndex={1} />
-      <Box position="absolute" bottom={0} left={0} right={0} h="200px" bg="linear-gradient(to top, rgba(250,250,247,0.9) 0%, transparent 100%)" zIndex={1} />
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg={{
+          base: 'linear-gradient(to bottom, rgba(250,250,247,0.85) 0%, rgba(250,250,247,0.5) 40%, rgba(250,250,247,0.6) 72%, rgba(250,250,247,0.9) 100%)',
+          md: 'linear-gradient(to bottom, rgba(250,250,247,0.78) 0%, rgba(250,250,247,0.34) 42%, rgba(250,250,247,0.5) 78%, rgba(250,250,247,0.88) 100%)'
+        }}
+        zIndex={1}
+      />
+
+      <Box
+        position="absolute"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="radial-gradient(ellipse 60% 48% at 50% 46%, rgba(250,250,247,0.66) 0%, rgba(250,250,247,0.32) 50%, transparent 75%)"
+        zIndex={1}
+        pointerEvents="none"
+        sx={{ filter: 'blur(8px)' }}
+      />
 
       <Box maxW="960px" mx="auto" px={{ base: 6, md: 4 }} textAlign="center" position="relative" zIndex={2}>
         <VStack spacing={7}>

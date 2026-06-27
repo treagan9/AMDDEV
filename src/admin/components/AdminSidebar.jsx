@@ -16,7 +16,7 @@ var NAV_ITEMS = [
   { label: 'Leads', path: '/answersmd-admin/leads/', icon: HiOutlineClipboardList },
   { label: 'Members', path: '/answersmd-admin/members/', icon: HiOutlineUsers },
   { label: 'Intake', path: '/answersmd-admin/intake/', icon: HiOutlineUserGroup },
-  { label: 'Images', path: '/answersmd-admin/images/', icon: HiOutlinePhotograph },
+  { label: 'Design', path: '/answersmd-admin/images/', icon: HiOutlinePhotograph },
   { label: 'Settings', path: '/answersmd-admin/settings/', icon: HiOutlineCog }
 ];
 
@@ -46,7 +46,19 @@ function AdminSidebar() {
 
       <Box px={3} py={4} borderTop="1px solid" borderColor="#E8E2D8">
         {teamMember && (
-          <Text fontSize="sm" fontWeight={500} color="#2D2D2D" px={4} mb={3}>{teamMember.first_name} {teamMember.last_name}</Text>
+          <Flex align="center" gap={3} px={4} mb={3}>
+            <Flex w="32px" h="32px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" flexShrink={0}>
+              {teamMember.avatar_url ? (
+                <Image src={teamMember.avatar_url} alt={teamMember.first_name} objectFit="cover" w="100%" h="100%" />
+              ) : (
+                <Text fontSize="xs" fontWeight={600} color="#9A9590">{teamMember.first_name[0]}{teamMember.last_name[0]}</Text>
+              )}
+            </Flex>
+            <Box>
+              <Text fontSize="sm" fontWeight={500} color="#2D2D2D">{teamMember.first_name} {teamMember.last_name}</Text>
+              <Text fontSize="xs" color="#9A9590">@{teamMember.username}</Text>
+            </Box>
+          </Flex>
         )}
         <ChakraLink onClick={signOut} display="flex" alignItems="center" gap={3} px={4} py={3} borderRadius="8px" color="#6B6560" fontSize="md" cursor="pointer" _hover={{ bg: '#F0EDE8', color: '#2D2D2D' }} transition="all 0.15s ease">
           <HiOutlineLogout size={20} />

@@ -6,6 +6,7 @@ import AdminLayout from './components/AdminLayout';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import RequestAccount from './pages/RequestAccount';
 import Dashboard from './pages/Dashboard';
 import Leads from './pages/Leads';
 import LeadDetail from './pages/LeadDetail';
@@ -22,6 +23,7 @@ function AdminApp() {
         <Route path="/" element={<Login />} />
         <Route path="/forgot-password/" element={<ForgotPassword />} />
         <Route path="/reset-password/" element={<ResetPassword />} />
+        <Route path="/request-account/" element={<RequestAccount />} />
         <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route path="/dashboard/" element={<Dashboard />} />
           <Route path="/leads/" element={<Leads />} />

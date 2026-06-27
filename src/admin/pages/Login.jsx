@@ -64,8 +64,9 @@ function Login() {
               <Button type="submit" bg="#1B3A34" color="white" borderRadius="8px" size="lg" fontSize="md" w="100%" h="54px" _hover={{ bg: '#234840' }} isLoading={submitting} loadingText="Signing in...">Sign in</Button>
             </VStack>
           </form>
-          <Flex justify="center" mt={6}>
+          <Flex justify="space-between" mt={6}>
             <ChakraLink as={Link} to="/answersmd-admin/forgot-password/" fontSize="md" color="#6B6560" _hover={{ color: '#C4A265' }} transition="color 0.2s ease">Forgot password?</ChakraLink>
+            <ChakraLink as={Link} to="/answersmd-admin/request-account/" fontSize="md" color="#6B6560" _hover={{ color: '#C4A265' }} transition="color 0.2s ease">Request access</ChakraLink>
           </Flex>
         </Box>
         <Text fontSize="sm" color="#9A9590" textAlign="center" mt={8}>AnswersMD Pulse</Text>
