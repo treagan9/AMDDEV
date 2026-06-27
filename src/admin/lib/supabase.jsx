@@ -1,4 +1,4 @@
-// src/admin/lib/supabase.js
+// src/admin/lib/supabase.jsx
 import { createClient } from '@supabase/supabase-js';
 
 var supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';

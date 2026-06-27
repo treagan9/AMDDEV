@@ -8,7 +8,7 @@ import {
   Text,
   Badge
 } from '@chakra-ui/react';
-import supabase from '../lib/supabase';
+import supabase from '../lib/supabase.jsx';
 
 function StatCard({ label, value, subtitle }) {
   return (

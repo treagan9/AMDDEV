@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Flex, Text, Badge, Input, Button } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
-import supabase from '../lib/supabase';
+import supabase from '../lib/supabase.jsx';
 
 function Leads() {
   var [leads, setLeads] = useState([]);

@@ -33,6 +33,14 @@ var LOCATIONS = [
   { city: 'Boca Raton', phone: '561-933-3333', tel: '5619333333', fax: '844-670-8963' }
 ];
 
+function PulseIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>
+  );
+}
+
 function Footer() {
   return (
     <Box as="footer">
@@ -89,6 +97,10 @@ function Footer() {
               <HStack spacing={6}>
                 <ChakraLink as={Link} to="/privacy/" fontSize="xs" color="whiteAlpha.300" _hover={{ color: 'whiteAlpha.600' }} transition="color 0.2s ease">Privacy</ChakraLink>
                 <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.300" _hover={{ color: 'whiteAlpha.600' }} transition="color 0.2s ease">Terms of Service</ChakraLink>
+                <ChakraLink as={Link} to="/answersmd-admin/" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.200" _hover={{ color: 'whiteAlpha.500' }} transition="color 0.2s ease">
+                  <PulseIcon />
+                  Pulse
+                </ChakraLink>
               </HStack>
             </Flex>
           </Box>
@@ -143,6 +155,10 @@ function Footer() {
           <HStack spacing={6}>
             <ChakraLink as={Link} to="/privacy/" fontSize="xs" color="whiteAlpha.300" _hover={{ color: 'whiteAlpha.600' }} transition="color 0.2s ease">Privacy</ChakraLink>
             <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.300" _hover={{ color: 'whiteAlpha.600' }} transition="color 0.2s ease">Terms of Service</ChakraLink>
+            <ChakraLink as={Link} to="/answersmd-admin/" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.200" _hover={{ color: 'whiteAlpha.500' }} transition="color 0.2s ease">
+              <PulseIcon />
+              Pulse
+            </ChakraLink>
           </HStack>
         </Flex>
       </Box>

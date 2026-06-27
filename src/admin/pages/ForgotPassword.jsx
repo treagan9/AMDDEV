@@ -12,7 +12,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import useAuth from '../lib/useAuth';
+import useAuth from '../lib/useAuth.jsx';
 
 var inputStyles = {
   bg: 'white',

@@ -8,7 +8,7 @@ import {
   Link as ChakraLink
 } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
-import useAuth from '../lib/useAuth';
+import useAuth from '../lib/useAuth.jsx';
 import { HiOutlineHome, HiOutlineUsers, HiOutlineUserGroup, HiOutlineClipboardList, HiOutlinePhotograph, HiOutlineCog, HiOutlineLogout } from 'react-icons/hi';
 
 var NAV_ITEMS = [

@@ -1,6 +1,6 @@
 // src/admin/AdminApp.jsx
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './lib/useAuth';
+import { AuthProvider } from './lib/useAuth.jsx';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminLayout from './components/AdminLayout';
 import Login from './pages/Login';

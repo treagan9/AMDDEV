@@ -1,6 +1,6 @@
 // src/admin/components/ProtectedRoute.jsx
 import { Navigate } from 'react-router-dom';
-import useAuth from '../lib/useAuth';
+import useAuth from '../lib/useAuth.jsx';
 import { Box, Flex, Text } from '@chakra-ui/react';
 
 function ProtectedRoute({ children }) {

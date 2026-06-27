@@ -1,6 +1,6 @@
-// src/admin/lib/useAuth.js
+// src/admin/lib/useAuth.jsx
 import { useState, useEffect, createContext, useContext } from 'react';
-import supabase from './supabase';
+import supabase from './supabase.jsx';
 
 var AuthContext = createContext(null);
 
