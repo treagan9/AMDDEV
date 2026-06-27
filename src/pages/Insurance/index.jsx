@@ -8,7 +8,7 @@ function Insurance() {
   return (
     <>
       <Helmet>
-        <title>Insurance & Billing | AnswersMD&trade;</title>
+        <title>Insurance and Billing | AnswersMD&trade;</title>
         <meta name="description" content="Understanding how concierge medicine works with your health insurance. Learn what your AnswersMD membership covers." />
       </Helmet>
       <Hero />
