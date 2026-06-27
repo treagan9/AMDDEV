@@ -11,7 +11,7 @@ function Executive() {
   return (
     <>
       <Helmet>
-        <title>Executive & Corporate Health | AnswersMD&trade;</title>
+        <title>Executive and Corporate Health | AnswersMD&trade;</title>
         <meta name="description" content="Executive health programs and corporate concierge medicine. 24/7 physician access for C-suite and key employees." />
       </Helmet>
       <Hero />
