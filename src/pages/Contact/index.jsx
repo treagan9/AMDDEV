@@ -8,7 +8,6 @@ import {
   SimpleGrid,
   Text,
   Input,
-  Select,
   Textarea,
   Button,
   FormControl,
@@ -72,38 +71,53 @@ function Contact() {
     setSubmitting(false);
   }
 
-  var fieldStyles = {
-    bg: 'transparent',
-    border: 'none',
-    borderBottom: '1.5px solid',
-    borderColor: 'brand.borderLight',
-    borderRadius: '0',
+  var inputProps = {
+    bg: 'white',
+    border: '1px solid',
+    borderColor: '#D5D0C8',
+    borderRadius: 'btn',
     fontSize: 'md',
     color: 'brand.slate',
-    height: '52px',
-    px: 0,
-    _placeholder: { color: 'brand.warmGrayLight', fontWeight: 300 },
+    h: '54px',
+    px: 4,
+    _placeholder: { color: '#9B9488' },
     _hover: { borderColor: 'brand.champagne' },
-    _focus: { borderColor: 'brand.champagne', boxShadow: 'none' }
+    _focus: { borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }
   };
 
-  var selectStyles = {
-    bg: 'transparent',
-    border: 'none',
-    borderBottom: '1.5px solid',
-    borderColor: 'brand.borderLight',
-    borderRadius: '0',
-    fontSize: 'md',
-    color: 'brand.slate',
-    height: '52px',
-    px: 0,
-    _hover: { borderColor: 'brand.champagne' },
-    _focus: { borderColor: 'brand.champagne', boxShadow: 'none' },
-    sx: {
-      '> option': { color: 'brand.slate', bg: 'white' },
-      '&[value=""]': { color: 'brand.warmGrayLight', fontWeight: 300 }
-    }
-  };
+  function CustomSelect({ name, value, onChange, placeholder, children }) {
+    return (
+      <Box position="relative">
+        <select
+          name={name}
+          value={value}
+          onChange={onChange}
+          style={{
+            width: '100%',
+            height: '54px',
+            padding: '0 40px 0 16px',
+            fontSize: '1.0625rem',
+            color: value ? '#2D2D2D' : '#9B9488',
+            backgroundColor: 'white',
+            border: '1px solid #D5D0C8',
+            borderRadius: '8px',
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            outline: 'none',
+            cursor: 'pointer'
+          }}
+          onFocus={function (e) { e.target.style.borderColor = '#C4A265'; e.target.style.boxShadow = '0 0 0 1px #C4A265'; }}
+          onBlur={function (e) { e.target.style.borderColor = '#D5D0C8'; e.target.style.boxShadow = 'none'; }}
+        >
+          <option value="" disabled>{placeholder}</option>
+          {children}
+        </select>
+        <Box position="absolute" right="16px" top="50%" transform="translateY(-50%)" pointerEvents="none" color="#9B9488">
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </Box>
+      </Box>
+    );
+  }
 
   return (
     <>
@@ -130,10 +144,11 @@ function Contact() {
       <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.mist" ref={ref}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-            <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 16, lg: 0 }} maxW="1200px" mx="auto">
-              <Box flex={1} pr={{ base: 0, lg: 20 }} borderRight={{ base: 'none', lg: '1px solid' }} borderColor="brand.borderLight">
-                <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" mb={4}>Let's start a conversation</Text>
-                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={14}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={0} maxW="1200px" mx="auto">
+              <Box pr={{ base: 0, lg: 16 }} pb={{ base: 16, lg: 0 }} borderRight={{ base: 'none', lg: '1px solid' }} borderBottom={{ base: '1px solid', lg: 'none' }} borderColor="brand.borderLight">
+                <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Reach out directly</Text>
+                <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>Let's start a conversation</Text>
+                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={12}>
                   Whether you're ready to become a member or simply want to learn more, we're here to help.
                 </Text>
                 <VStack align="flex-start" spacing={10}>
@@ -168,60 +183,61 @@ function Contact() {
                   </SimpleGrid>
                 </VStack>
               </Box>
-              <Box flex={1.1} pl={{ base: 0, lg: 20 }}>
-                <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Schedule a consultation</Text>
-                <Text fontSize="md" color="brand.bodyLight" mb={12}>No commitment, no pressure</Text>
+              <Box pl={{ base: 0, lg: 16 }} pt={{ base: 16, lg: 0 }}>
+                <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Schedule online</Text>
+                <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>Request a consultation</Text>
+                <Text fontSize="md" color="brand.body" lineHeight={1.85} mb={12}>No commitment, no pressure. Fill out the form below and we'll be in touch shortly.</Text>
                 <form onSubmit={handleSubmit}>
-                  <VStack spacing={8} align="stretch">
-                    <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={{ base: 8, sm: 6 }}>
+                  <VStack spacing={6} align="stretch">
+                    <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4}>
                       <FormControl isRequired>
-                        <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>First name</FormLabel>
-                        <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="John" {...fieldStyles} />
+                        <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>First name</FormLabel>
+                        <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="Jane" {...inputProps} />
                       </FormControl>
                       <FormControl isRequired>
-                        <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Last name</FormLabel>
-                        <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Doe" {...fieldStyles} />
+                        <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Last name</FormLabel>
+                        <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Smith" {...inputProps} />
                       </FormControl>
                     </SimpleGrid>
                     <FormControl isRequired>
-                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Email address</FormLabel>
-                      <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="john@example.com" {...fieldStyles} />
+                      <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Email address</FormLabel>
+                      <Input name="email" type="email" value={form.email} onChange={handleChange} placeholder="jane@example.com" {...inputProps} />
                     </FormControl>
                     <FormControl isRequired>
-                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Phone number</FormLabel>
-                      <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...fieldStyles} />
+                      <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Phone number</FormLabel>
+                      <Input name="phone" type="tel" value={form.phone} onChange={handleChange} placeholder="(555) 123-4567" maxLength={16} {...inputProps} />
                     </FormControl>
                     <FormControl isRequired>
-                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Preferred location</FormLabel>
-                      <Select name="location" value={form.location} onChange={handleChange} placeholder="Select a location" {...selectStyles}>
+                      <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Preferred location</FormLabel>
+                      <CustomSelect name="location" value={form.location} onChange={handleChange} placeholder="Select a location">
                         <option value="tampa">Tampa</option>
                         <option value="st-pete">St. Petersburg</option>
                         <option value="boca-raton">Boca Raton</option>
-                      </Select>
+                      </CustomSelect>
                     </FormControl>
                     <FormControl>
-                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>I'm interested in</FormLabel>
-                      <Select name="interest" value={form.interest} onChange={handleChange} placeholder="Select an option" {...selectStyles}>
+                      <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>I'm interested in</FormLabel>
+                      <CustomSelect name="interest" value={form.interest} onChange={handleChange} placeholder="Select an option">
                         <option value="individual">Individual Membership</option>
                         <option value="family">Family Membership</option>
                         <option value="corporate">Corporate Membership</option>
                         <option value="learn">Just Learning More</option>
-                      </Select>
+                      </CustomSelect>
                     </FormControl>
                     <FormControl>
-                      <FormLabel fontSize="xs" fontWeight={600} letterSpacing="1.5px" textTransform="uppercase" color="brand.champagne" mb={3}>Message</FormLabel>
-                      <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your healthcare needs..." rows={3} resize="vertical" bg="transparent" border="none" borderBottom="1.5px solid" borderColor="brand.borderLight" borderRadius="0" fontSize="md" color="brand.slate" px={0} py={3} _placeholder={{ color: 'brand.warmGrayLight', fontWeight: 300 }} _hover={{ borderColor: 'brand.champagne' }} _focus={{ borderColor: 'brand.champagne', boxShadow: 'none' }} />
+                      <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Message</FormLabel>
+                      <Textarea name="message" value={form.message} onChange={handleChange} placeholder="Tell us about your healthcare needs..." rows={4} resize="vertical" bg="white" border="1px solid" borderColor="#D5D0C8" borderRadius="btn" fontSize="md" color="brand.slate" py={4} px={4} _placeholder={{ color: '#9B9488' }} _hover={{ borderColor: 'brand.champagne' }} _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }} />
                     </FormControl>
                     <Box position="absolute" left="-9999px" aria-hidden="true">
                       <Input name="website" value={form.website} onChange={handleChange} tabIndex={-1} autoComplete="off" />
                     </Box>
-                    <Box pt={4}>
-                      <Button type="submit" bg="brand.champagne" color="white" borderRadius="btn" size="lg" fontSize="md" w="100%" _hover={{ bg: 'brand.champagneDark', transform: 'translateY(-1px)', shadow: '0 6px 20px rgba(196,162,101,0.25)' }} _active={{ transform: 'translateY(0)' }} transition="all 0.3s ease" isLoading={submitting} loadingText="Sending...">Submit inquiry</Button>
+                    <Box pt={2}>
+                      <Button type="submit" variant="primary" size="lg" w="100%" isLoading={submitting} loadingText="Sending...">Submit inquiry</Button>
                     </Box>
                   </VStack>
                 </form>
               </Box>
-            </Flex>
+            </SimpleGrid>
           </MotionBox>
         </Box>
       </Box>

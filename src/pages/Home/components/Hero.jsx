@@ -46,33 +46,24 @@ function Hero() {
           <MotionBox initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.15 }}>
             <HStack spacing={3} justify="center">
               <Box w="24px" h="1px" bg="brand.champagne" />
-              <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne">
-                Now accepting members
-              </Text>
+              <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne">Now accepting members</Text>
               <Box w="24px" h="1px" bg="brand.champagne" />
             </HStack>
           </MotionBox>
 
           <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }}>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight={700} color="brand.slate" lineHeight={1.05}>
-              Concierge medicine.
-            </Text>
-            <Text fontFamily="heading" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight={700} color="brand.champagne" lineHeight={1.05}>
-              Simplified.
-            </Text>
+            <Text as="h1" fontFamily="heading" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight={700} color="brand.slate" lineHeight={1.05}>Concierge medicine.</Text>
+            <Text fontFamily="heading" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight={700} color="brand.champagne" lineHeight={1.05}>Simplified.</Text>
           </MotionBox>
 
           <MotionText fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.45 }}>
-            Direct access to your physician whenever you need it.
-            Personalized, accessible and designed around your life.
+            Direct access to your physician whenever you need it. Personalized, accessible and designed around your life.
           </MotionText>
 
           <MotionBox initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.6 }}>
             <VStack spacing={4}>
-              <Button as={Link} to="/contact/" variant="primary" size="lg">
-                Schedule a consultation
-              </Button>
-              <ChakraLink as={Link} to="/services/" fontSize="md" fontWeight={500} color="brand.body" display="flex" alignItems="center" gap={2} _hover={{ color: 'brand.evergreen' }} transition="color 0.2s ease">
+              <Button as={Link} to="/contact/" variant="primary" size="lg">Schedule a consultation</Button>
+              <ChakraLink as={Link} to="/services/" fontSize="md" fontWeight={600} color="brand.slate" display="flex" alignItems="center" gap={2} _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease">
                 Learn how it works
                 <Icon as={HiArrowRight} boxSize={4} />
               </ChakraLink>

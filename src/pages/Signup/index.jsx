@@ -101,7 +101,8 @@ function ProgressDots({ current, total }) {
             w={isActive ? '24px' : '8px'}
             h="8px"
             borderRadius={isActive ? '4px' : 'full'}
-            bg={isCompleted ? 'brand.evergreen' : isActive ? 'brand.champagne' : 'brand.borderLight'}
+            bg={isCompleted ? 'brand.champagne' : isActive ? 'brand.champagne' : '#D5D0C8'}
+            opacity={isCompleted ? 0.5 : 1}
             transition="all 0.3s ease"
           />
         );
@@ -118,20 +119,20 @@ function OptionCard({ label, selected, onClick, multi }) {
       py={5}
       px={6}
       bg={selected ? 'brand.champagneSoft' : 'white'}
-      border="2px solid"
-      borderColor={selected ? 'brand.champagne' : 'brand.borderLight'}
+      border="1px solid"
+      borderColor={selected ? 'brand.champagne' : '#D5D0C8'}
       borderRadius="btn"
       cursor="pointer"
       onClick={onClick}
       transition="all 0.2s ease"
-      _hover={{ borderColor: selected ? 'brand.champagne' : 'brand.bodyLight' }}
+      _hover={{ borderColor: 'brand.champagne' }}
     >
       <Flex
         w="22px"
         h="22px"
         borderRadius={multi ? '6px' : 'full'}
         border="2px solid"
-        borderColor={selected ? 'brand.champagne' : 'brand.borderLight'}
+        borderColor={selected ? 'brand.champagne' : '#D5D0C8'}
         bg={selected && multi ? 'brand.champagne' : 'transparent'}
         align="center"
         justify="center"
@@ -145,6 +146,20 @@ function OptionCard({ label, selected, onClick, multi }) {
     </Flex>
   );
 }
+
+var inputProps = {
+  bg: 'white',
+  border: '1px solid',
+  borderColor: '#D5D0C8',
+  borderRadius: 'btn',
+  fontSize: 'md',
+  color: 'brand.slate',
+  h: '54px',
+  px: 4,
+  _placeholder: { color: '#9B9488' },
+  _hover: { borderColor: 'brand.champagne' },
+  _focus: { borderColor: 'brand.champagne', boxShadow: '0 0 0 1px var(--chakra-colors-brand-champagne)' }
+};
 
 function Signup() {
   var [slide, setSlide] = useState(1);
@@ -223,13 +238,6 @@ function Signup() {
     } catch (err) { /* silent */ }
   }
 
-  var inputStyles = {
-    bg: 'white', border: '2px solid', borderColor: 'brand.borderLight',
-    borderRadius: 'btn', fontSize: 'md', py: 6, px: 5, color: 'brand.slate',
-    _placeholder: { color: 'brand.warmGrayLight' },
-    _focus: { borderColor: 'brand.champagne', boxShadow: 'none' }
-  };
-
   function renderSlide() {
     switch (slide) {
       case 1:
@@ -245,14 +253,26 @@ function Signup() {
         return (
           <VStack spacing={7} textAlign="center">
             <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Let's start with you</Text>
-            <Text fontSize="md" color="brand.bodyLight">We'll use this to personalize your membership details.</Text>
+            <Text fontSize="md" color="brand.body" lineHeight={1.8}>We'll use this to personalize your membership details.</Text>
             <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={4} w="100%" textAlign="left">
-              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>First name</FormLabel><Input name="firstName" value={data.firstName} onChange={handleInput} placeholder="First name" {...inputStyles} /></FormControl>
-              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Last name</FormLabel><Input name="lastName" value={data.lastName} onChange={handleInput} placeholder="Last name" {...inputStyles} /></FormControl>
+              <FormControl>
+                <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>First name</FormLabel>
+                <Input name="firstName" value={data.firstName} onChange={handleInput} placeholder="Jane" {...inputProps} />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Last name</FormLabel>
+                <Input name="lastName" value={data.lastName} onChange={handleInput} placeholder="Smith" {...inputProps} />
+              </FormControl>
             </SimpleGrid>
             <VStack spacing={4} w="100%" textAlign="left">
-              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Email</FormLabel><Input name="email" type="email" value={data.email} onChange={handleInput} placeholder="you@example.com" {...inputStyles} /></FormControl>
-              <FormControl><FormLabel fontSize="md" fontWeight={500} color="brand.body" mb={2}>Phone</FormLabel><Input name="phone" type="tel" value={data.phone} onChange={handleInput} placeholder="(555) 123-4567" maxLength={16} {...inputStyles} /></FormControl>
+              <FormControl>
+                <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Email address</FormLabel>
+                <Input name="email" type="email" value={data.email} onChange={handleInput} placeholder="jane@example.com" {...inputProps} />
+              </FormControl>
+              <FormControl>
+                <FormLabel fontSize="md" fontWeight={500} color="brand.slate" mb={2}>Phone number</FormLabel>
+                <Input name="phone" type="tel" value={data.phone} onChange={handleInput} placeholder="(555) 123-4567" maxLength={16} {...inputProps} />
+              </FormControl>
             </VStack>
             <Button onClick={goNext} variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />} isDisabled={!contactValid}>Next</Button>
           </VStack>
@@ -285,7 +305,7 @@ function Signup() {
         return (
           <VStack spacing={7} textAlign="center">
             <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>Where have you received care in the last 12 months?</Text>
-            <Text fontSize="md" color="brand.bodyLight">Select all that apply</Text>
+            <Text fontSize="md" color="brand.body">Select all that apply</Text>
             <VStack spacing={3} w="100%">
               {CARE_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} multi selected={data.careHistory.indexOf(o.value) > -1} onClick={function () { toggleMulti('careHistory', o.value); }} />;
@@ -298,7 +318,7 @@ function Signup() {
         return (
           <VStack spacing={7} textAlign="center">
             <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>How do you wish healthcare worked?</Text>
-            <Text fontSize="md" color="brand.bodyLight">If everything went perfectly, what would it look like?</Text>
+            <Text fontSize="md" color="brand.body">If everything went perfectly, what would it look like?</Text>
             <VStack spacing={3} w="100%">
               {IDEAL_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} selected={data.ideal === o.value} onClick={function () { setSingle('ideal', o.value); }} />;
@@ -311,7 +331,7 @@ function Signup() {
         return (
           <VStack spacing={7} textAlign="center">
             <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>What matters most to you?</Text>
-            <Text fontSize="md" color="brand.bodyLight">Choose what resonates</Text>
+            <Text fontSize="md" color="brand.body">Choose what resonates</Text>
             <VStack spacing={3} w="100%">
               {PRIORITY_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} multi selected={data.priorities.indexOf(o.value) > -1} onClick={function () { toggleMulti('priorities', o.value); }} />;
@@ -324,7 +344,7 @@ function Signup() {
         return (
           <VStack spacing={7} textAlign="center">
             <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>How old are you?</Text>
-            <Text fontSize="md" color="brand.bodyLight">This helps us match you with the right level of care</Text>
+            <Text fontSize="md" color="brand.body">This helps us match you with the right level of care</Text>
             <VStack spacing={3} w="100%">
               {AGE_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} selected={data.age === o.value} onClick={function () { setSingle('age', o.value); }} />;
@@ -339,7 +359,7 @@ function Signup() {
             <Text as="h1" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12}>
               {data.coverage === 'family' ? 'Tell us about your family' : 'Tell us about your spouse'}
             </Text>
-            <Text fontSize="md" color="brand.bodyLight">Select their age range</Text>
+            <Text fontSize="md" color="brand.body">Select their age range</Text>
             <VStack spacing={3} w="100%">
               {AGE_OPTIONS.map(function (o) {
                 return <OptionCard key={o.value} label={o.label} selected={data.spouseAge === o.value} onClick={function () { setSingle('spouseAge', o.value); }} />;
@@ -365,7 +385,7 @@ function Signup() {
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={3} w="100%" textAlign="left">
               {INCLUDED_ITEMS.map(function (item) {
                 return (
-                  <HStack key={item} spacing={3} py={4} px={5} bg="white" borderRadius="btn">
+                  <HStack key={item} spacing={3} py={4} px={5} bg="white" border="1px solid" borderColor="#D5D0C8" borderRadius="btn">
                     <Box color="brand.champagne" flexShrink={0}><HiCheck size={18} /></Box>
                     <Text fontSize="md" color="brand.slate">{item}</Text>
                   </HStack>
@@ -407,12 +427,12 @@ function Signup() {
         bg="rgba(250,250,247,0.95)"
         backdropFilter="blur(10px)"
         borderBottom="1px solid"
-        borderColor="brand.borderLight"
+        borderColor="#D5D0C8"
         zIndex={100}
       >
         <Flex maxW="98%" mx="auto" px={{ base: 4, md: 4 }} py={4} justify="space-between" align="center">
           <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
-          <Text as={Link} to="/" fontSize="md" color="brand.warmGrayLight" fontWeight={500} _hover={{ color: 'brand.slate' }} transition="color 0.2s ease">Exit</Text>
+          <Text as={Link} to="/" fontSize="md" color="#9B9488" fontWeight={500} _hover={{ color: 'brand.slate' }} transition="color 0.2s ease">Exit</Text>
         </Flex>
         <Box pb={4}>
           <ProgressDots current={slide} total={TOTAL_SLIDES} />
@@ -421,7 +441,7 @@ function Signup() {
 
       <Box
         minH="100vh"
-        bg="brand.ivory"
+        bg="brand.mist"
         display="flex"
         flexDirection="column"
         alignItems="center"
