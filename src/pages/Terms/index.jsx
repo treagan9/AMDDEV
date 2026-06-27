@@ -57,67 +57,6 @@ function Terms() {
             <Paragraph>You agree and accept that any diagnosis you may receive from a Provider is limited and in some cases provisional. The healthcare services are not intended in all cases to replace a full medical evaluation or an in-person visit with a healthcare provider. A Provider acting through the Site may not have important information that is usually obtained through a physical examination, and the absence of a physical examination may affect the Provider's ability to diagnose any potential condition, disease or injury.</Paragraph>
 
             <SectionHeading>Prescriptions and Product Policy</SectionHeading>
-            <Paragraph>If you receive a prescription as a result of the Services, you may select one of our partner pharmacies (the "Pharmacy Network") to ship your prescription. You give us consent to send and disclose to the Pharmacy Network all information provided by you, healthcare records and other applicable information so that you may
-cat > src/pages/Terms/index.jsx << 'EOF'
-// src/pages/Terms/index.jsx
-import {
-  Box,
-  VStack,
-  Text,
-  Link as ChakraLink
-} from '@chakra-ui/react';
-import { Helmet } from 'react-helmet-async';
-import { motion } from 'framer-motion';
-
-var MotionBox = motion(Box);
-
-function SectionHeading({ children }) {
-  return <Text as="h2" fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" lineHeight={1.2} mt={10} mb={4}>{children}</Text>;
-}
-
-function Paragraph({ children }) {
-  return <Text fontSize="md" color="brand.body" lineHeight={1.9} mb={4}>{children}</Text>;
-}
-
-function Terms() {
-  return (
-    <>
-      <Helmet>
-        <title>Terms of Service | AnswersMD&trade;</title>
-        <meta name="description" content="Terms of Service for AnswersMD concierge medicine." />
-      </Helmet>
-
-      <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="white">
-        <Box maxW={{ base: '98%', lg: '60%' }} mx="auto" px={{ base: 6, md: 4 }}>
-          <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Legal</Text>
-            <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.08} mb={4}>Terms of Service</Text>
-            <Text fontSize="md" color="brand.bodyLight" mb={2}>Last Updated: October 14, 2025</Text>
-            <Box w="32px" h="2px" bg="brand.champagne" mb={10} />
-
-            <Paragraph>By accessing or using the Site or Services, you acknowledge that you have read, understood and agreed to be legally bound by and comply with these Terms of Service. If you do not or cannot agree with any part of these Terms of Service, you may not use the Site or any Services provided on or through the Site.</Paragraph>
-
-            <SectionHeading>Introduction</SectionHeading>
-            <Paragraph>These terms and conditions of service ("Terms of Service") describe your rights and responsibilities with regard to your use of the website at answersmd.com (the "Site") owned and controlled by AnswersMD Holdings, LLC and its affiliates ("we," "us" and "our"), as well as the concierge medical services ("Services") by licensed physicians available to users through the Site. The terms "you" and "your" means you and any other person accessing your account on the Site.</Paragraph>
-            <Paragraph>Your access to and use of the Site and receipt of Services is subject to your acceptance of and compliance with these Terms of Service and all applicable laws and regulations. By clicking "accept" you acknowledge that you have read, understand and accept all terms and conditions contained in these Terms of Service and our Privacy Policy.</Paragraph>
-            <Paragraph>The Site and Services are continually under development and we reserve the right to review or remove any part of these Terms of Service in our sole discretion at any time and without prior notice. Your continued use after a change has been posted constitutes your acceptance of the changes.</Paragraph>
-
-            <SectionHeading>Availability</SectionHeading>
-            <Paragraph>Our Services are currently only available to individuals located in the state of Florida. We provide concierge medical services through licensed physicians and other licensed medical professionals (the "Providers"). The Services include 24/7 Provider access via phone, text and video, same day and next day appointments with our Providers, comprehensive annual executive physicals and preventive care and wellness planning.</Paragraph>
-
-            <SectionHeading>Eligibility</SectionHeading>
-            <Paragraph>In order to qualify to use the Services, you must be 18 years or older to become a member and be located in the State of Florida, the only state where we currently provide Services. Membership is subject to availability and physician acceptance. We maintain a limited number of memberships to ensure quality care.</Paragraph>
-            <Paragraph>You agree to pay our annual membership fees which are due upon enrollment. Fees are non-refundable except as otherwise provided by applicable law. Additional Services may incur separate charges. You agree to provide accurate and complete health information to our Providers, attend scheduled appointments or provide 24 hour advance notice for cancellations, treat our staff and Providers with respect, follow prescribed treatment plans and be legally bound by these Terms of Service.</Paragraph>
-            <Paragraph>Satisfying the above requirements does not guarantee that you will receive Services from us. We reserve the right to change or include new requirements as deemed appropriate in our sole discretion.</Paragraph>
-
-            <SectionHeading>Privacy Policy</SectionHeading>
-            <Paragraph>We understand the importance of confidentiality and privacy regarding your health information. Please see our Privacy Policy available on the Site for a description of how we may collect and use your personal information. The Privacy Policy is incorporated into these Terms of Service by reference.</Paragraph>
-
-            <SectionHeading>Consultative Service</SectionHeading>
-            <Paragraph>In some cases, one of our Providers may use the Site to provide medical advice or treatment to you. A Provider consulting with you through the Site may not have the benefit of information that would be obtained by examining you in person. Therefore, the Provider may not be aware of facts or information that may affect his or her opinion regarding a potential diagnosis or treatment recommendation. We strongly encourage you to provide all relevant information and discuss any and all diagnosis and treatment options with your Provider.</Paragraph>
-            <Paragraph>You agree and accept that any diagnosis you may receive from a Provider is limited and in some cases provisional. The healthcare services are not intended in all cases to replace a full medical evaluation or an in-person visit with a healthcare provider. A Provider acting through the Site may not have important information that is usually obtained through a physical examination, and the absence of a physical examination may affect the Provider's ability to diagnose any potential condition, disease or injury.</Paragraph>
-
-            <SectionHeading>Prescriptions and Product Policy</SectionHeading>
             <Paragraph>If you receive a prescription as a result of the Services, you may select one of our partner pharmacies (the "Pharmacy Network") to ship your prescription. You give us consent to send and disclose to the Pharmacy Network all information provided by you, healthcare records and other applicable information so that you may receive pharmacy services.</Paragraph>
             <Paragraph>Neither we nor our Providers endorse any specific medication, pharmacy, product or device. Our Providers reserve the right to deny care for actual or potential misuse of the Services. You agree that any prescriptions acquired from our Providers will be solely for your personal use.</Paragraph>
 
