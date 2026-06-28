@@ -8,9 +8,10 @@ import {
   Input,
   Button,
   Image,
+  Link as ChakraLink,
   useToast
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../lib/useAuth.jsx';
 
 var inputStyles = {
@@ -20,8 +21,8 @@ var inputStyles = {
   borderRadius: '8px',
   fontSize: 'md',
   color: '#2D2D2D',
-  h: '54px',
-  px: 4,
+  h: '56px',
+  px: 5,
   _placeholder: { color: '#9B9488' },
   _hover: { borderColor: '#C4A265' },
   _focus: { borderColor: '#C4A265', boxShadow: '0 0 0 1px #C4A265' }
@@ -57,19 +58,34 @@ function ResetPassword() {
   }
 
   return (
-    <Flex minH="100vh" align="center" justify="center" bg="#FAFAF7" px={6}>
-      <Box w="100%" maxW="400px">
-        <Flex justify="center" mb={10}>
-          <Image src="/logo-dark.png" alt="AnswersMD" h="40px" objectFit="contain" />
+    <Flex minH="100vh" align="center" justify="center" bg="#FAFAF7" px={{ base: 0, md: 6 }}>
+      <Box w="100%" maxW={{ base: '100%', md: '480px' }}>
+        <Flex justify="center" mb={{ base: 0, md: 10 }} display={{ base: 'none', md: 'flex' }}>
+          <ChakraLink as={Link} to="/">
+            <Image src="/logo-dark.png" alt="AnswersMD" h="48px" objectFit="contain" />
+          </ChakraLink>
         </Flex>
-        <Box bg="white" borderRadius="18px" p={{ base: 8, md: 10 }} border="1px solid" borderColor="#E8E2D8">
-          <Text fontFamily="heading" fontSize="2xl" fontWeight={700} color="#2D2D2D" mb={2} textAlign="center">Set new password</Text>
-          <Text fontSize="md" color="#6B6560" mb={8} textAlign="center">Choose a strong password for your account</Text>
+        <Box bg={{ base: '#FAFAF7', md: 'white' }} borderRadius={{ base: '0', md: '24px' }} p={{ base: 6, md: 12 }} border={{ base: 'none', md: '1px solid' }} borderColor="#E8E2D8">
+          <Box display={{ base: 'flex', md: 'none' }} justifyContent="center" mb={8}>
+            <ChakraLink as={Link} to="/">
+              <Image src="/logo-dark.png" alt="AnswersMD" h="36px" objectFit="contain" />
+            </ChakraLink>
+          </Box>
+          <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="#2D2D2D" mb={2} textAlign="center">Set new password</Text>
+          <Text fontSize="md" color="#6B6560" mb={10} textAlign="center">Choose a strong password for your account</Text>
           <form onSubmit={handleSubmit}>
             <VStack spacing={5} align="stretch">
-              <Input type="password" value={password} onChange={function (e) { setPassword(e.target.value); }} placeholder="New password" required {...inputStyles} />
-              <Input type="password" value={confirm} onChange={function (e) { setConfirm(e.target.value); }} placeholder="Confirm password" required {...inputStyles} />
-              <Button type="submit" bg="#1B3A34" color="white" borderRadius="8px" size="lg" fontSize="md" w="100%" h="54px" _hover={{ bg: '#234840' }} isLoading={submitting} loadingText="Updating...">Update password</Button>
+              <Box>
+                <Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>New password</Text>
+                <Input type="password" value={password} onChange={function (e) { setPassword(e.target.value); }} placeholder="Minimum 8 characters" required {...inputStyles} />
+              </Box>
+              <Box>
+                <Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>Confirm password</Text>
+                <Input type="password" value={confirm} onChange={function (e) { setConfirm(e.target.value); }} placeholder="Enter password again" required {...inputStyles} />
+              </Box>
+              <Box pt={2}>
+                <Button type="submit" bg="#1B3A34" color="white" borderRadius="8px" size="lg" fontSize="md" w="100%" h="56px" _hover={{ bg: '#234840' }} isLoading={submitting} loadingText="Updating...">Update password</Button>
+              </Box>
             </VStack>
           </form>
         </Box>
