@@ -29,6 +29,18 @@ function AuthProvider({ children }) {
     return function () { listener.subscription.unsubscribe(); };
   }, []);
 
+  useEffect(function () {
+    if (!teamMember) return;
+    updatePresence();
+    var interval = setInterval(updatePresence, 60000);
+    return function () { clearInterval(interval); };
+  }, [teamMember]);
+
+  function updatePresence() {
+    if (!teamMember) return;
+    supabase.from('team_members').update({ last_seen_at: new Date().toISOString() }).eq('id', teamMember.id).then(function () {});
+  }
+
   function fetchTeamMember(authId) {
     supabase.from('team_members').select('*').eq('auth_user_id', authId).single().then(function (result) {
       setTeamMember(result.data || null);
