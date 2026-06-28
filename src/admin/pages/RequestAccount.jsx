@@ -50,6 +50,32 @@ function RequestAccount() {
         email: form.email, reason: form.reason || null
       });
       if (result.error) throw result.error;
+
+      await fetch('/.netlify/functions/send-patient-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: 'admin@answersmd.com',
+          subject: 'Account Request from ' + form.firstName + ' ' + form.lastName,
+          html: '<!DOCTYPE html><html><head><meta charset="utf-8"></head>'
+            + '<body style="margin:0;padding:0;background:#FAFAF7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">'
+            + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF7;padding:48px 16px;"><tr><td align="center">'
+            + '<table width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">'
+            + '<tr><td align="center" style="padding-bottom:32px;"><img src="https://dev.answersmd.com/logo-dark.png" alt="AnswersMD" height="36" /></td></tr>'
+            + '<tr><td style="background:#FFFFFF;border-radius:18px;border:1px solid #E8E2D8;padding:40px;">'
+            + '<p style="margin:0 0 4px;font-size:12px;color:#C4A265;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">Account Request</p>'
+            + '<h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:24px;font-weight:700;color:#2D2D2D;">' + form.firstName + ' ' + form.lastName + '</h1>'
+            + '<table width="100%" cellpadding="0" cellspacing="0">'
+            + '<tr><td style="padding:10px 0;border-bottom:1px solid #F0EDE8;color:#6B6560;font-size:13px;width:30%;">Email</td><td style="padding:10px 0;border-bottom:1px solid #F0EDE8;color:#2D2D2D;font-weight:500;font-size:14px;"><a href="mailto:' + form.email + '" style="color:#C4A265;">' + form.email + '</a></td></tr>'
+            + (form.reason ? '<tr><td style="padding:10px 0;color:#6B6560;font-size:13px;">Reason</td><td style="padding:10px 0;color:#2D2D2D;font-weight:500;font-size:14px;">' + form.reason + '</td></tr>' : '')
+            + '</table>'
+            + '<div style="margin-top:24px;"><a href="https://dev.answersmd.com/answersmd-admin/settings/" style="display:inline-block;background:#1B3A34;color:#FFFFFF;font-size:14px;font-weight:500;text-decoration:none;padding:12px 28px;border-radius:8px;">Review in Settings</a></div>'
+            + '</td></tr>'
+            + '<tr><td align="center" style="padding-top:32px;"><p style="margin:0;font-size:11px;color:#9A9590;">AnswersMD &middot; ' + new Date().toLocaleDateString() + '</p></td></tr>'
+            + '</table></td></tr></table></body></html>'
+        })
+      });
+
       setSubmitted(true);
     } catch (err) {
       toast({ title: 'Something went wrong', description: err.message || 'Please try again.', status: 'error', duration: 4000, position: 'top' });
