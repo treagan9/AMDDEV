@@ -29,9 +29,10 @@ function Services() {
         <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" overflow="hidden">
           <Box position="relative" pb="100%">
             <Image src="/home/home-services-square.png" alt="AnswersMD concierge care" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">home-services-square.png (1200x1200)</Text></Box>} />
+            <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="linear-gradient(to bottom, rgba(250,250,247,0.12) 0%, transparent 35%, rgba(250,250,247,0.28) 100%)" pointerEvents="none" />
           </Box>
         </MotionBox>
-        <Box py={{ base: 'sectionMobile' }} bg="white" px={6}>
+        <Box py={{ base: 'sectionMobile' }} bgGradient="linear(to-b, rgba(250,250,247,0.5), rgba(255,255,255,1))" px={6}>
           <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 }}>
             <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>What we offer</Text>
             <Text as="h2" fontFamily="heading" fontSize="3xl" fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>Comprehensive concierge care</Text>
@@ -56,8 +57,9 @@ function Services() {
           <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="absolute" top={0} left={0} right={0} bottom={0}>
             <Image src="/home/home-services-square.png" alt="AnswersMD concierge care" objectFit="cover" objectPosition="center" w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">home-services-square.png (1200x1200)</Text></Box>} />
           </MotionBox>
+          <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="linear-gradient(to right, rgba(250,250,247,0.16) 0%, transparent 40%, rgba(250,250,247,0.22) 100%)" pointerEvents="none" zIndex={1} />
         </Box>
-        <Flex w="50%" bg="white" alignItems="center" py={20} px={{ lg: 14, xl: 20 }}>
+        <Flex w="50%" bgGradient="linear(to-r, rgba(250,250,247,0.55), rgba(255,255,255,1))" alignItems="center" py={20} px={{ lg: 14, xl: 20 }}>
           <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 }} maxW="500px">
             <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>What we offer</Text>
             <Text as="h2" fontFamily="heading" fontSize={{ lg: '4xl', xl: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.12} mb={4}>Comprehensive concierge care</Text>

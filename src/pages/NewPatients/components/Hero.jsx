@@ -38,6 +38,18 @@ function Hero() {
       </Box>
 
       <Box
+        display={{ base: 'none', md: 'block' }}
+        position="absolute"
+        top={0}
+        right={0}
+        w="70%"
+        h="140px"
+        bg="radial-gradient(ellipse 80% 100% at 75% 0%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.3) 40%, transparent 70%)"
+        zIndex={1}
+        pointerEvents="none"
+      />
+
+      <Box
         display={{ base: 'block', md: 'none' }}
         position="absolute"
         top={0}

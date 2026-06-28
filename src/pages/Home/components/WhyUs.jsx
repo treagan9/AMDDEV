@@ -20,7 +20,7 @@ function WhyUs() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref}>
+    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={ref}>
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 14 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>The difference</Text>
@@ -36,10 +36,15 @@ function WhyUs() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
-                bg="brand.ivory"
+                bg="white"
                 borderRadius="card"
+                borderWidth="1px"
+                borderColor="rgba(60,50,40,0.07)"
+                boxShadow="0 8px 32px rgba(60,50,40,0.05)"
                 py={{ base: 8, md: 10 }}
                 px={{ base: 7, md: 10 }}
+                sx={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+                _hover={{ transform: 'translateY(-4px)', boxShadow: '0 16px 44px rgba(60,50,40,0.09)' }}
               >
                 <Box w="32px" h="3px" bg="brand.champagne" mb={6} />
                 <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={4}>{reason.title}</Text>

@@ -21,8 +21,25 @@ function HowItWorks() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.mist" ref={ref}>
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+    <Box position="relative" py={{ base: 'sectionMobile', md: 'section' }} overflow="hidden" ref={ref}>
+      <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
+        <picture>
+          <source media="(max-width: 767px)" srcSet="/sections/why-our-members-stay-mobile.png" />
+          <source media="(max-width: 991px)" srcSet="/sections/why-our-members-stay-ipad.png" />
+          <img
+            src="/sections/why-our-members-stay-desktop.png"
+            alt=""
+            aria-hidden="true"
+            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
+          />
+        </picture>
+      </Box>
+
+      <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="rgba(250,250,247,0.12)" zIndex={1} />
+      <Box position="absolute" top={0} left={0} right={0} h="110px" bg="linear-gradient(to bottom, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
+      <Box position="absolute" bottom={0} left={0} right={0} h="110px" bg="linear-gradient(to top, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
+
+      <Box position="relative" zIndex={2} maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 16 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>How it works</Text>
           <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>Getting started is simple</Text>
@@ -44,7 +61,7 @@ function HowItWorks() {
         <Box display={{ base: 'block', md: 'none' }}>
           {STEPS.map(function (step, i) {
             return (
-              <MotionBox key={step.num} initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }} py={6} borderTop={i === 0 ? '3px solid' : '1px solid'} borderColor={i === 0 ? 'brand.champagne' : '#D5D0C8'}>
+              <MotionBox key={step.num} initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }} py={6} borderTop={i === 0 ? '3px solid' : '1px solid'} borderColor={i === 0 ? 'brand.champagne' : 'rgba(60,55,45,0.14)'}>
                 <Flex gap={5} align="flex-start">
                   <Text fontFamily="heading" fontSize="3xl" fontWeight={700} color="brand.champagne" lineHeight={1} flexShrink={0} w="48px">{step.num}</Text>
                   <Box>
