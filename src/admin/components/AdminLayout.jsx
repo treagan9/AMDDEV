@@ -47,11 +47,11 @@ function AdminLayout() {
             {mobileOpen ? <HiOutlineX size={24} /> : <HiOutlineMenu size={24} />}
           </Box>
         </Flex>
-        <Box p={{ base: 5, md: 10 }}>
+        <Box p={{ base: 5, md: 10 }} maxW="1200px">
           <Outlet />
         </Box>
         <Box px={{ base: 5, md: 10 }} py={6} borderTop="1px solid" borderColor="#E8E2D8" mt="auto">
-          <Flex justify="space-between" align="center" flexWrap="wrap" gap={3}>
+          <Flex justify="space-between" align="center" flexWrap="wrap" gap={3} maxW="1200px">
             <Text fontSize="xs" color="#9A9590">AnswersMD</Text>
             <Text fontSize="xs" color="#9A9590">Need help? <ChakraLink href="mailto:admin@answersmd.com" color="#C4A265" _hover={{ color: '#A88B50' }}>admin@answersmd.com</ChakraLink></Text>
           </Flex>
