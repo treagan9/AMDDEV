@@ -14,6 +14,7 @@ import Members from './pages/Members';
 import MemberDetail from './pages/MemberDetail';
 import Intake from './pages/Intake';
 import EmailComposer from './pages/EmailComposer';
+import ContentEditor from './pages/ContentEditor';
 import Images from './pages/Images';
 import Deploy from './pages/Deploy';
 import Settings from './pages/Settings';
@@ -34,6 +35,7 @@ function AdminApp() {
           <Route path="/members/:id/" element={<MemberDetail />} />
           <Route path="/intake/" element={<Intake />} />
           <Route path="/email/" element={<EmailComposer />} />
+          <Route path="/content/" element={<ContentEditor />} />
           <Route path="/images/" element={<Images />} />
           <Route path="/deploy/" element={<Deploy />} />
           <Route path="/settings/" element={<Settings />} />

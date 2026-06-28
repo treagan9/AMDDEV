@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { Link, useLocation } from 'react-router-dom';
 import useAuth from '../lib/useAuth.jsx';
-import { HiOutlineHome, HiOutlineUsers, HiOutlineUserGroup, HiOutlineClipboardList, HiOutlinePhotograph, HiOutlineCog, HiOutlineLogout, HiOutlineCloudUpload, HiOutlineMail } from 'react-icons/hi';
+import { HiOutlineHome, HiOutlineUsers, HiOutlineUserGroup, HiOutlineClipboardList, HiOutlinePhotograph, HiOutlineCog, HiOutlineLogout, HiOutlineCloudUpload, HiOutlineMail, HiOutlinePencilAlt } from 'react-icons/hi';
 
 var NAV_ITEMS = [
   { label: 'Dashboard', path: '/answersmd-admin/dashboard/', icon: HiOutlineHome },
@@ -17,18 +17,11 @@ var NAV_ITEMS = [
   { label: 'Patients', path: '/answersmd-admin/members/', icon: HiOutlineUsers },
   { label: 'Intake', path: '/answersmd-admin/intake/', icon: HiOutlineUserGroup },
   { label: 'Email', path: '/answersmd-admin/email/', icon: HiOutlineMail },
+  { label: 'Content', path: '/answersmd-admin/content/', icon: HiOutlinePencilAlt },
   { label: 'Design', path: '/answersmd-admin/images/', icon: HiOutlinePhotograph },
   { label: 'Deploy', path: '/answersmd-admin/deploy/', icon: HiOutlineCloudUpload },
   { label: 'Settings', path: '/answersmd-admin/settings/', icon: HiOutlineCog }
 ];
-
-function PulseIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-    </svg>
-  );
-}
 
 function AdminSidebar({ onClose }) {
   var location = useLocation();
@@ -67,8 +60,8 @@ function AdminSidebar({ onClose }) {
                 <Text fontSize="xs" fontWeight={600} color="#9A9590">{teamMember.first_name[0]}{teamMember.last_name[0]}</Text>
               )}
             </Flex>
-            <Box>
-              <Text fontSize="sm" fontWeight={500} color="#2D2D2D">{teamMember.first_name} {teamMember.last_name}</Text>
+            <Box minW="0">
+              <Text fontSize="sm" fontWeight={500} color="#2D2D2D" noOfLines={1}>{teamMember.first_name} {teamMember.last_name}</Text>
               <Text fontSize="xs" color="#9A9590">@{teamMember.username}</Text>
             </Box>
           </Flex>

@@ -1,4 +1,5 @@
 // src/pages/Locations/Tampa/components/MapDirections.jsx
+import { useState } from 'react';
 import {
   Box,
   Flex,
@@ -6,6 +7,7 @@ import {
   HStack,
   Text,
   Button,
+  Image,
   Link as ChakraLink,
   Icon
 } from '@chakra-ui/react';
@@ -22,7 +24,20 @@ var GOOGLE_DIRECTIONS = 'https://www.google.com/maps/dir/?api=1&destination=' + 
 var APPLE_DIRECTIONS = 'https://maps.apple.com/?daddr=' + encodeURIComponent(ADDRESS_QUERY);
 
 var MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
-var MAPBOX_STYLE = 'mapbox/light-v11';
+var MAPBOX_USERNAME = 'mapbox';
+var MAPBOX_STYLE_ID = 'light-v11';
+
+function buildMapUrl() {
+  if (!MAPBOX_TOKEN) {
+    return '';
+  }
+  var lng = LNG.toFixed(5);
+  var lat = LAT.toFixed(5);
+  var pin = 'pin-l+c9a86a(' + lng + ',' + lat + ')';
+  var camera = lng + ',' + lat + ',14.5';
+  var size = '900x760';
+  return 'https://api.mapbox.com/styles/v1/' + MAPBOX_USERNAME + '/' + MAPBOX_STYLE_ID + '/static/' + pin + '/' + camera + '/' + size + '?access_token=' + MAPBOX_TOKEN;
+}
 
 function isAppleDevice() {
   if (typeof navigator === 'undefined') {
@@ -31,32 +46,7 @@ function isAppleDevice() {
   return /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
 }
 
-function buildMapUrl(width, height) {
-  if (!MAPBOX_TOKEN) {
-    return '';
-  }
-  var pin = 'pin-l+C9A86A(' + LNG + ',' + LAT + ')';
-  return 'https://api.mapbox.com/styles/v1/' + MAPBOX_STYLE + '/static/' + pin + '/' + LNG + ',' + LAT + ',14.5,0/' + width + 'x' + height + '@2x?access_token=' + MAPBOX_TOKEN;
-}
-
-function MapVisual() {
-  var url = buildMapUrl(900, 760);
-
-  if (url) {
-    return (
-      <Box
-        position="absolute"
-        top={0}
-        left={0}
-        w="100%"
-        h="100%"
-        backgroundImage={'url(' + url + ')'}
-        backgroundSize="cover"
-        backgroundPosition="center"
-      />
-    );
-  }
-
+function PlaceholderMap() {
   return (
     <Box position="absolute" top={0} left={0} w="100%" h="100%" bg="brand.mist" overflow="hidden">
       <Box position="absolute" top="-10%" left="-10%" w="120%" h="120%" opacity={0.5} sx={{ background: 'repeating-linear-gradient(0deg, rgba(60,55,45,0.06) 0px, rgba(60,55,45,0.06) 1px, transparent 1px, transparent 56px), repeating-linear-gradient(90deg, rgba(60,55,45,0.06) 0px, rgba(60,55,45,0.06) 1px, transparent 1px, transparent 56px)' }} />
@@ -66,6 +56,39 @@ function MapVisual() {
         <Box w="2px" h="14px" bg="brand.champagne" mx="auto" />
       </Box>
     </Box>
+  );
+}
+
+function MapVisual() {
+  var [failed, setFailed] = useState(false);
+  var url = buildMapUrl();
+
+  if (!url || failed) {
+    return <PlaceholderMap />;
+  }
+
+  return (
+    <>
+      <PlaceholderMap />
+      <Image
+        src={url}
+        alt="Map of AnswersMD Tampa at 4100 W Kennedy Blvd"
+        objectFit="cover"
+        position="absolute"
+        top={0}
+        left={0}
+        w="100%"
+        h="100%"
+        crossOrigin="anonymous"
+        onLoad={function () {
+          console.log('Mapbox static image loaded');
+        }}
+        onError={function () {
+          console.error('Mapbox static image failed to load. URL (token hidden):', url.replace(MAPBOX_TOKEN, 'TOKEN_HIDDEN'));
+          setFailed(true);
+        }}
+      />
+    </>
   );
 }
 
@@ -113,7 +136,7 @@ function MapDirections() {
               <Box w={{ base: '100%', lg: '54%' }} position="relative" minH={{ base: '240px', md: '320px', lg: 'auto' }}>
                 <ChakraLink href={primaryUrl} isExternal display="block" position="absolute" top={0} left={0} w="100%" h="100%" role="group" aria-label={'Open directions to ' + ADDRESS_QUERY}>
                   <MapVisual />
-                  <Box position="absolute" bottom={4} right={4} bg="white" borderRadius="full" px={4} py={2} boxShadow="0 4px 14px rgba(60,50,40,0.12)" opacity={0.95} _groupHover={{ opacity: 1 }} transition="opacity 0.2s ease">
+                  <Box position="absolute" bottom={4} right={4} bg="white" borderRadius="full" px={4} py={2} boxShadow="0 4px 14px rgba(60,50,40,0.12)" opacity={0.95} _groupHover={{ opacity: 1 }} transition="opacity 0.2s ease" zIndex={2}>
                     <HStack spacing={2}>
                       <Text fontSize="xs" fontWeight={600} color="brand.slate">Open in Maps</Text>
                       <Icon as={HiArrowRight} boxSize={3} color="brand.champagne" />
