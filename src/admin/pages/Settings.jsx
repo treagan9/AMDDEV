@@ -37,11 +37,17 @@ function Settings() {
   var [newPassword, setNewPassword] = useState('');
   var [confirmPassword, setConfirmPassword] = useState('');
   var [changingPassword, setChangingPassword] = useState(false);
-  var [avatarUrl, setAvatarUrl] = useState(teamMember ? teamMember.avatar_url : null);
+  var [avatarUrl, setAvatarUrl] = useState(null);
   var [uploading, setUploading] = useState(false);
   var [members, setMembers] = useState([]);
   var [requests, setRequests] = useState([]);
   var [loaded, setLoaded] = useState(false);
+
+  useEffect(function () {
+    if (teamMember) {
+      setAvatarUrl(teamMember.avatar_url || null);
+    }
+  }, [teamMember]);
 
   useEffect(function () {
     fetchTeam();
@@ -90,19 +96,34 @@ function Settings() {
     }
     setUploading(true);
     try {
-      var ext = file.name.split('.').pop();
-      var path = teamMember.id + '.' + ext;
-      var uploadResult = await supabase.storage.from('avatars').upload(path, file, { upsert: true });
+      var ext = file.name.split('.').pop().toLowerCase();
+      var path = 'team/' + teamMember.id + '.' + ext;
+
+      var removeResult = await supabase.storage.from('avatars').list('team');
+      if (removeResult.data) {
+        var existing = removeResult.data.filter(function (f) { return f.name.startsWith(teamMember.id); });
+        if (existing.length > 0) {
+          await supabase.storage.from('avatars').remove(existing.map(function (f) { return 'team/' + f.name; }));
+        }
+      }
+
+      var uploadResult = await supabase.storage.from('avatars').upload(path, file, { upsert: true, cacheControl: '0' });
       if (uploadResult.error) throw uploadResult.error;
+
       var urlResult = supabase.storage.from('avatars').getPublicUrl(path);
-      var publicUrl = urlResult.data.publicUrl + '?t=' + Date.now();
-      await supabase.from('team_members').update({ avatar_url: publicUrl }).eq('id', teamMember.id);
+      var publicUrl = urlResult.data.publicUrl + '?v=' + Date.now();
+
+      var updateResult = await supabase.from('team_members').update({ avatar_url: publicUrl }).eq('id', teamMember.id);
+      if (updateResult.error) throw updateResult.error;
+
       setAvatarUrl(publicUrl);
-      toast({ title: 'Avatar updated', status: 'success', duration: 3000, position: 'top' });
+      fetchTeam();
+      toast({ title: 'Avatar saved', status: 'success', duration: 3000, position: 'top' });
     } catch (err) {
       toast({ title: 'Upload failed', description: err.message, status: 'error', duration: 4000, position: 'top' });
     }
     setUploading(false);
+    if (fileRef.current) fileRef.current.value = '';
   }
 
   async function updateRequestStatus(requestId, status) {
@@ -118,17 +139,17 @@ function Settings() {
 
   return (
     <Box>
-      <Text fontFamily="heading" fontSize="3xl" fontWeight={700} color="#2D2D2D" mb={8}>Settings</Text>
+      <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="#2D2D2D" mb={8}>Settings</Text>
 
       <Flex direction={{ base: 'column', lg: 'row' }} gap={8}>
-        <Box flex={1}>
-          <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={8} mb={8}>
+        <Box flex={1} minW="0">
+          <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={{ base: 6, md: 8 }} mb={8}>
             <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="#2D2D2D" mb={6}>Profile</Text>
             <Flex gap={6} align="center" mb={8}>
               <Box position="relative" cursor="pointer" onClick={function () { fileRef.current.click(); }} role="group">
                 <Flex w="80px" h="80px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border="2px solid" borderColor="#D5D0C8" transition="border-color 0.2s ease" _groupHover={{ borderColor: '#C4A265' }}>
                   {avatarUrl ? (
-                    <Image src={avatarUrl} alt={teamMember.first_name} objectFit="cover" w="100%" h="100%" />
+                    <Image src={avatarUrl} alt={teamMember.first_name} objectFit="cover" w="100%" h="100%" key={avatarUrl} />
                   ) : (
                     <Text fontSize="2xl" fontWeight={700} color="#9A9590">{teamMember.first_name[0]}{teamMember.last_name[0]}</Text>
                   )}
@@ -136,7 +157,7 @@ function Settings() {
                 <Flex position="absolute" bottom={0} right={0} w="24px" h="24px" borderRadius="full" bg="#2D2D2D" align="center" justify="center" border="2px solid white">
                   <Text fontSize="xs" color="white" lineHeight={1}>+</Text>
                 </Flex>
-                <input ref={fileRef} type="file" accept="image/*" onChange={handleAvatarUpload} style={{ display: 'none' }} />
+                <input ref={fileRef} type="file" accept="image/*" capture={false} onChange={handleAvatarUpload} style={{ display: 'none' }} />
               </Box>
               <Box>
                 <Text fontSize="lg" fontWeight={600} color="#2D2D2D">{teamMember.first_name} {teamMember.last_name}</Text>
@@ -145,26 +166,26 @@ function Settings() {
               </Box>
             </Flex>
             {uploading && <Text fontSize="sm" color="#C4A265" mb={4}>Uploading avatar...</Text>}
-            <Flex gap={6}>
-              <Box flex={1}><Text fontSize="sm" fontWeight={600} color="#6B6560" mb={1}>Username</Text><Text fontSize="md" color="#2D2D2D">{teamMember.username}</Text></Box>
-              <Box flex={1}><Text fontSize="sm" fontWeight={600} color="#6B6560" mb={1}>Role</Text><Text fontSize="md" color="#2D2D2D" textTransform="capitalize">{teamMember.role}</Text></Box>
-              <Box flex={1}><Text fontSize="sm" fontWeight={600} color="#6B6560" mb={1}>Status</Text><Text fontSize="md" color="#2D2D2D" textTransform="capitalize">{teamMember.status}</Text></Box>
+            <Flex gap={6} flexWrap="wrap">
+              <Box flex={1} minW="100px"><Text fontSize="sm" fontWeight={600} color="#6B6560" mb={1}>Username</Text><Text fontSize="md" color="#2D2D2D">{teamMember.username}</Text></Box>
+              <Box flex={1} minW="100px"><Text fontSize="sm" fontWeight={600} color="#6B6560" mb={1}>Role</Text><Text fontSize="md" color="#2D2D2D" textTransform="capitalize">{teamMember.role}</Text></Box>
+              <Box flex={1} minW="100px"><Text fontSize="sm" fontWeight={600} color="#6B6560" mb={1}>Status</Text><Text fontSize="md" color="#2D2D2D" textTransform="capitalize">{teamMember.status}</Text></Box>
             </Flex>
           </Box>
 
-          <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={8} mb={8}>
+          <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={{ base: 6, md: 8 }} mb={8}>
             <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="#2D2D2D" mb={6}>Change password</Text>
             <form onSubmit={handlePasswordChange}>
               <VStack spacing={5} align="stretch" maxW="400px">
-                <Box><Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>New password</Text><Input type="password" value={newPassword} onChange={function (e) { setNewPassword(e.target.value); }} placeholder="Minimum 8 characters" required {...inputStyles} /></Box>
-                <Box><Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>Confirm password</Text><Input type="password" value={confirmPassword} onChange={function (e) { setConfirmPassword(e.target.value); }} placeholder="Enter password again" required {...inputStyles} /></Box>
+                <Box><Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>New password</Text><Input type="password" autoComplete="new-password" value={newPassword} onChange={function (e) { setNewPassword(e.target.value); }} placeholder="Minimum 8 characters" required {...inputStyles} /></Box>
+                <Box><Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>Confirm password</Text><Input type="password" autoComplete="new-password" value={confirmPassword} onChange={function (e) { setConfirmPassword(e.target.value); }} placeholder="Enter password again" required {...inputStyles} /></Box>
                 <Button type="submit" bg="#1B3A34" color="white" borderRadius="8px" size="lg" fontSize="md" h="54px" _hover={{ bg: '#234840' }} isLoading={changingPassword} loadingText="Updating...">Update password</Button>
               </VStack>
             </form>
           </Box>
 
           {pendingRequests.length > 0 && (
-            <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={8} mb={8}>
+            <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={{ base: 6, md: 8 }} mb={8}>
               <Flex align="center" gap={3} mb={6}>
                 <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="#2D2D2D">Account requests</Text>
                 <Badge bg="#C4A265" color="white" borderRadius="full" px={3} py={0.5} fontSize="xs">{pendingRequests.length}</Badge>
@@ -191,16 +212,13 @@ function Settings() {
           )}
 
           {resolvedRequests.length > 0 && (
-            <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={8}>
+            <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={{ base: 6, md: 8 }}>
               <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="#2D2D2D" mb={6}>Past requests</Text>
               <VStack spacing={3} align="stretch">
                 {resolvedRequests.slice(0, 10).map(function (req) {
                   return (
                     <Flex key={req.id} justify="space-between" align="center" py={3} borderBottom="1px solid" borderColor="#F0EDE8">
-                      <Box>
-                        <Text fontSize="md" fontWeight={500} color="#2D2D2D">{req.first_name} {req.last_name}</Text>
-                        <Text fontSize="sm" color="#9A9590">{req.email} &middot; {new Date(req.created_at).toLocaleDateString()}</Text>
-                      </Box>
+                      <Box><Text fontSize="md" fontWeight={500} color="#2D2D2D">{req.first_name} {req.last_name}</Text><Text fontSize="sm" color="#9A9590">{req.email} &middot; {new Date(req.created_at).toLocaleDateString()}</Text></Box>
                       <Badge colorScheme={req.status === 'approved' ? 'green' : 'red'} borderRadius="full" px={3} py={1} fontSize="xs" textTransform="capitalize">{req.status}</Badge>
                     </Flex>
                   );
@@ -210,8 +228,8 @@ function Settings() {
           )}
         </Box>
 
-        <Box w={{ base: '100%', lg: '340px' }} flexShrink={0}>
-          <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={8}>
+        <Box w={{ base: '100%', lg: '320px' }} flexShrink={0}>
+          <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={{ base: 6, md: 8 }}>
             <Text fontFamily="heading" fontSize="xl" fontWeight={700} color="#2D2D2D" mb={6}>Team members</Text>
             <VStack spacing={4} align="stretch">
               {members.map(function (m) {
