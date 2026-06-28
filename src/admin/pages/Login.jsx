@@ -68,7 +68,7 @@ function Login() {
   return (
     <Flex minH="100vh" align="center" justify="center" bg="#FAFAF7" px={{ base: 0, md: 6 }}>
       <Box w="100%" maxW={{ base: '100%', md: '480px' }}>
-        <Flex justify="center" mb={{ base: 0, md: 10 }}>
+        <Flex justify="center" mb={{ base: 0, md: 10 }} display={{ base: 'none', md: 'flex' }}>
           <ChakraLink as={Link} to="/">
             <Image src="/logo-dark.webp" alt="AnswersMD" h={{ base: '36px', md: '48px' }} objectFit="contain" />
           </ChakraLink>
