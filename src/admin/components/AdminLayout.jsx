@@ -181,7 +181,7 @@ function AdminLayout() {
           <Outlet />
         </Box>
 
-        <Box px={{ base: 5, md: 10 }} py={5} borderTop="1px solid" borderColor="#F0EDE8">
+        <Box px={{ base: 5, md: 10 }} py={5}>
           <Flex justify="space-between" align="center" flexWrap="wrap" gap={3} maxW="1200px">
             <Text fontSize="xs" color="#B5AD9E">AnswersMD</Text>
             <Text fontSize="xs" color="#B5AD9E">Need help? <ChakraLink href="mailto:admin@answersmd.com" color="#C4A265" _hover={{ color: '#A88B50' }}>admin@answersmd.com</ChakraLink></Text>

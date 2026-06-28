@@ -2,9 +2,8 @@
 import { Helmet } from 'react-helmet-async';
 import Hero from './components/Hero';
 import LifeIn from './components/LifeIn';
-import CareWorks from './components/CareWorks';
 import CoverageMap from './components/CoverageMap';
-import Reviews from './components/Reviews';
+import CareWorks from './components/CareWorks';
 import FAQ from './components/FAQ';
 import Team from './components/Team';
 import OtherLocations from './components/OtherLocations';
@@ -19,9 +18,8 @@ function StPete() {
       </Helmet>
       <Hero />
       <LifeIn />
-      <CareWorks />
       <CoverageMap />
-      <Reviews />
+      <CareWorks />
       <FAQ />
       <Team />
       <OtherLocations />
