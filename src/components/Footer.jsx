@@ -65,6 +65,15 @@ function LinkedInIcon() {
   );
 }
 
+function AIIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83" />
+    </svg>
+  );
+}
+
 function Footer() {
   return (
     <Box as="footer">
@@ -82,15 +91,9 @@ function Footer() {
                   <ChakraLink href="tel:8137273233" fontSize="md" fontWeight={500} color="whiteAlpha.800" _hover={{ color: 'white' }} transition="color 0.2s ease">813-727-3233</ChakraLink>
                 </VStack>
                 <HStack spacing={4}>
-                  <ChakraLink href="https://www.facebook.com/61589476375367" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease">
-                    <FacebookIcon />
-                  </ChakraLink>
-                  <ChakraLink href="https://www.instagram.com/answersmd/" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease">
-                    <InstagramIcon />
-                  </ChakraLink>
-                  <ChakraLink href="#" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease">
-                    <LinkedInIcon />
-                  </ChakraLink>
+                  <ChakraLink href="https://www.facebook.com/61589476375367" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease"><FacebookIcon /></ChakraLink>
+                  <ChakraLink href="https://www.instagram.com/answersmd/" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease"><InstagramIcon /></ChakraLink>
+                  <ChakraLink href="#" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease"><LinkedInIcon /></ChakraLink>
                 </HStack>
               </Box>
               <SimpleGrid columns={3} spacing={16} flex={1}>
@@ -132,6 +135,11 @@ function Footer() {
               <HStack spacing={6}>
                 <ChakraLink as={Link} to="/privacy/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Privacy</ChakraLink>
                 <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Terms of Service</ChakraLink>
+                <ChakraLink href="/sitemap.xml" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Sitemap</ChakraLink>
+                <ChakraLink href="/llms.txt" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.500" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">
+                  <AIIcon />
+                  llms.txt
+                </ChakraLink>
                 <ChakraLink as={Link} to="/answersmd-admin/" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.700" fontWeight={500} _hover={{ color: 'white' }} transition="color 0.2s ease">
                   <PulseIcon size={13} />
                   Pulse
@@ -152,15 +160,9 @@ function Footer() {
             <ChakraLink href="mailto:info@answersmd.com" fontSize="md" fontWeight={500} color="whiteAlpha.800" _hover={{ color: 'white' }} transition="color 0.2s ease">info@answersmd.com</ChakraLink>
           </VStack>
           <HStack spacing={5}>
-            <ChakraLink href="https://www.facebook.com/61589476375367" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease">
-              <FacebookIcon />
-            </ChakraLink>
-            <ChakraLink href="https://www.instagram.com/answersmd/" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease">
-              <InstagramIcon />
-            </ChakraLink>
-            <ChakraLink href="#" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease">
-              <LinkedInIcon />
-            </ChakraLink>
+            <ChakraLink href="https://www.facebook.com/61589476375367" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease"><FacebookIcon /></ChakraLink>
+            <ChakraLink href="https://www.instagram.com/answersmd/" target="_blank" rel="noopener noreferrer" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease"><InstagramIcon /></ChakraLink>
+            <ChakraLink href="#" color="whiteAlpha.600" _hover={{ color: 'white' }} transition="color 0.2s ease"><LinkedInIcon /></ChakraLink>
           </HStack>
         </Box>
         <SimpleGrid columns={2} spacing={10} mb={10}>
@@ -198,9 +200,14 @@ function Footer() {
         <Box h="1px" bg="whiteAlpha.150" mb={8} />
         <Flex direction="column" gap={4}>
           <Text fontSize="xs" color="whiteAlpha.400">&copy; {new Date().getFullYear()} AnswersMD&trade; All rights reserved.</Text>
-          <HStack spacing={6}>
+          <HStack spacing={5} flexWrap="wrap">
             <ChakraLink as={Link} to="/privacy/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Privacy</ChakraLink>
-            <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Terms of Service</ChakraLink>
+            <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Terms</ChakraLink>
+            <ChakraLink href="/sitemap.xml" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Sitemap</ChakraLink>
+            <ChakraLink href="/llms.txt" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.500" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">
+              <AIIcon />
+              llms.txt
+            </ChakraLink>
             <ChakraLink as={Link} to="/answersmd-admin/" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.700" fontWeight={500} _hover={{ color: 'white' }} transition="color 0.2s ease">
               <PulseIcon size={13} />
               Pulse

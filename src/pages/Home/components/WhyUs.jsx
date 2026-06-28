@@ -20,7 +20,7 @@ function WhyUs() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
-    <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={ref}>
+    <Box py={{ base: 'sectionMobile', md: 'section' }} ref={ref} sx={{ background: 'linear-gradient(to bottom, #FFFFFF 0%, #FAF8F2 38%, #F7F3EB 70%, #F5F2EB 100%)' }}>
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 14 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>The difference</Text>
