@@ -25,49 +25,34 @@ var NAV_ITEMS = [
 
 function AdminSidebar({ onClose }) {
   var location = useLocation();
-  var { signOut, teamMember } = useAuth();
+  var { signOut } = useAuth();
 
   function handleNav() { if (onClose) onClose(); }
 
   return (
     <Box w="260px" bg="white" borderRight="1px solid" borderColor="#E8E2D8" minH="100vh" position={{ base: 'relative', lg: 'fixed' }} left={0} top={0} display="flex" flexDirection="column">
-      <Flex align="center" justify="center" px={6} py={6} borderBottom="1px solid" borderColor="#E8E2D8">
+      <Flex align="center" justify="center" px={6} py={5} borderBottom="1px solid" borderColor="#E8E2D8">
         <ChakraLink as={Link} to="/" display="flex" alignItems="center">
-          <Image src="/logo-dark.png" alt="AnswersMD" h="28px" objectFit="contain" />
+          <Image src="/logo-dark.png" alt="AnswersMD" h="26px" objectFit="contain" />
         </ChakraLink>
       </Flex>
 
-      <VStack spacing={1} align="stretch" px={3} py={4} flex={1}>
+      <VStack spacing={0.5} align="stretch" px={3} py={3} flex={1}>
         {NAV_ITEMS.map(function (item) {
           var isActive = location.pathname === item.path || (item.path !== '/answersmd-admin/dashboard/' && location.pathname.startsWith(item.path.slice(0, -1)));
           var Icon = item.icon;
           return (
-            <ChakraLink key={item.path} as={Link} to={item.path} onClick={handleNav} display="flex" alignItems="center" gap={3} px={4} py={3} borderRadius="8px" bg={isActive ? '#F0EDE8' : 'transparent'} color={isActive ? '#2D2D2D' : '#6B6560'} fontWeight={isActive ? 600 : 400} fontSize="md" _hover={{ bg: '#F0EDE8', color: '#2D2D2D' }} transition="all 0.15s ease">
-              <Icon size={20} />
+            <ChakraLink key={item.path} as={Link} to={item.path} onClick={handleNav} display="flex" alignItems="center" gap={3} px={4} py={2.5} borderRadius="8px" bg={isActive ? '#F0EDE8' : 'transparent'} color={isActive ? '#2D2D2D' : '#6B6560'} fontWeight={isActive ? 600 : 400} fontSize="sm" _hover={{ bg: '#F0EDE8', color: '#2D2D2D' }} transition="all 0.15s ease">
+              <Icon size={18} />
               {item.label}
             </ChakraLink>
           );
         })}
       </VStack>
 
-      <Box px={3} py={4} borderTop="1px solid" borderColor="#E8E2D8">
-        {teamMember && (
-          <Flex align="center" gap={3} px={4} mb={3}>
-            <Flex w="32px" h="32px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" flexShrink={0}>
-              {teamMember.avatar_url ? (
-                <Image src={teamMember.avatar_url} alt={teamMember.first_name} objectFit="cover" w="100%" h="100%" />
-              ) : (
-                <Text fontSize="xs" fontWeight={600} color="#9A9590">{teamMember.first_name[0]}{teamMember.last_name[0]}</Text>
-              )}
-            </Flex>
-            <Box minW="0">
-              <Text fontSize="sm" fontWeight={500} color="#2D2D2D" noOfLines={1}>{teamMember.first_name} {teamMember.last_name}</Text>
-              <Text fontSize="xs" color="#9A9590">@{teamMember.username}</Text>
-            </Box>
-          </Flex>
-        )}
-        <ChakraLink onClick={function () { signOut(); if (onClose) onClose(); }} display="flex" alignItems="center" gap={3} px={4} py={3} borderRadius="8px" color="#6B6560" fontSize="md" cursor="pointer" _hover={{ bg: '#F0EDE8', color: '#2D2D2D' }} transition="all 0.15s ease">
-          <HiOutlineLogout size={20} />
+      <Box px={3} py={3} borderTop="1px solid" borderColor="#E8E2D8">
+        <ChakraLink onClick={function () { signOut(); if (onClose) onClose(); }} display="flex" alignItems="center" gap={3} px={4} py={2.5} borderRadius="8px" color="#6B6560" fontSize="sm" cursor="pointer" _hover={{ bg: '#F0EDE8', color: '#2D2D2D' }} transition="all 0.15s ease">
+          <HiOutlineLogout size={18} />
           Sign out
         </ChakraLink>
       </Box>
