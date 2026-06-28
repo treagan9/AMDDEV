@@ -81,7 +81,7 @@ function Login() {
             <VStack spacing={5} align="stretch">
               <Box>
                 <Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>Username or email</Text>
-                <Input name="identifier" value={identifier} onChange={function (e) { setIdentifier(e.target.value); }} placeholder="treagan or you@example.com" required {...inputStyles} />
+                <Input name="identifier" value={identifier} onChange={function (e) { setIdentifier(e.target.value); }} placeholder="Username or email" required {...inputStyles} />
               </Box>
               <Box>
                 <Text fontSize="sm" fontWeight={500} color="#2D2D2D" mb={2}>Password</Text>
