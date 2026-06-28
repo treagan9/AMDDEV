@@ -22,6 +22,14 @@ var NAV_ITEMS = [
   { label: 'Settings', path: '/answersmd-admin/settings/', icon: HiOutlineCog }
 ];
 
+function PulseIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+    </svg>
+  );
+}
+
 function AdminSidebar({ onClose }) {
   var location = useLocation();
   var { signOut, teamMember } = useAuth();
@@ -30,11 +38,10 @@ function AdminSidebar({ onClose }) {
 
   return (
     <Box w="260px" bg="white" borderRight="1px solid" borderColor="#E8E2D8" minH="100vh" position={{ base: 'relative', lg: 'fixed' }} left={0} top={0} display="flex" flexDirection="column">
-      <Flex align="center" px={6} py={6} borderBottom="1px solid" borderColor="#E8E2D8">
+      <Flex align="center" justify="center" px={6} py={6} borderBottom="1px solid" borderColor="#E8E2D8">
         <ChakraLink as={Link} to="/" display="flex" alignItems="center">
           <Image src="/logo-dark.png" alt="AnswersMD" h="28px" objectFit="contain" />
         </ChakraLink>
-        <Text fontSize="xs" fontWeight={600} color="#C4A265" ml={3} letterSpacing="1px" textTransform="uppercase">Pulse</Text>
       </Flex>
 
       <VStack spacing={1} align="stretch" px={3} py={4} flex={1}>
