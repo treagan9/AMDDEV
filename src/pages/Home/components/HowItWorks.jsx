@@ -8,9 +8,9 @@ import {
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import usePageContent from '../../../admin/lib/usePageContent.jsx';
- 
+
 var MotionBox = motion(Box);
- 
+
 var howDefaults = {
   label: 'How it works',
   heading: 'Getting started is simple',
@@ -22,12 +22,12 @@ var howDefaults = {
     { num: '04', title: 'Enjoy direct access', description: "Call, text or video chat your doctor whenever you need. We're always here." }
   ]
 };
- 
+
 function HowItWorks() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   var c = usePageContent('home', 'howItWorks', howDefaults);
   var steps = c.steps || howDefaults.steps;
- 
+
   return (
     <Box position="relative" py={{ base: 'sectionMobile', md: 'section' }} overflow="hidden" ref={ref}>
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
@@ -40,15 +40,15 @@ function HowItWorks() {
       <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="rgba(250,250,247,0.12)" zIndex={1} />
       <Box position="absolute" top={0} left={0} right={0} h="110px" bg="linear-gradient(to bottom, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
       <Box position="absolute" bottom={0} left={0} right={0} h="110px" bg="linear-gradient(to top, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
- 
-      <Box position="relative" zIndex={2} maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+
+      <Box position="relative" zIndex={2} maxW={{ base: '100%', md: '1200px' }} mx="auto" px={{ base: 6, md: 8, lg: 10 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 16 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>{c.label}</Text>
           <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>{c.heading}</Text>
           <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">{c.body}</Text>
         </MotionBox>
- 
-        <SimpleGrid columns={4} spacing={{ md: 8, lg: 12 }} maxW={{ md: '92%', lg: '82%' }} mx="auto" display={{ base: 'none', md: 'grid' }}>
+
+        <SimpleGrid columns={{ md: 4 }} spacing={{ md: 6, lg: 10 }} display={{ base: 'none', md: 'grid' }}>
           {steps.map(function (step, i) {
             return (
               <MotionBox
@@ -67,7 +67,7 @@ function HowItWorks() {
             );
           })}
         </SimpleGrid>
- 
+
         <Box display={{ base: 'block', md: 'none' }} maxW="440px" mx="auto">
           {steps.map(function (step, i) {
             return (
@@ -87,5 +87,5 @@ function HowItWorks() {
     </Box>
   );
 }
- 
+
 export default HowItWorks;
