@@ -8,9 +8,9 @@ import {
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import usePageContent from '../../../admin/lib/usePageContent.jsx';
-
+ 
 var MotionBox = motion(Box);
-
+ 
 var howDefaults = {
   label: 'How it works',
   heading: 'Getting started is simple',
@@ -22,12 +22,12 @@ var howDefaults = {
     { num: '04', title: 'Enjoy direct access', description: "Call, text or video chat your doctor whenever you need. We're always here." }
   ]
 };
-
+ 
 function HowItWorks() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
   var c = usePageContent('home', 'howItWorks', howDefaults);
   var steps = c.steps || howDefaults.steps;
-
+ 
   return (
     <Box position="relative" py={{ base: 'sectionMobile', md: 'section' }} overflow="hidden" ref={ref}>
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
@@ -40,34 +40,42 @@ function HowItWorks() {
       <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="rgba(250,250,247,0.12)" zIndex={1} />
       <Box position="absolute" top={0} left={0} right={0} h="110px" bg="linear-gradient(to bottom, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
       <Box position="absolute" bottom={0} left={0} right={0} h="110px" bg="linear-gradient(to top, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
-
+ 
       <Box position="relative" zIndex={2} maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 16 }}>
           <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>{c.label}</Text>
           <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>{c.heading}</Text>
           <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">{c.body}</Text>
         </MotionBox>
-
-        <SimpleGrid columns={4} spacing={{ md: 10, lg: 14 }} maxW={{ md: '90%', lg: '80%' }} mx="auto" display={{ base: 'none', md: 'grid' }}>
+ 
+        <SimpleGrid columns={4} spacing={{ md: 8, lg: 12 }} maxW={{ md: '92%', lg: '82%' }} mx="auto" display={{ base: 'none', md: 'grid' }}>
           {steps.map(function (step, i) {
             return (
-              <MotionBox key={step.num} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }} textAlign="center">
-                <Text fontFamily="heading" fontSize={{ md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.champagne" lineHeight={1} mb={5} opacity={0.7}>{step.num}</Text>
-                <Text fontFamily="heading" fontSize={{ md: 'lg', lg: 'xl' }} fontWeight={700} color="brand.slate" mb={3}>{step.title}</Text>
+              <MotionBox
+                key={step.num}
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
+                display="flex"
+                flexDirection="column"
+              >
+                <Text fontFamily="heading" fontSize={{ md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.champagne" lineHeight={1} opacity={0.7}>{step.num}</Text>
+                <Box w="32px" h="2px" bg="brand.champagne" opacity={0.4} my={5} />
+                <Text fontFamily="heading" fontSize={{ md: 'lg', lg: 'xl' }} fontWeight={700} color="brand.slate" lineHeight={1.25} mb={3} minH={{ md: '3.2em', lg: '2.6em' }}>{step.title}</Text>
                 <Text fontSize="md" color="brand.body" lineHeight={1.85}>{step.description}</Text>
               </MotionBox>
             );
           })}
         </SimpleGrid>
-
-        <Box display={{ base: 'block', md: 'none' }}>
+ 
+        <Box display={{ base: 'block', md: 'none' }} maxW="440px" mx="auto">
           {steps.map(function (step, i) {
             return (
               <MotionBox key={step.num} initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }} py={6} borderTop={i === 0 ? '3px solid' : '1px solid'} borderColor={i === 0 ? 'brand.champagne' : 'rgba(60,55,45,0.14)'}>
                 <Flex gap={5} align="flex-start">
-                  <Text fontFamily="heading" fontSize="3xl" fontWeight={700} color="brand.champagne" lineHeight={1} flexShrink={0} w="48px">{step.num}</Text>
-                  <Box>
-                    <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="brand.slate" mb={2}>{step.title}</Text>
+                  <Text fontFamily="heading" fontSize="3xl" fontWeight={700} color="brand.champagne" lineHeight={1} flexShrink={0} w="44px" textAlign="left">{step.num}</Text>
+                  <Box flex={1}>
+                    <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="brand.slate" lineHeight={1.25} mb={2}>{step.title}</Text>
                     <Text fontSize="md" color="brand.body" lineHeight={1.85}>{step.description}</Text>
                   </Box>
                 </Flex>
@@ -79,5 +87,5 @@ function HowItWorks() {
     </Box>
   );
 }
-
+ 
 export default HowItWorks;
