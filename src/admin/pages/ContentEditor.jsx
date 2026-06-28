@@ -1,10 +1,9 @@
 // src/admin/pages/ContentEditor.jsx
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Flex,
   VStack,
-  SimpleGrid,
   Text,
   Input,
   Textarea,
@@ -33,7 +32,7 @@ var PAGES = [
         { key: 'heading', label: 'Heading line 1', type: 'text' },
         { key: 'headingAccent', label: 'Heading line 2 (champagne)', type: 'text' },
         { key: 'body', label: 'Body text', type: 'textarea' },
-        { key: 'cta', label: 'Primary button text', type: 'text' },
+        { key: 'cta', label: 'Primary button', type: 'text' },
         { key: 'ctaLink', label: 'Primary button link', type: 'text' },
         { key: 'secondaryCta', label: 'Secondary link text', type: 'text' },
         { key: 'secondaryLink', label: 'Secondary link URL', type: 'text' }
@@ -41,7 +40,15 @@ var PAGES = [
       { section: 'promo', label: 'Promo Banner', fields: [
         { key: 'text', label: 'Banner text', type: 'text' }
       ]},
-      { section: 'services', label: 'Services Section', fields: [
+      { section: 'about', label: 'About / Team Arc', fields: [
+        { key: 'heading', label: 'Heading', type: 'text' },
+        { key: 'body', label: 'Body text', type: 'textarea' },
+        { key: 'cta', label: 'Primary button', type: 'text' },
+        { key: 'ctaLink', label: 'Primary button link', type: 'text' },
+        { key: 'secondaryCta', label: 'Secondary button', type: 'text' },
+        { key: 'secondaryLink', label: 'Secondary button link', type: 'text' }
+      ]},
+      { section: 'services', label: 'Services Split', fields: [
         { key: 'label', label: 'Top label', type: 'text' },
         { key: 'heading', label: 'Heading', type: 'text' },
         { key: 'body', label: 'Body text', type: 'textarea' },
@@ -50,7 +57,18 @@ var PAGES = [
       ]},
       { section: 'howItWorks', label: 'How It Works', fields: [
         { key: 'label', label: 'Top label', type: 'text' },
-        { key: 'heading', label: 'Heading', type: 'text' }
+        { key: 'heading', label: 'Heading', type: 'text' },
+        { key: 'body', label: 'Body text', type: 'textarea' }
+      ]},
+      { section: 'whyUs', label: 'Why Our Members Stay', fields: [
+        { key: 'label', label: 'Top label', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text' },
+        { key: 'body', label: 'Body text', type: 'textarea' }
+      ]},
+      { section: 'testimonials', label: 'Testimonials', fields: [
+        { key: 'label', label: 'Top label', type: 'text' },
+        { key: 'heading', label: 'Heading', type: 'text' },
+        { key: 'body', label: 'Body text', type: 'textarea' }
       ]},
       { section: 'locations', label: 'Locations', fields: [
         { key: 'label', label: 'Top label', type: 'text' },
@@ -66,7 +84,7 @@ var PAGES = [
         { key: 'heading', label: 'Heading line 1', type: 'text' },
         { key: 'headingAccent', label: 'Heading line 2 (champagne)', type: 'text' },
         { key: 'body', label: 'Body text', type: 'textarea' },
-        { key: 'cta', label: 'Primary button text', type: 'text' },
+        { key: 'cta', label: 'Primary button', type: 'text' },
         { key: 'ctaLink', label: 'Primary button link', type: 'text' },
         { key: 'secondaryCta', label: 'Secondary link text', type: 'text' },
         { key: 'secondaryLink', label: 'Secondary link URL', type: 'text' }
@@ -82,7 +100,7 @@ var PAGES = [
         { key: 'heading', label: 'Heading line 1', type: 'text' },
         { key: 'headingAccent', label: 'Heading line 2 (champagne)', type: 'text' },
         { key: 'body', label: 'Body text', type: 'textarea' },
-        { key: 'cta', label: 'Primary button text', type: 'text' },
+        { key: 'cta', label: 'Primary button', type: 'text' },
         { key: 'ctaLink', label: 'Primary button link', type: 'text' }
       ]}
     ]
@@ -95,7 +113,7 @@ var PAGES = [
         { key: 'heading', label: 'Heading line 1', type: 'text' },
         { key: 'headingAccent', label: 'Heading line 2 (champagne)', type: 'text' },
         { key: 'body', label: 'Body text', type: 'textarea' },
-        { key: 'cta', label: 'Primary button text', type: 'text' },
+        { key: 'cta', label: 'Primary button', type: 'text' },
         { key: 'ctaLink', label: 'Primary button link', type: 'text' }
       ]}
     ]
@@ -108,7 +126,7 @@ var PAGES = [
         { key: 'heading', label: 'Heading line 1', type: 'text' },
         { key: 'headingAccent', label: 'Heading line 2 (champagne)', type: 'text' },
         { key: 'body', label: 'Body text', type: 'textarea' },
-        { key: 'cta', label: 'Primary button text', type: 'text' },
+        { key: 'cta', label: 'Primary button', type: 'text' },
         { key: 'ctaLink', label: 'Primary button link', type: 'text' }
       ]}
     ]
@@ -175,50 +193,37 @@ function SectionEditor({ pageKey, sectionConfig, teamMember }) {
 
   useEffect(function () {
     supabase.from('page_content').select('*').eq('page', pageKey).eq('section', sectionConfig.section).single().then(function (result) {
-      if (result.data) setContent(result.data.content);
-      else setContent({});
+      setContent(result.data ? result.data.content : {});
     });
   }, [pageKey, sectionConfig.section]);
 
   function handleChange(key, value) {
-    setContent(function (prev) {
-      var updated = Object.assign({}, prev);
-      updated[key] = value;
-      return updated;
-    });
+    setContent(function (prev) { var u = Object.assign({}, prev); u[key] = value; return u; });
     setDirty(true);
     setSaved(false);
   }
 
   async function save() {
     setSaving(true);
-    var result = await supabase.from('page_content').upsert({
-      page: pageKey,
-      section: sectionConfig.section,
-      content: content,
-      updated_by: teamMember ? teamMember.id : null
-    }, { onConflict: 'page,section' });
-
+    var result = await supabase.from('page_content').upsert({ page: pageKey, section: sectionConfig.section, content: content, updated_by: teamMember ? teamMember.id : null }, { onConflict: 'page,section' });
     if (result.error) {
       toast({ title: 'Save failed', description: result.error.message, status: 'error', duration: 4000, position: 'top' });
     } else {
       setSaved(true);
       setDirty(false);
-      toast({ title: 'Saved', status: 'success', duration: 2000, position: 'top', containerStyle: { bg: '#1B3A34' } });
     }
     setSaving(false);
     setTimeout(function () { setSaved(false); }, 3000);
   }
 
-  if (sectionConfig.fields.length === 0) return null;
-  if (!content) return null;
+  if (sectionConfig.fields.length === 0 || !content) return null;
 
   return (
     <Box mb={2}>
       <Flex align="center" justify="space-between" px={5} py={3} cursor="pointer" onClick={function () { setOpen(!open); }} borderRadius="8px" _hover={{ bg: '#F0EDE8' }} transition="background 0.15s ease">
         <Flex align="center" gap={3}>
           <Text fontSize="md" fontWeight={600} color="#2D2D2D">{sectionConfig.label}</Text>
-          <Badge bg="#F0EDE8" color="#9A9590" borderRadius="full" px={2} py={0.5} fontSize="10px">{sectionConfig.fields.length} fields</Badge>
+          <Badge bg="#F0EDE8" color="#9A9590" borderRadius="full" px={2} py={0.5} fontSize="10px">{sectionConfig.fields.length}</Badge>
           {dirty && <Flex w="6px" h="6px" borderRadius="full" bg="#C4A265" flexShrink={0} />}
           {saved && <HiOutlineCheck size={14} color="#22C55E" />}
         </Flex>
@@ -241,9 +246,7 @@ function SectionEditor({ pageKey, sectionConfig, teamMember }) {
               );
             })}
             <Flex justify="flex-end" pt={2}>
-              <Button onClick={save} size="sm" bg={dirty ? '#1B3A34' : '#E8E2D8'} color={dirty ? 'white' : '#9A9590'} borderRadius="8px" _hover={dirty ? { bg: '#234840' } : {}} isLoading={saving} loadingText="Saving..." leftIcon={dirty ? <HiOutlinePencil size={14} /> : <HiOutlineCheck size={14} />} isDisabled={!dirty}>
-                {saved ? 'Saved' : 'Save changes'}
-              </Button>
+              <Button onClick={save} size="sm" bg={dirty ? '#1B3A34' : '#E8E2D8'} color={dirty ? 'white' : '#9A9590'} borderRadius="8px" _hover={dirty ? { bg: '#234840' } : {}} isLoading={saving} loadingText="Saving..." leftIcon={dirty ? <HiOutlinePencil size={14} /> : <HiOutlineCheck size={14} />} isDisabled={!dirty}>{saved ? 'Saved' : 'Save changes'}</Button>
             </Flex>
           </VStack>
         </Box>
@@ -260,26 +263,21 @@ function ContentEditor() {
   return (
     <Box>
       <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="#2D2D2D" mb={2}>Content</Text>
-      <Text fontSize="md" color="#6B6560" mb={6}>Edit text content across the site. Changes are saved to the database and reflected on the next page load.</Text>
-
+      <Text fontSize="md" color="#6B6560" mb={6}>Edit text across the site. Changes appear on the next page load.</Text>
       <Flex gap={2} mb={6} flexWrap="wrap">
         {PAGES.map(function (p, i) {
           var isActive = activePage === i;
           return (
-            <Button key={p.page} size="sm" borderRadius="8px" bg={isActive ? '#2D2D2D' : 'white'} color={isActive ? 'white' : '#6B6560'} border="1px solid" borderColor={isActive ? '#2D2D2D' : '#E8E2D8'} onClick={function () { setActivePage(i); }} _hover={{ bg: isActive ? '#2D2D2D' : '#F0EDE8' }} fontSize="sm" px={4}>
-              {p.label}
-            </Button>
+            <Button key={p.page} size="sm" borderRadius="8px" bg={isActive ? '#2D2D2D' : 'white'} color={isActive ? 'white' : '#6B6560'} border="1px solid" borderColor={isActive ? '#2D2D2D' : '#E8E2D8'} onClick={function () { setActivePage(i); }} _hover={{ bg: isActive ? '#2D2D2D' : '#F0EDE8' }} fontSize="sm" px={4}>{p.label}</Button>
           );
         })}
       </Flex>
-
       <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" overflow="hidden">
         <Flex px={6} py={4} borderBottom="1px solid" borderColor="#E8E2D8" align="center" justify="space-between">
           <Flex align="center" gap={3}>
             <Text fontFamily="heading" fontSize="lg" fontWeight={700} color="#2D2D2D">{currentPage.label}</Text>
             <Badge bg="#F0EDE8" color="#6B6560" borderRadius="full" px={2} py={0.5} fontSize="xs">{currentPage.sections.length} sections</Badge>
           </Flex>
-          <Text fontSize="xs" color="#9A9590">Page: /{currentPage.page === 'home' ? '' : currentPage.page + '/'}</Text>
         </Flex>
         <Box px={{ base: 1, md: 2 }} py={2}>
           {currentPage.sections.map(function (section) {

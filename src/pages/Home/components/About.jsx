@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { HiArrowRight } from 'react-icons/hi';
+import usePageContent from '../../../admin/lib/usePageContent.jsx';
 
 var MotionBox = motion(Box);
 
@@ -31,24 +32,27 @@ var TEAM = [
 var CENTER = 4;
 var DEFAULT_ACTIVE = 4;
 
-function getArcY(index) {
-  var distance = Math.abs(index - CENTER);
-  return Math.pow(distance, 2) * 5;
-}
+function getArcY(index) { return Math.pow(Math.abs(index - CENTER), 2) * 5; }
+function getDelay(index) { return 0.25 + Math.abs(index - CENTER) * 0.07; }
 
-function getDelay(index) {
-  return 0.25 + Math.abs(index - CENTER) * 0.07;
-}
+var aboutDefaults = {
+  heading: 'Healthcare built around you',
+  body: 'Our membership-based practice limits enrollment so your physician has the time you deserve. Direct access via call, text or video. Same-day appointments. Visits that last as long as you need.',
+  cta: 'Meet our team',
+  ctaLink: '/team/',
+  secondaryCta: 'Our approach',
+  secondaryLink: '/services/'
+};
 
 function About() {
   var [activeIndex, setActiveIndex] = useState(DEFAULT_ACTIVE);
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
   var activeMember = TEAM[activeIndex];
+  var c = usePageContent('home', 'about', aboutDefaults);
 
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref} overflow="hidden">
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-
         <Flex justify="center" align="flex-start" gap={{ base: 2, md: 3, lg: 4 }} display={{ base: 'none', md: 'flex' }} pt={4}>
           {TEAM.map(function (member, i) {
             var isActive = activeIndex === i;
@@ -56,7 +60,6 @@ function About() {
             var isHighlighted = isActive || isFeaturedDefault;
             var arcY = getArcY(i);
             var scale = isHighlighted ? 1 : 0.72;
-
             return (
               <MotionBox key={member.name} display="flex" flexDirection="column" alignItems="center" flexShrink={0} initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: getDelay(i) }} style={{ marginTop: arcY }} onMouseEnter={function () { setActiveIndex(i); }} onMouseLeave={function () { setActiveIndex(DEFAULT_ACTIVE); }} cursor="pointer">
                 <Box w={{ md: '120px', lg: '160px' }} h={{ md: '120px', lg: '160px' }} borderRadius="full" overflow="hidden" border={isHighlighted ? '3px solid' : '2px solid'} borderColor={isHighlighted ? 'brand.champagne' : '#D5D0C8'} transform={'scale(' + scale + ')'} transition="all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)" shadow={isHighlighted ? '0 12px 32px rgba(27,58,52,0.16)' : '0 4px 12px rgba(27,58,52,0.04)'} bg="brand.ivory">
@@ -72,7 +75,6 @@ function About() {
             var member = TEAM[i];
             var isCenter = i === 4;
             var isActive = activeIndex === i;
-
             return (
               <MotionBox key={member.name} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + Math.abs(i - 4) * 0.1 }} onClick={function () { setActiveIndex(i); }} cursor="pointer">
                 <Box w={isCenter ? '120px' : '88px'} h={isCenter ? '120px' : '88px'} borderRadius="full" overflow="hidden" border={isCenter || isActive ? '3px solid' : '2px solid'} borderColor={isCenter || isActive ? 'brand.champagne' : '#D5D0C8'} transition="all 0.3s ease" bg="brand.ivory" mb={isCenter ? 0 : 2}>
@@ -94,13 +96,11 @@ function About() {
 
         <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.7 }}>
           <VStack spacing={5} textAlign="center" maxW="660px" mx="auto">
-            <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1}>Healthcare built around you</Text>
-            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px">
-              Our membership-based practice limits enrollment so your physician has the time you deserve. Direct access via call, text or video. Same-day appointments. Visits that last as long as you need.
-            </Text>
+            <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1}>{c.heading}</Text>
+            <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px">{c.body}</Text>
             <Flex gap={4} alignItems="center" flexWrap="wrap" justifyContent="center" mt={2}>
-              <Button as={Link} to="/team/" variant="primary" size="lg">Meet our team</Button>
-              <Button as={Link} to="/services/" variant="ghost" size="lg" rightIcon={<Icon as={HiArrowRight} />} color="brand.slate" fontWeight={600} _hover={{ color: 'brand.champagne' }}>Our approach</Button>
+              <Button as={Link} to={c.ctaLink} variant="primary" size="lg">{c.cta}</Button>
+              <Button as={Link} to={c.secondaryLink} variant="ghost" size="lg" rightIcon={<Icon as={HiArrowRight} />} color="brand.slate" fontWeight={600} _hover={{ color: 'brand.champagne' }}>{c.secondaryCta}</Button>
             </Flex>
           </VStack>
         </MotionBox>

@@ -1,19 +1,19 @@
 // src/pages/Locations/Tampa/components/MapDirections.jsx
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Flex,
   VStack,
-  HStack,
   Text,
   Button,
-  Image,
   Link as ChakraLink,
   Icon
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { HiArrowRight } from 'react-icons/hi';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 var MotionBox = motion(Box);
 
@@ -24,20 +24,6 @@ var GOOGLE_DIRECTIONS = 'https://www.google.com/maps/dir/?api=1&destination=' + 
 var APPLE_DIRECTIONS = 'https://maps.apple.com/?daddr=' + encodeURIComponent(ADDRESS_QUERY);
 
 var MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
-var MAPBOX_USERNAME = 'mapbox';
-var MAPBOX_STYLE_ID = 'light-v11';
-
-function buildMapUrl() {
-  if (!MAPBOX_TOKEN) {
-    return '';
-  }
-  var lng = LNG.toFixed(5);
-  var lat = LAT.toFixed(5);
-  var pin = 'pin-l+c9a86a(' + lng + ',' + lat + ')';
-  var camera = lng + ',' + lat + ',14.5';
-  var size = '900x760';
-  return 'https://api.mapbox.com/styles/v1/' + MAPBOX_USERNAME + '/' + MAPBOX_STYLE_ID + '/static/' + pin + '/' + camera + '/' + size + '?access_token=' + MAPBOX_TOKEN;
-}
 
 function isAppleDevice() {
   if (typeof navigator === 'undefined') {
@@ -59,36 +45,142 @@ function PlaceholderMap() {
   );
 }
 
-function MapVisual() {
+function LiveMap() {
+  var containerRef = useRef(null);
+  var mapRef = useRef(null);
+  var rafRef = useRef(null);
+  var interactedRef = useRef(false);
   var [failed, setFailed] = useState(false);
-  var url = buildMapUrl();
 
-  if (!url || failed) {
+  useEffect(function () {
+    if (!MAPBOX_TOKEN) {
+      setFailed(true);
+      return;
+    }
+    if (!containerRef.current || mapRef.current) {
+      return;
+    }
+
+    mapboxgl.accessToken = MAPBOX_TOKEN;
+
+    var map;
+    try {
+      map = new mapboxgl.Map({
+        container: containerRef.current,
+        center: [LNG, LAT],
+        zoom: 16.4,
+        pitch: 68,
+        bearing: -24,
+        antialias: true,
+        cooperativeGestures: true
+      });
+    } catch (e) {
+      console.error('Mapbox GL failed to initialize:', e);
+      setFailed(true);
+      return;
+    }
+
+    mapRef.current = map;
+
+    function stopOrbit() {
+      interactedRef.current = true;
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+    }
+
+    map.on('dragstart', stopOrbit);
+    map.on('zoomstart', function () {
+      if (map.isMoving() && !rafRef.current) {
+        return;
+      }
+    });
+    map.on('mousedown', stopOrbit);
+    map.on('touchstart', stopOrbit);
+    map.on('wheel', stopOrbit);
+
+    map.on('style.load', function () {
+      try {
+        map.setConfigProperty('basemap', 'lightPreset', 'dusk');
+        map.setConfigProperty('basemap', 'theme', 'faded');
+        map.setConfigProperty('basemap', 'showPointOfInterestLabels', false);
+        map.setConfigProperty('basemap', 'showTransitLabels', false);
+      } catch (e) {
+        // best-effort on Standard style config
+      }
+
+      try {
+        map.setFog({
+          range: [1, 12],
+          color: 'rgba(245, 242, 235, 0.9)',
+          'high-color': 'rgba(220, 228, 235, 0.9)',
+          'horizon-blend': 0.2,
+          'space-color': 'rgba(235, 238, 242, 1)',
+          'star-intensity': 0
+        });
+      } catch (e) {
+        // fog is best-effort
+      }
+
+      var el = document.createElement('div');
+      el.style.width = '24px';
+      el.style.height = '24px';
+      el.style.borderRadius = '50%';
+      el.style.background = '#C9A86A';
+      el.style.border = '3px solid #ffffff';
+      el.style.boxShadow = '0 6px 18px rgba(60,50,40,0.4)';
+
+      new mapboxgl.Marker({ element: el })
+        .setLngLat([LNG, LAT])
+        .addTo(map);
+
+      var startBearing = -24;
+      function orbit() {
+        if (interactedRef.current) {
+          return;
+        }
+        startBearing += 0.06;
+        map.setBearing(startBearing);
+        rafRef.current = requestAnimationFrame(orbit);
+      }
+      rafRef.current = requestAnimationFrame(orbit);
+    });
+
+    map.on('error', function (e) {
+      console.error('Mapbox GL error:', e && e.error ? e.error.message : e);
+      setFailed(true);
+    });
+
+    map.addControl(new mapboxgl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+    return function () {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      map.remove();
+      mapRef.current = null;
+    };
+  }, []);
+
+  if (failed) {
     return <PlaceholderMap />;
   }
 
   return (
-    <>
-      <PlaceholderMap />
-      <Image
-        src={url}
-        alt="Map of AnswersMD Tampa at 4100 W Kennedy Blvd"
-        objectFit="cover"
-        position="absolute"
-        top={0}
-        left={0}
-        w="100%"
-        h="100%"
-        crossOrigin="anonymous"
-        onLoad={function () {
-          console.log('Mapbox static image loaded');
-        }}
-        onError={function () {
-          console.error('Mapbox static image failed to load. URL (token hidden):', url.replace(MAPBOX_TOKEN, 'TOKEN_HIDDEN'));
-          setFailed(true);
-        }}
-      />
-    </>
+    <Box
+      ref={containerRef}
+      position="absolute"
+      top={0}
+      left={0}
+      w="100%"
+      h="100%"
+      sx={{
+        '.mapboxgl-ctrl-logo': { opacity: 0.5 },
+        '.mapboxgl-ctrl-bottom-right': { zIndex: 1 },
+        '.mapboxgl-ctrl-attrib': { fontSize: '10px', opacity: 0.7 }
+      }}
+    />
   );
 }
 
@@ -133,16 +225,8 @@ function MapDirections() {
                 </VStack>
               </Box>
 
-              <Box w={{ base: '100%', lg: '54%' }} position="relative" minH={{ base: '240px', md: '320px', lg: 'auto' }}>
-                <ChakraLink href={primaryUrl} isExternal display="block" position="absolute" top={0} left={0} w="100%" h="100%" role="group" aria-label={'Open directions to ' + ADDRESS_QUERY}>
-                  <MapVisual />
-                  <Box position="absolute" bottom={4} right={4} bg="white" borderRadius="full" px={4} py={2} boxShadow="0 4px 14px rgba(60,50,40,0.12)" opacity={0.95} _groupHover={{ opacity: 1 }} transition="opacity 0.2s ease" zIndex={2}>
-                    <HStack spacing={2}>
-                      <Text fontSize="xs" fontWeight={600} color="brand.slate">Open in Maps</Text>
-                      <Icon as={HiArrowRight} boxSize={3} color="brand.champagne" />
-                    </HStack>
-                  </Box>
-                </ChakraLink>
+              <Box w={{ base: '100%', lg: '54%' }} position="relative" minH={{ base: '300px', md: '400px', lg: 'auto' }}>
+                <LiveMap />
               </Box>
             </Flex>
           </Box>
