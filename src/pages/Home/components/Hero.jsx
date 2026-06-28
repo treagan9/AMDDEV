@@ -75,7 +75,7 @@ function Hero() {
 
             <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.25 }}>
               <Text as="h1" fontFamily="heading" fontSize={{ md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.slate" lineHeight={1.05} whiteSpace="nowrap">{HERO.heading}</Text>
-              <Text fontFamily="heading" fontSize={{ md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.champagne" lineHeight={1.05} sx={{ fontFeatureSettings: '"liga" 0' }}>{HERO.headingAccent}</Text>
+              <Text fontFamily="heading" fontSize={{ md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.champagne" lineHeight={1.05} letterSpacing="0.04em">{HERO.headingAccent}</Text>
             </MotionBox>
 
             <MotionText fontSize="lg" color="brand.body" lineHeight={1.8} maxW="460px" mt={6} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.45 }}>
@@ -103,7 +103,7 @@ function Hero() {
 
             <MotionBox initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} mt={5} position="relative" zIndex={2}>
               <Text as="h1" fontFamily="heading" fontSize="4xl" fontWeight={700} color="brand.slate" lineHeight={1.02} whiteSpace="nowrap">{HERO.heading}</Text>
-              <Text fontFamily="heading" fontSize="6xl" fontWeight={700} color="brand.champagne" lineHeight={1.0} mt={1} sx={{ fontFeatureSettings: '"liga" 0' }}>{HERO.headingAccent}</Text>
+              <Text fontFamily="heading" fontSize="6xl" fontWeight={700} color="brand.champagne" lineHeight={1.0} mt={1} letterSpacing="0.04em">{HERO.headingAccent}</Text>
             </MotionBox>
           </MotionBox>
 
