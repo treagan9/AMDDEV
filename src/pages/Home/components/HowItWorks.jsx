@@ -7,26 +7,24 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import usePageContent from '../../../admin/lib/usePageContent.jsx';
 
 var MotionBox = motion(Box);
 
-var howDefaults = {
+var HOW = {
   label: 'How it works',
   heading: 'Getting started is simple',
   body: 'Join our practice in four easy steps and experience healthcare transformed.',
   steps: [
     { num: '01', title: 'Schedule a consultation', description: 'Meet with our team to learn about membership and discuss your health goals.' },
-    { num: '02', title: 'Complete onboarding', description: "We'll gather your medical history and establish a comprehensive baseline." },
-    { num: '03', title: 'Meet your physician', description: 'Your first extended visit focuses on getting to know you, not just your chart.' },
+    { num: '02', title: 'Complete onboarding', description: 'We gather your medical history and establish a comprehensive health baseline.' },
+    { num: '03', title: 'Meet your physician', description: 'Your first extended visit is about getting to know you, not just reviewing a chart.' },
     { num: '04', title: 'Enjoy direct access', description: "Call, text or video chat your doctor whenever you need. We're always here." }
   ]
 };
 
 function HowItWorks() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.05 });
-  var c = usePageContent('home', 'howItWorks', howDefaults);
-  var steps = c.steps || howDefaults.steps;
+  var steps = HOW.steps;
 
   return (
     <Box position="relative" py={{ base: 'sectionMobile', md: 'section' }} overflow="hidden" ref={ref}>
@@ -41,14 +39,14 @@ function HowItWorks() {
       <Box position="absolute" top={0} left={0} right={0} h="110px" bg="linear-gradient(to bottom, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
       <Box position="absolute" bottom={0} left={0} right={0} h="110px" bg="linear-gradient(to top, rgba(250,250,247,0.45) 0%, transparent 100%)" zIndex={1} />
 
-      <Box position="relative" zIndex={2} maxW="1180px" mx="auto" px={{ base: 6, md: 8 }}>
+      <Box position="relative" zIndex={2} maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
         <MotionBox initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} textAlign="center" mb={{ base: 10, md: 16 }}>
-          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>{c.label}</Text>
-          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>{c.heading}</Text>
-          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">{c.body}</Text>
+          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>{HOW.label}</Text>
+          <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1} mb={4}>{HOW.heading}</Text>
+          <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="520px" mx="auto">{HOW.body}</Text>
         </MotionBox>
 
-        <SimpleGrid columns={{ base: 1, md: 4 }} spacing={{ base: 0, md: 8 }} display={{ base: 'none', md: 'grid' }} w="100%">
+        <SimpleGrid columns={{ md: 4 }} spacing={{ md: 8, lg: 16 }} display={{ base: 'none', md: 'grid' }}>
           {steps.map(function (step, i) {
             return (
               <MotionBox
@@ -58,7 +56,6 @@ function HowItWorks() {
                 transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
                 display="flex"
                 flexDirection="column"
-                minW={0}
               >
                 <Text fontFamily="heading" fontSize={{ md: '5xl', lg: '6xl' }} fontWeight={700} color="brand.champagne" lineHeight={1} opacity={0.7}>{step.num}</Text>
                 <Box w="32px" h="2px" bg="brand.champagne" opacity={0.4} my={5} />
