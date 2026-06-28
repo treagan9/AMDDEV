@@ -4,12 +4,9 @@ import {
   Box,
   Flex,
   SimpleGrid,
-  HStack,
-  VStack,
   Text,
   Badge,
   Image,
-  Tooltip,
   Button
 } from '@chakra-ui/react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -32,28 +29,9 @@ function StatCard({ label, value, subtitle, icon, path }) {
   );
 }
 
-function OnlineMember({ member, isSelf }) {
-  var tooltipLabel = member.first_name + ' ' + member.last_name + (member.title ? ' \u00B7 ' + member.title : '') + ' \u00B7 @' + member.username + (isSelf ? ' (you)' : '');
-  return (
-    <Tooltip label={tooltipLabel} bg="#2D2D2D" color="white" fontSize="sm" borderRadius="8px" px={4} py={2} hasArrow placement="bottom">
-      <Box position="relative" cursor="default">
-        <Flex w="48px" h="48px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border={isSelf ? '2px solid' : '2px solid'} borderColor={isSelf ? '#C4A265' : '#E8E2D8'}>
-          {member.avatar_url ? (
-            <Image src={member.avatar_url} alt={member.first_name} objectFit="cover" w="100%" h="100%" />
-          ) : (
-            <Text fontSize="sm" fontWeight={600} color="#9A9590">{member.first_name[0]}{member.last_name[0]}</Text>
-          )}
-        </Flex>
-        <Box position="absolute" bottom="1px" right="1px" w="12px" h="12px" borderRadius="full" bg="#22C55E" border="2.5px solid white" />
-      </Box>
-    </Tooltip>
-  );
-}
-
 function Dashboard() {
   var [stats, setStats] = useState({ leads: 0, newLeads: 0, members: 0, submissions: 0 });
   var [recentLeads, setRecentLeads] = useState([]);
-  var [onlineMembers, setOnlineMembers] = useState([]);
   var [unreadCount, setUnreadCount] = useState(0);
   var { teamMember } = useAuth();
   var navigate = useNavigate();
@@ -61,10 +39,7 @@ function Dashboard() {
   useEffect(function () {
     fetchStats();
     fetchRecentLeads();
-    fetchOnline();
     fetchUnread();
-    var interval = setInterval(function () { fetchOnline(); fetchUnread(); }, 30000);
-    return function () { clearInterval(interval); };
   }, [teamMember]);
 
   async function fetchStats() {
@@ -72,23 +47,12 @@ function Dashboard() {
     var newLeadsResult = await supabase.from('leads').select('id', { count: 'exact', head: true }).eq('status', 'new');
     var membersResult = await supabase.from('members').select('id', { count: 'exact', head: true });
     var subsResult = await supabase.from('form_submissions').select('id', { count: 'exact', head: true });
-    setStats({
-      leads: leadsResult.count || 0,
-      newLeads: newLeadsResult.count || 0,
-      members: membersResult.count || 0,
-      submissions: subsResult.count || 0
-    });
+    setStats({ leads: leadsResult.count || 0, newLeads: newLeadsResult.count || 0, members: membersResult.count || 0, submissions: subsResult.count || 0 });
   }
 
   async function fetchRecentLeads() {
     var result = await supabase.from('leads').select('*').order('created_at', { ascending: false }).limit(8);
     setRecentLeads(result.data || []);
-  }
-
-  async function fetchOnline() {
-    var fiveMinAgo = new Date(Date.now() - 300000).toISOString();
-    var result = await supabase.from('team_members').select('*').gte('last_seen_at', fiveMinAgo).order('first_name');
-    setOnlineMembers(result.data || []);
   }
 
   async function fetchUnread() {
@@ -105,37 +69,21 @@ function Dashboard() {
 
   return (
     <Box>
-      <Flex align="center" gap={6} mb={8} flexWrap="wrap">
-        {teamMember && (
-          <Flex align="center" gap={4} flex={1} minW="0">
-            <Box position="relative" flexShrink={0}>
-              <Flex w="56px" h="56px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border="2px solid" borderColor="#C4A265">
-                {teamMember.avatar_url ? (
-                  <Image src={teamMember.avatar_url} alt={teamMember.first_name} objectFit="cover" w="100%" h="100%" />
-                ) : (
-                  <Text fontSize="lg" fontWeight={700} color="#9A9590">{teamMember.first_name[0]}{teamMember.last_name[0]}</Text>
-                )}
-              </Flex>
-              <Box position="absolute" bottom="2px" right="2px" w="12px" h="12px" borderRadius="full" bg="#22C55E" border="2.5px solid white" />
-            </Box>
-            <Box minW="0">
-              <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight={700} color="#2D2D2D">{greeting}, {teamMember.first_name}</Text>
-              <Text fontSize="sm" color="#9A9590">{teamMember.title || teamMember.role}</Text>
-            </Box>
+      {teamMember && (
+        <Flex align="center" gap={4} mb={8}>
+          <Flex w="52px" h="52px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border="2px solid" borderColor="#E8E2D8" flexShrink={0}>
+            {teamMember.avatar_url ? (
+              <Image src={teamMember.avatar_url} alt={teamMember.first_name} objectFit="cover" w="100%" h="100%" />
+            ) : (
+              <Text fontSize="lg" fontWeight={700} color="#9A9590">{teamMember.first_name[0]}{teamMember.last_name[0]}</Text>
+            )}
           </Flex>
-        )}
-        {onlineMembers.length > 0 && (
-          <Flex align="center" gap={3} flexShrink={0}>
-            <HStack spacing={-2}>
-              {onlineMembers.map(function (member) {
-                var isSelf = teamMember && member.id === teamMember.id;
-                return <OnlineMember key={member.id} member={member} isSelf={isSelf} />;
-              })}
-            </HStack>
-            <Text fontSize="sm" color="#9A9590">{onlineMembers.length} online</Text>
-          </Flex>
-        )}
-      </Flex>
+          <Box>
+            <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight={700} color="#2D2D2D">{greeting}, {teamMember.first_name}</Text>
+            <Text fontSize="sm" color="#9A9590">{teamMember.title || teamMember.role}</Text>
+          </Box>
+        </Flex>
+      )}
 
       {(unreadCount > 0 || stats.newLeads > 0) && (
         <Flex gap={3} mb={8} flexWrap="wrap">

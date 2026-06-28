@@ -82,7 +82,7 @@ function Footer() {
           <Box bg="#2A2A2A" borderRadius="28px" px={16} pt={20} pb={12}>
             <Flex gap={20} mb={16}>
               <Box maxW="320px" flexShrink={0}>
-                <Image src="/answersmd-footer-white.png" alt="AnswersMD" h="42px" objectFit="contain" mb={6} />
+                <Image src="/answersmd-footer-white.png" alt="AnswersMD" h="52px" objectFit="contain" mb={6} />
                 <Text fontSize="md" color="whiteAlpha.700" lineHeight={1.85} mb={8}>
                   Concierge medicine, simplified. Direct access to your doctor via call, text or video. Same-day appointments and visits that last as long as you need.
                 </Text>
@@ -152,7 +152,7 @@ function Footer() {
 
       <Box bg="#2A2A2A" display={{ base: 'block', lg: 'none' }} px={6} pt={14} pb={10}>
         <Box mb={10}>
-          <Image src="/answersmd-footer-white.png" alt="AnswersMD" h="36px" objectFit="contain" mb={6} />
+          <Image src="/answersmd-footer-white.png" alt="AnswersMD" h="44px" objectFit="contain" mb={6} />
           <Text fontSize="md" color="whiteAlpha.700" lineHeight={1.85} mb={8}>
             Concierge medicine, simplified. Direct access to your doctor via call, text or video. Same-day appointments and visits that last as long as you need.
           </Text>

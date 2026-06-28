@@ -152,7 +152,7 @@ function AdminLayout() {
           </Flex>
         </Flex>
 
-        <Flex display={{ base: 'none', lg: 'flex' }} align="center" justify="flex-end" gap={4} px={10} py={3} bg="white" borderBottom="1px solid" borderColor="#F0EDE8" position="sticky" top={0} zIndex={10}>
+        <Flex display={{ base: 'none', lg: 'flex' }} align="center" justify="flex-end" gap={4} px={10} py={3} bg="white" position="sticky" top={0} zIndex={10}>
           {onlineMembers.length > 0 && (
             <Flex align="center" gap={2} flex={1}>
               <HStack spacing={-2}>
