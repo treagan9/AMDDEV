@@ -61,7 +61,7 @@ function RequestAccount() {
             + '<body style="margin:0;padding:0;background:#FAFAF7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">'
             + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF7;padding:48px 16px;"><tr><td align="center">'
             + '<table width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">'
-            + '<tr><td align="center" style="padding-bottom:32px;"><img src="https://dev.answersmd.com/logo-dark.png" alt="AnswersMD" height="36" /></td></tr>'
+            + '<tr><td align="center" style="padding-bottom:32px;"><img src="https://dev.answersmd.com/logo-dark.webp" alt="AnswersMD" height="36" /></td></tr>'
             + '<tr><td style="background:#FFFFFF;border-radius:18px;border:1px solid #E8E2D8;padding:40px;">'
             + '<p style="margin:0 0 4px;font-size:12px;color:#C4A265;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;">Account Request</p>'
             + '<h1 style="margin:0 0 16px;font-family:Georgia,serif;font-size:24px;font-weight:700;color:#2D2D2D;">' + form.firstName + ' ' + form.lastName + '</h1>'
@@ -88,13 +88,13 @@ function RequestAccount() {
       <Box w="100%" maxW={{ base: '100%', md: '480px' }}>
         <Flex justify="center" mb={{ base: 0, md: 10 }} display={{ base: 'none', md: 'flex' }}>
           <ChakraLink as={Link} to="/">
-            <Image src="/logo-dark.png" alt="AnswersMD" h="48px" objectFit="contain" />
+            <Image src="/logo-dark.webp" alt="AnswersMD" h="48px" objectFit="contain" />
           </ChakraLink>
         </Flex>
         <Box bg={{ base: '#FAFAF7', md: 'white' }} borderRadius={{ base: '0', md: '24px' }} p={{ base: 6, md: 12 }} border={{ base: 'none', md: '1px solid' }} borderColor="#E8E2D8">
           <Box display={{ base: 'flex', md: 'none' }} justifyContent="center" mb={8}>
             <ChakraLink as={Link} to="/">
-              <Image src="/logo-dark.png" alt="AnswersMD" h="36px" objectFit="contain" />
+              <Image src="/logo-dark.webp" alt="AnswersMD" h="36px" objectFit="contain" />
             </ChakraLink>
           </Box>
           {submitted ? (

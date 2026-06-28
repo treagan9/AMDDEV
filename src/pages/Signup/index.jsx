@@ -431,7 +431,7 @@ function Signup() {
         zIndex={100}
       >
         <Flex maxW="98%" mx="auto" px={{ base: 4, md: 4 }} py={4} justify="space-between" align="center">
-          <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
+          <Image src="/logo-dark.webp" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" cursor="pointer" onClick={function () { navigate('/'); }} />
           <Text as={Link} to="/" fontSize="md" color="#9B9488" fontWeight={500} _hover={{ color: 'brand.slate' }} transition="color 0.2s ease">Exit</Text>
         </Flex>
         <Box pb={4}>

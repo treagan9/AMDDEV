@@ -27,10 +27,10 @@ function Hero() {
     >
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
         <picture>
-          <source media="(max-width: 767px)" srcSet="/home/your-doctors-cell-hero-mobile.png" />
-          <source media="(max-width: 991px)" srcSet="/home/your-doctors-cell-hero-ipad.png" />
+          <source media="(max-width: 767px)" srcSet="/home/your-doctors-cell-hero-mobile.webp" />
+          <source media="(max-width: 991px)" srcSet="/home/your-doctors-cell-hero-ipad.webp" />
           <img
-            src="/home/your-doctors-cell-hero-desktop.png"
+            src="/home/your-doctors-cell-hero-desktop.webp"
             alt="AnswersMD direct physician access by phone"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
           />

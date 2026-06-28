@@ -14,11 +14,12 @@ import Pricing from './pages/Pricing';
 import Stories from './pages/Stories';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
+import LocationsIndex from './pages/Locations/Index';
 import Tampa from './pages/Locations/Tampa';
 import StPete from './pages/Locations/StPete';
 import BocaRaton from './pages/Locations/BocaRaton';
 import AdminApp from './admin/AdminApp';
-
+ 
 function App() {
   return (
     <Routes>
@@ -35,6 +36,7 @@ function App() {
         <Route path="/stories/" element={<Stories />} />
         <Route path="/privacy/" element={<Privacy />} />
         <Route path="/terms/" element={<Terms />} />
+        <Route path="/locations/" element={<LocationsIndex />} />
         <Route path="/location-tampa/" element={<Tampa />} />
         <Route path="/location-st-pete/" element={<StPete />} />
         <Route path="/location-boca-raton/" element={<BocaRaton />} />
@@ -44,5 +46,5 @@ function App() {
     </Routes>
   );
 }
-
+ 
 export default App;

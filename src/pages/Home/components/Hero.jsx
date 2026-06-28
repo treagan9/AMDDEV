@@ -34,9 +34,9 @@ function Hero() {
     <Box position="relative" minH="100vh" display="flex" alignItems="center" justifyContent="center" overflow="hidden">
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
         <picture>
-          <source media="(max-width: 767px)" srcSet="/home/hero-mobile.png" />
-          <source media="(max-width: 991px)" srcSet="/home/hero-tablet.png" />
-          <img src="/home/hero-desktop.png" alt="AnswersMD concierge medicine" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <source media="(max-width: 767px)" srcSet="/home/hero-mobile.webp" />
+          <source media="(max-width: 991px)" srcSet="/home/hero-tablet.webp" />
+          <img src="/home/hero-desktop.webp" alt="AnswersMD concierge medicine" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         </picture>
       </Box>
 

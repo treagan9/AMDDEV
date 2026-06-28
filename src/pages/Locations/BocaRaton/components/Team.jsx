@@ -12,13 +12,13 @@ import { useInView } from 'react-intersection-observer';
 var MotionBox = motion(Box);
  
 var PHYSICIANS = [
-  { name: 'Douglas Shapiro, DO', role: 'Founder & Lead Physician', photo: '/team/dr-doug-shapiro.png', bio: 'Dr. Shapiro founded AnswersMD with a vision to deliver healthcare the way it should be. Personal, unhurried and built on real relationships. With over 6 years of experience in family medicine, he brings a genuine commitment to knowing each patient as an individual.' },
-  { name: "Divino D'Alessio Jr., MD", role: 'Sports & Family Medicine', photo: '/team/dr-divino-dalessio.png', bio: "Board-certified Family Medicine paired with advanced Sports Medicine training including NCAA Division I team coverage and diagnostic musculoskeletal ultrasound. He cares for active adults, athletes and families who want evidence-based care focused on performance, prevention and safe return to activity." }
+  { name: 'Douglas Shapiro, DO', role: 'Founder & Lead Physician', photo: '/team/dr-doug-shapiro.webp', bio: 'Dr. Shapiro founded AnswersMD with a vision to deliver healthcare the way it should be. Personal, unhurried and built on real relationships. With over 6 years of experience in family medicine, he brings a genuine commitment to knowing each patient as an individual.' },
+  { name: "Divino D'Alessio Jr., MD", role: 'Sports & Family Medicine', photo: '/team/dr-divino-dalessio.webp', bio: "Board-certified Family Medicine paired with advanced Sports Medicine training including NCAA Division I team coverage and diagnostic musculoskeletal ultrasound. He cares for active adults, athletes and families who want evidence-based care focused on performance, prevention and safe return to activity." }
 ];
  
 var STAFF = [
-  { name: 'Lauren Shapiro', role: 'Chief of Staff', photo: '/team/lauren-shapiro.png' },
-  { name: 'Jamie Barber, MBA', role: 'Director of Operations', photo: '/team/jamie-barber.png' }
+  { name: 'Lauren Shapiro', role: 'Chief of Staff', photo: '/team/lauren-shapiro.webp' },
+  { name: 'Jamie Barber, MBA', role: 'Director of Operations', photo: '/team/jamie-barber.webp' }
 ];
  
 function Team() {

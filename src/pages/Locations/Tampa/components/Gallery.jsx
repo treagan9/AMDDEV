@@ -11,15 +11,15 @@ import { useInView } from 'react-intersection-observer';
 var MotionBox = motion(Box);
  
 var ROW_1 = [
-  '/locations/tampa-office-1.png',
-  '/locations/tampa-office-2.png',
-  '/locations/tampa-office-3.png'
+  '/locations/tampa-office-1.webp',
+  '/locations/tampa-office-2.webp',
+  '/locations/tampa-office-3.webp'
 ];
  
 var ROW_2 = [
-  '/locations/tampa-office-4.png',
-  '/locations/tampa-office-5.png',
-  '/locations/tampa-office-6.png'
+  '/locations/tampa-office-4.webp',
+  '/locations/tampa-office-5.webp',
+  '/locations/tampa-office-6.webp'
 ];
  
 function GalleryImage({ src, delay, inView }) {

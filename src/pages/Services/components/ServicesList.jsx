@@ -11,12 +11,12 @@ import { useInView } from 'react-intersection-observer';
 var MotionBox = motion(Box);
 
 var SERVICES = [
-  { title: 'Direct access', description: 'Your physician\'s personal cell phone number. Call, text or video chat whenever you need guidance. No answering services, no callbacks, no delays. When something comes up, you reach your doctor directly.', image: '/services/service-access.png' },
-  { title: 'Preventive care', description: 'Annual executive physicals, advanced lab panels, cancer screenings and personalized wellness plans designed to catch problems before they start. We test beyond the standard panel because early detection changes outcomes.', image: '/services/service-preventive.png' },
-  { title: 'House calls', description: 'We come to your home, office or wherever life takes you. Same quality of care without the waiting room. For busy professionals and families who need healthcare that fits their schedule, not the other way around.', image: '/services/service-housecalls.png' },
-  { title: 'Executive health', description: 'Comprehensive health programs designed for professionals and leaders who need to perform at their best. Full diagnostics, longevity planning and ongoing optimization. A 3+ hour deep-dive into your complete health picture.', image: '/services/service-executive.png' },
-  { title: 'Specialist coordination', description: 'We manage referrals, share records, follow up on results and ensure nothing falls through the cracks across your entire care team. You never navigate the system alone.', image: '/services/service-coordination.png' },
-  { title: 'Travel medicine', description: 'Pre-travel consultations, vaccinations, health kits and 24/7 physician access while you\'re away. Your doctor travels with you. Whether it\'s a weekend trip or a month abroad, your care doesn\'t stop at the airport.', image: '/services/service-travel.png' }
+  { title: 'Direct access', description: 'Your physician\'s personal cell phone number. Call, text or video chat whenever you need guidance. No answering services, no callbacks, no delays. When something comes up, you reach your doctor directly.', image: '/services/service-access.webp' },
+  { title: 'Preventive care', description: 'Annual executive physicals, advanced lab panels, cancer screenings and personalized wellness plans designed to catch problems before they start. We test beyond the standard panel because early detection changes outcomes.', image: '/services/service-preventive.webp' },
+  { title: 'House calls', description: 'We come to your home, office or wherever life takes you. Same quality of care without the waiting room. For busy professionals and families who need healthcare that fits their schedule, not the other way around.', image: '/services/service-housecalls.webp' },
+  { title: 'Executive health', description: 'Comprehensive health programs designed for professionals and leaders who need to perform at their best. Full diagnostics, longevity planning and ongoing optimization. A 3+ hour deep-dive into your complete health picture.', image: '/services/service-executive.webp' },
+  { title: 'Specialist coordination', description: 'We manage referrals, share records, follow up on results and ensure nothing falls through the cracks across your entire care team. You never navigate the system alone.', image: '/services/service-coordination.webp' },
+  { title: 'Travel medicine', description: 'Pre-travel consultations, vaccinations, health kits and 24/7 physician access while you\'re away. Your doctor travels with you. Whether it\'s a weekend trip or a month abroad, your care doesn\'t stop at the airport.', image: '/services/service-travel.webp' }
 ];
 
 function ServiceSpread({ title, description, image, index }) {

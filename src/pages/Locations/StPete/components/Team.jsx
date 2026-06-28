@@ -12,17 +12,17 @@ import { useInView } from 'react-intersection-observer';
 var MotionBox = motion(Box);
  
 var PHYSICIANS = [
-  { name: 'Douglas Shapiro, DO', role: 'Founder & Lead Physician', photo: '/team/dr-doug-shapiro.png', bio: 'Dr. Shapiro founded AnswersMD with a vision to deliver healthcare the way it should be. Personal, unhurried and built on real relationships. With over 6 years of experience in family medicine, he brings a genuine commitment to knowing each patient as an individual.' },
-  { name: 'Drew Meriwether, MD', role: 'Pediatric & Internal Medicine', photo: '/team/dr-drew-meriwether.png', bio: 'A USF Health Clinician of the Year with dual board certifications in Pediatrics and Internal Medicine. Dr. Meriwether provides seamless care for entire families from newborns to grandparents.' },
-  { name: 'Ellen Howard, MD, MPH', role: 'Family & Preventive Medicine', photo: '/team/dr-ellen-howard.png', bio: "Board-certified family physician with a Master's in Public Health. She completed her residency in St. Petersburg and is proud to return to the community she considers home. Her interests center on hormone therapy, weight management and preventive lifestyle medicine." }
+  { name: 'Douglas Shapiro, DO', role: 'Founder & Lead Physician', photo: '/team/dr-doug-shapiro.webp', bio: 'Dr. Shapiro founded AnswersMD with a vision to deliver healthcare the way it should be. Personal, unhurried and built on real relationships. With over 6 years of experience in family medicine, he brings a genuine commitment to knowing each patient as an individual.' },
+  { name: 'Drew Meriwether, MD', role: 'Pediatric & Internal Medicine', photo: '/team/dr-drew-meriwether.webp', bio: 'A USF Health Clinician of the Year with dual board certifications in Pediatrics and Internal Medicine. Dr. Meriwether provides seamless care for entire families from newborns to grandparents.' },
+  { name: 'Ellen Howard, MD, MPH', role: 'Family & Preventive Medicine', photo: '/team/dr-ellen-howard.webp', bio: "Board-certified family physician with a Master's in Public Health. She completed her residency in St. Petersburg and is proud to return to the community she considers home. Her interests center on hormone therapy, weight management and preventive lifestyle medicine." }
 ];
  
 var STAFF = [
-  { name: 'Lauren Shapiro', role: 'Chief of Staff', photo: '/team/lauren-shapiro.png' },
-  { name: 'Jamie Barber, MBA', role: 'Director of Operations', photo: '/team/jamie-barber.png' },
-  { name: 'Emma Maddox', role: 'Patient Coordinator', photo: '/team/emma-maddox.png' },
-  { name: 'Laura Gore', role: 'Nurse Manager', photo: '/team/laura-gore.png' },
-  { name: 'Sarah Juarez', role: 'Medical Assistant', photo: '/team/sarah-juarez.png' }
+  { name: 'Lauren Shapiro', role: 'Chief of Staff', photo: '/team/lauren-shapiro.webp' },
+  { name: 'Jamie Barber, MBA', role: 'Director of Operations', photo: '/team/jamie-barber.webp' },
+  { name: 'Emma Maddox', role: 'Patient Coordinator', photo: '/team/emma-maddox.webp' },
+  { name: 'Laura Gore', role: 'Nurse Manager', photo: '/team/laura-gore.webp' },
+  { name: 'Sarah Juarez', role: 'Medical Assistant', photo: '/team/sarah-juarez.webp' }
 ];
  
 function Team() {

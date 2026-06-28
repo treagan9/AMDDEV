@@ -2,9 +2,13 @@
 import { Helmet } from 'react-helmet-async';
 import Hero from './components/Hero';
 import LifeIn from './components/LifeIn';
+import CareWorks from './components/CareWorks';
 import MapDirections from './components/MapDirections';
+import Reviews from './components/Reviews';
+import FAQ from './components/FAQ';
 import Gallery from './components/Gallery';
 import Team from './components/Team';
+import OtherLocations from './components/OtherLocations';
 import CTA from './components/CTA';
  
 function Tampa() {
@@ -16,9 +20,13 @@ function Tampa() {
       </Helmet>
       <Hero />
       <LifeIn />
+      <CareWorks />
       <MapDirections />
+      <Reviews />
+      <FAQ />
       <Gallery />
       <Team />
+      <OtherLocations />
       <CTA />
     </>
   );

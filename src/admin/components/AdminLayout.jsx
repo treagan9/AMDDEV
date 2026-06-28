@@ -110,8 +110,6 @@ function AdminLayout() {
   async function fetchUnreadTotal() { if (!teamMember) return; var r = await supabase.from('direct_messages').select('id', { count: 'exact', head: true }).eq('recipient_id', teamMember.id).is('read_at', null); setUnreadTotal(r.count || 0); }
   async function fetchOnline() { var ago = new Date(Date.now() - 300000).toISOString(); var r = await supabase.from('team_members').select('*').gte('last_seen_at', ago).order('first_name'); setOnlineMembers(r.data || []); }
 
-  function isOnline(m) { if (!m.last_seen_at) return false; return (Date.now() - new Date(m.last_seen_at).getTime()) < 300000; }
-
   return (
     <Box className="admin-root" display="flex" minH="100vh" bg="#FAFAF7" sx={{
       '& select': { appearance: 'none !important', WebkitAppearance: 'none !important', paddingRight: '40px !important', backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%239A9590\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'/%3E%3C/svg%3E") !important', backgroundRepeat: 'no-repeat !important', backgroundPosition: 'right 14px center !important', backgroundSize: '16px !important' },
@@ -127,19 +125,22 @@ function AdminLayout() {
       </Box>
 
       <Flex flex={1} ml={{ base: 0, lg: '260px' }} direction="column" minH="100vh">
-        <Flex display={{ base: 'flex', lg: 'none' }} align="center" justify="space-between" px={5} py={4} bg="white" borderBottom="1px solid" borderColor="#E8E2D8" position="sticky" top={0} zIndex={10}>
+        <Flex display={{ base: 'flex', lg: 'none' }} align="center" justify="space-between" px={5} py={4} bg="white" position="sticky" top={0} zIndex={10}>
           <Image src="/logo-dark.png" alt="AnswersMD" h="24px" objectFit="contain" />
-          <Flex align="center" gap={4}>
+          <Flex align="center" gap={3}>
             {onlineMembers.length > 0 && (
               <HStack spacing={-1}>
                 {onlineMembers.slice(0, 4).map(function (m) {
+                  var isSelf = teamMember && m.id === teamMember.id;
                   return (
-                    <Box key={m.id} position="relative">
-                      <Flex w="28px" h="28px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border="2px solid white">
-                        {m.avatar_url ? <Image src={m.avatar_url} alt={m.first_name} objectFit="cover" w="100%" h="100%" /> : <Text fontSize="9px" fontWeight={600} color="#9A9590">{m.first_name[0]}{m.last_name[0]}</Text>}
-                      </Flex>
-                      <Box position="absolute" bottom="0" right="0" w="8px" h="8px" borderRadius="full" bg="#22C55E" border="1.5px solid white" />
-                    </Box>
+                    <Tooltip key={m.id} label={m.first_name + ' ' + m.last_name + (m.title ? ' \u00B7 ' + m.title : '') + (isSelf ? ' (you)' : '')} bg="#2D2D2D" color="white" fontSize="xs" borderRadius="6px" px={3} py={1.5} hasArrow placement="bottom">
+                      <Box position="relative">
+                        <Flex w="26px" h="26px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border="2px solid white">
+                          {m.avatar_url ? <Image src={m.avatar_url} alt={m.first_name} objectFit="cover" w="100%" h="100%" /> : <Text fontSize="8px" fontWeight={600} color="#9A9590">{m.first_name[0]}{m.last_name[0]}</Text>}
+                        </Flex>
+                        <Box position="absolute" bottom="-1px" right="-1px" w="8px" h="8px" borderRadius="full" bg="#22C55E" border="1.5px solid white" />
+                      </Box>
+                    </Tooltip>
                   );
                 })}
               </HStack>
@@ -152,30 +153,27 @@ function AdminLayout() {
           </Flex>
         </Flex>
 
-        <Flex display={{ base: 'none', lg: 'flex' }} align="center" justify="flex-end" gap={4} px={10} py={3} bg="white" position="sticky" top={0} zIndex={10}>
+        <Flex display={{ base: 'none', lg: 'flex' }} align="center" justify="flex-end" gap={3} px={10} py={3} bg="transparent" position="sticky" top={0} zIndex={10}>
           {onlineMembers.length > 0 && (
-            <Flex align="center" gap={2} flex={1}>
-              <HStack spacing={-2}>
-                {onlineMembers.map(function (m) {
-                  var isSelf = teamMember && m.id === teamMember.id;
-                  return (
-                    <Tooltip key={m.id} label={m.first_name + ' ' + m.last_name + (m.title ? ' \u00B7 ' + m.title : '') + (isSelf ? ' (you)' : '')} bg="#2D2D2D" color="white" fontSize="xs" borderRadius="6px" px={3} py={1.5} hasArrow placement="bottom">
-                      <Box position="relative">
-                        <Flex w="32px" h="32px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border={isSelf ? '2px solid' : '2px solid'} borderColor={isSelf ? '#C4A265' : 'white'}>
-                          {m.avatar_url ? <Image src={m.avatar_url} alt={m.first_name} objectFit="cover" w="100%" h="100%" /> : <Text fontSize="xs" fontWeight={600} color="#9A9590">{m.first_name[0]}{m.last_name[0]}</Text>}
-                        </Flex>
-                        <Box position="absolute" bottom="0" right="0" w="9px" h="9px" borderRadius="full" bg="#22C55E" border="2px solid white" />
-                      </Box>
-                    </Tooltip>
-                  );
-                })}
-              </HStack>
-              <Text fontSize="xs" color="#9A9590" ml={1}>{onlineMembers.length} online</Text>
-            </Flex>
+            <HStack spacing={-2}>
+              {onlineMembers.map(function (m) {
+                var isSelf = teamMember && m.id === teamMember.id;
+                return (
+                  <Tooltip key={m.id} label={m.first_name + ' ' + m.last_name + (m.title ? ' \u00B7 ' + m.title : '') + (isSelf ? ' (you)' : '')} bg="#2D2D2D" color="white" fontSize="xs" borderRadius="6px" px={3} py={1.5} hasArrow placement="bottom">
+                    <Box position="relative">
+                      <Flex w="30px" h="30px" borderRadius="full" overflow="hidden" bg="#F0EDE8" align="center" justify="center" border={isSelf ? '2px solid' : '2px solid'} borderColor={isSelf ? '#C4A265' : 'white'}>
+                        {m.avatar_url ? <Image src={m.avatar_url} alt={m.first_name} objectFit="cover" w="100%" h="100%" /> : <Text fontSize="10px" fontWeight={600} color="#9A9590">{m.first_name[0]}{m.last_name[0]}</Text>}
+                      </Flex>
+                      <Box position="absolute" bottom="-1px" right="-1px" w="8px" h="8px" borderRadius="full" bg="#22C55E" border="2px solid #FAFAF7" />
+                    </Box>
+                  </Tooltip>
+                );
+              })}
+            </HStack>
           )}
-          <Box position="relative" cursor="pointer" onClick={function () { setMessagesOpen(!messagesOpen); }} color="#9A9590" _hover={{ color: '#2D2D2D' }} transition="color 0.2s ease" p={2}>
+          <Box position="relative" cursor="pointer" onClick={function () { setMessagesOpen(!messagesOpen); }} color="#9A9590" _hover={{ color: '#2D2D2D' }} transition="color 0.2s ease" p={1}>
             <HiOutlineChatAlt2 size={20} />
-            {unreadTotal > 0 && <Flex position="absolute" top="0" right="0" w="18px" h="18px" borderRadius="full" bg="#C4A265" align="center" justify="center"><Text fontSize="10px" fontWeight={700} color="white">{unreadTotal}</Text></Flex>}
+            {unreadTotal > 0 && <Flex position="absolute" top="-2px" right="-4px" w="16px" h="16px" borderRadius="full" bg="#C4A265" align="center" justify="center"><Text fontSize="9px" fontWeight={700} color="white">{unreadTotal}</Text></Flex>}
           </Box>
         </Flex>
 

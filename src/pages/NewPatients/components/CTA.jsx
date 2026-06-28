@@ -23,10 +23,10 @@ function CTA() {
           <Box position="relative" borderRadius={{ base: '24px', md: '32px' }} overflow="hidden">
             <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
               <picture>
-                <source media="(max-width: 767px)" srcSet="/sections/cta-inner-banner-pad.png" />
-                <source media="(max-width: 991px)" srcSet="/sections/cta-inner-banner-pad.png" />
+                <source media="(max-width: 767px)" srcSet="/sections/cta-inner-banner-pad.webp" />
+                <source media="(max-width: 991px)" srcSet="/sections/cta-inner-banner-pad.webp" />
                 <img
-                  src="/sections/cta-inner-banner.png"
+                  src="/sections/cta-inner-banner.webp"
                   alt=""
                   aria-hidden="true"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}

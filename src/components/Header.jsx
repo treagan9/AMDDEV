@@ -77,7 +77,7 @@ function Header() {
             opacity={drawerOpen ? 0 : 1}
             pointerEvents={drawerOpen ? 'none' : 'auto'}
           >
-            <Image src="/logo-dark.png" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" />
+            <Image src="/logo-dark.webp" alt="AnswersMD" h={{ base: '32px', md: '42px' }} objectFit="contain" />
           </ChakraLink>
 
           <HStack spacing={10} display={{ base: 'none', lg: 'flex' }} alignItems="center">

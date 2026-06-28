@@ -27,10 +27,10 @@ function Hero() {
     >
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
         <picture>
-          <source media="(max-width: 767px)" srcSet="/home/executive-hero-desktop-mobile.png" />
-          <source media="(max-width: 991px)" srcSet="/home/executive-hero-desktop-ipad.png" />
+          <source media="(max-width: 767px)" srcSet="/home/executive-hero-desktop-mobile.webp" />
+          <source media="(max-width: 991px)" srcSet="/home/executive-hero-desktop-ipad.webp" />
           <img
-            src="/home/executive-hero-desktop.png"
+            src="/home/executive-hero-desktop.webp"
             alt="AnswersMD executive health virtual consultation"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
           />

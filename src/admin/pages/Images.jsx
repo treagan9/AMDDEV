@@ -20,47 +20,47 @@ var PAGES = [
   {
     page: 'Home', sections: [
       { title: 'Hero', type: 'hero', description: 'Full viewport, centered content, gradient overlays', images: [
-        { name: 'Desktop', file: 'hero-desktop.png', size: '2000x1100', path: '/home/' },
-        { name: 'Tablet', file: 'hero-tablet.png', size: '1200x900', path: '/home/' },
-        { name: 'Mobile', file: 'hero-mobile.png', size: '800x1200', path: '/home/' }
+        { name: 'Desktop', file: 'hero-desktop.webp', size: '2000x1100', path: '/home/' },
+        { name: 'Tablet', file: 'hero-tablet.webp', size: '1200x900', path: '/home/' },
+        { name: 'Mobile', file: 'hero-mobile.webp', size: '800x1200', path: '/home/' }
       ]},
       { title: 'Promo Banner', type: 'banner', description: 'Champagne strip', images: [] },
       { title: 'Team Arc', type: 'content', description: 'Circular portraits in arc formation', images: [] },
       { title: 'Services Split', type: 'split', description: '50/50 image left, content right', images: [
-        { name: 'Square', file: 'home-services-square.png', size: '1200x1200', path: '/home/' }
+        { name: 'Square', file: 'home-services-square.webp', size: '1200x1200', path: '/home/' }
       ]},
       { title: 'How It Works', type: 'bg-image', description: '4 steps over background image', images: [
-        { name: 'Desktop', file: 'why-our-members-stay-desktop.png', size: '2000x1100', path: '/sections/' },
-        { name: 'Tablet', file: 'why-our-members-stay-ipad.png', size: '1200x900', path: '/sections/' },
-        { name: 'Mobile', file: 'why-our-members-stay-mobile.png', size: '800x1200', path: '/sections/' }
+        { name: 'Desktop', file: 'why-our-members-stay-desktop.webp', size: '2000x1100', path: '/sections/' },
+        { name: 'Tablet', file: 'why-our-members-stay-ipad.webp', size: '1200x900', path: '/sections/' },
+        { name: 'Mobile', file: 'why-our-members-stay-mobile.webp', size: '800x1200', path: '/sections/' }
       ]},
       { title: 'Why Us', type: 'cards', description: '2x2 card grid', images: [] },
       { title: 'Testimonials', type: 'content', description: 'Horizontal scroll quotes', images: [] },
       { title: 'Locations', type: 'grid', description: '3 square cards with overlay', images: [
-        { name: 'Tampa', file: 'tampa-office-main.png', size: '1200x1200', path: '/locations/' },
-        { name: 'St. Pete', file: 'st-pete.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Boca', file: 'boca-main.png', size: '1200x1200', path: '/locations/' }
+        { name: 'Tampa', file: 'tampa-office-main.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'St. Pete', file: 'st-pete.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Boca', file: 'boca-main.webp', size: '1200x1200', path: '/locations/' }
       ]},
       { title: 'CTA', type: 'cta', description: 'Global CTA banner', images: [
-        { name: 'Banner', file: 'cta-inner-banner.png', size: '2000x800', path: '/sections/' }
+        { name: 'Banner', file: 'cta-inner-banner.webp', size: '2000x800', path: '/sections/' }
       ]}
     ]
   },
   {
     page: 'Services', sections: [
       { title: 'Hero', type: 'hero', description: 'Left-aligned content, right image', images: [
-        { name: 'Desktop', file: 'your-doctors-cell-hero-desktop.png', size: '2000x1100', path: '/home/' },
-        { name: 'Tablet', file: 'your-doctors-cell-hero-ipad.png', size: '1200x900', path: '/home/' },
-        { name: 'Mobile', file: 'your-doctors-cell-hero-mobile.png', size: '800x1200', path: '/home/' }
+        { name: 'Desktop', file: 'your-doctors-cell-hero-desktop.webp', size: '2000x1100', path: '/home/' },
+        { name: 'Tablet', file: 'your-doctors-cell-hero-ipad.webp', size: '1200x900', path: '/home/' },
+        { name: 'Mobile', file: 'your-doctors-cell-hero-mobile.webp', size: '800x1200', path: '/home/' }
       ]},
       { title: 'Stats', type: 'content', description: 'Mist pill with 4 numbers', images: [] },
       { title: 'Service Splits', type: 'alternating', description: '6 alternating 50/50 sections', images: [
-        { name: 'Direct Access', file: 'service-access.png', size: '1200x1200', path: '/services/' },
-        { name: 'Preventive', file: 'service-preventive.png', size: '1200x1200', path: '/services/' },
-        { name: 'House Calls', file: 'service-housecalls.png', size: '1200x1200', path: '/services/' },
-        { name: 'Executive', file: 'service-executive.png', size: '1200x1200', path: '/services/' },
-        { name: 'Coordination', file: 'service-coordination.png', size: '1200x1200', path: '/services/' },
-        { name: 'Travel', file: 'service-travel.png', size: '1200x1200', path: '/services/' }
+        { name: 'Direct Access', file: 'service-access.webp', size: '1200x1200', path: '/services/' },
+        { name: 'Preventive', file: 'service-preventive.webp', size: '1200x1200', path: '/services/' },
+        { name: 'House Calls', file: 'service-housecalls.webp', size: '1200x1200', path: '/services/' },
+        { name: 'Executive', file: 'service-executive.webp', size: '1200x1200', path: '/services/' },
+        { name: 'Coordination', file: 'service-coordination.webp', size: '1200x1200', path: '/services/' },
+        { name: 'Travel', file: 'service-travel.webp', size: '1200x1200', path: '/services/' }
       ]},
       { title: 'FAQ', type: 'content', description: 'Accordion', images: [] },
       { title: 'CTA', type: 'cta', description: 'Mist pill', images: [] }
@@ -69,59 +69,59 @@ var PAGES = [
   {
     page: 'What to Expect', sections: [
       { title: 'Hero', type: 'hero', description: 'Bottom-aligned content', images: [
-        { name: 'Desktop', file: 'what-to-expect-hero-desktop.png', size: '2000x1100', path: '/home/' },
-        { name: 'Tablet', file: 'what-to-expect-hero-ipad.png', size: '1200x900', path: '/home/' },
-        { name: 'Mobile', file: 'what-to-expect-hero-mobile.png', size: '800x1200', path: '/home/' }
+        { name: 'Desktop', file: 'what-to-expect-hero-desktop.webp', size: '2000x1100', path: '/home/' },
+        { name: 'Tablet', file: 'what-to-expect-hero-ipad.webp', size: '1200x900', path: '/home/' },
+        { name: 'Mobile', file: 'what-to-expect-hero-mobile.webp', size: '800x1200', path: '/home/' }
       ]}
     ]
   },
   {
     page: 'Team', sections: [
       { title: 'Hero', type: 'hero', description: 'Team group photo', images: [
-        { name: 'Desktop', file: 'our-team-hero-desktop.png', size: '2000x1100', path: '/home/' },
-        { name: 'Tablet', file: 'our-team-hero-ipad.png', size: '1200x900', path: '/home/' },
-        { name: 'Mobile', file: 'our-team-hero-mobile.png', size: '800x1200', path: '/home/' }
+        { name: 'Desktop', file: 'our-team-hero-desktop.webp', size: '2000x1100', path: '/home/' },
+        { name: 'Tablet', file: 'our-team-hero-ipad.webp', size: '1200x900', path: '/home/' },
+        { name: 'Mobile', file: 'our-team-hero-mobile.webp', size: '800x1200', path: '/home/' }
       ]},
       { title: 'Physicians', type: 'portraits', description: '4 editorial spreads', images: [
-        { name: 'Dr. Shapiro', file: 'dr-doug-shapiro.png', size: '800x1040', path: '/team/' },
-        { name: 'Dr. Meriwether', file: 'dr-drew-meriwether.png', size: '800x1040', path: '/team/' },
-        { name: 'Dr. D\'Alessio', file: 'dr-divino-dalessio.png', size: '800x1040', path: '/team/' },
-        { name: 'Dr. Howard', file: 'dr-ellen-howard.png', size: '800x1040', path: '/team/' }
+        { name: 'Dr. Shapiro', file: 'dr-doug-shapiro.webp', size: '800x1040', path: '/team/' },
+        { name: 'Dr. Meriwether', file: 'dr-drew-meriwether.webp', size: '800x1040', path: '/team/' },
+        { name: 'Dr. D\'Alessio', file: 'dr-divino-dalessio.webp', size: '800x1040', path: '/team/' },
+        { name: 'Dr. Howard', file: 'dr-ellen-howard.webp', size: '800x1040', path: '/team/' }
       ]},
       { title: 'Staff', type: 'circles', description: 'Circular portraits', images: [
-        { name: 'Lauren', file: 'lauren-shapiro.png', size: '800x800', path: '/team/' },
-        { name: 'Jamie', file: 'jamie-barber.png', size: '800x800', path: '/team/' },
-        { name: 'Emma', file: 'emma-maddox.png', size: '800x800', path: '/team/' },
-        { name: 'Laura', file: 'laura-gore.png', size: '800x800', path: '/team/' },
-        { name: 'Sarah', file: 'sarah-juarez.png', size: '800x800', path: '/team/' }
+        { name: 'Lauren', file: 'lauren-shapiro.webp', size: '800x800', path: '/team/' },
+        { name: 'Jamie', file: 'jamie-barber.webp', size: '800x800', path: '/team/' },
+        { name: 'Emma', file: 'emma-maddox.webp', size: '800x800', path: '/team/' },
+        { name: 'Laura', file: 'laura-gore.webp', size: '800x800', path: '/team/' },
+        { name: 'Sarah', file: 'sarah-juarez.webp', size: '800x800', path: '/team/' }
       ]}
     ]
   },
   {
     page: 'Executive', sections: [
       { title: 'Hero', type: 'hero', description: 'Executive health hero', images: [
-        { name: 'Desktop', file: 'executive-hero-desktop.png', size: '2000x1100', path: '/home/' },
-        { name: 'Tablet', file: 'executive-hero-desktop-ipad.png', size: '1200x900', path: '/home/' },
-        { name: 'Mobile', file: 'executive-hero-desktop-mobile.png', size: '800x1200', path: '/home/' }
+        { name: 'Desktop', file: 'executive-hero-desktop.webp', size: '2000x1100', path: '/home/' },
+        { name: 'Tablet', file: 'executive-hero-desktop-ipad.webp', size: '1200x900', path: '/home/' },
+        { name: 'Mobile', file: 'executive-hero-desktop-mobile.webp', size: '800x1200', path: '/home/' }
       ]}
     ]
   },
   {
     page: 'Locations', sections: [
       { title: 'Tampa Gallery', type: 'gallery', description: 'Office photos', images: [
-        { name: 'Main', file: 'tampa-office-main.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Photo 1', file: 'tampa-office-1.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Photo 2', file: 'tampa-office-2.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Photo 3', file: 'tampa-office-3.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Photo 4', file: 'tampa-office-4.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Photo 5', file: 'tampa-office-5.png', size: '1200x1200', path: '/locations/' },
-        { name: 'Photo 6', file: 'tampa-office-6.png', size: '1200x1200', path: '/locations/' }
+        { name: 'Main', file: 'tampa-office-main.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Photo 1', file: 'tampa-office-1.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Photo 2', file: 'tampa-office-2.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Photo 3', file: 'tampa-office-3.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Photo 4', file: 'tampa-office-4.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Photo 5', file: 'tampa-office-5.webp', size: '1200x1200', path: '/locations/' },
+        { name: 'Photo 6', file: 'tampa-office-6.webp', size: '1200x1200', path: '/locations/' }
       ]},
       { title: 'St. Pete', type: 'content', description: 'Location page', images: [
-        { name: 'Main', file: 'st-pete.png', size: '1200x1200', path: '/locations/' }
+        { name: 'Main', file: 'st-pete.webp', size: '1200x1200', path: '/locations/' }
       ]},
       { title: 'Boca Raton', type: 'content', description: 'Location page', images: [
-        { name: 'Main', file: 'boca-main.png', size: '1200x1200', path: '/locations/' }
+        { name: 'Main', file: 'boca-main.webp', size: '1200x1200', path: '/locations/' }
       ]}
     ]
   }

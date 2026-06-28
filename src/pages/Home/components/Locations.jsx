@@ -13,9 +13,9 @@ import { useInView } from 'react-intersection-observer';
 var MotionBox = motion(Box);
 
 var LOCATIONS = [
-  { city: 'Tampa', status: 'Now open', image: '/locations/tampa-office-main.png', path: '/location-tampa/' },
-  { city: 'St. Petersburg', status: 'Now open', image: '/locations/st-pete.png', path: '/location-st-pete/' },
-  { city: 'Boca Raton', status: 'Coming soon', image: '/locations/boca-main.png', path: '/location-boca-raton/' }
+  { city: 'Tampa', status: 'Now open', image: '/locations/tampa-office-main.webp', path: '/location-tampa/' },
+  { city: 'St. Petersburg', status: 'Now open', image: '/locations/st-pete.webp', path: '/location-st-pete/' },
+  { city: 'Boca Raton', status: 'Coming soon', image: '/locations/boca-main.webp', path: '/location-boca-raton/' }
 ];
 
 function LocationSquare({ city, status, image, path, delay, inView }) {

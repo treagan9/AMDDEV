@@ -17,7 +17,7 @@ var PHYSICIANS = [
     role: 'Founder and Lead Physician',
     credentials: 'Board Certified Family Medicine',
     location: 'Tampa, FL',
-    photo: '/team/dr-doug-shapiro.png',
+    photo: '/team/dr-doug-shapiro.webp',
     bio: 'Dr. Shapiro founded AnswersMD with a vision to deliver healthcare the way it should be. Personal, unhurried and built on real relationships. With over 6 years of experience in family medicine, he brings deep clinical expertise along with a genuine commitment to knowing each patient as an individual. Dr. Shapiro believes medicine works best when your doctor knows your story, not just your chart. That belief drives everything about how AnswersMD operates.'
   },
   {
@@ -25,7 +25,7 @@ var PHYSICIANS = [
     role: 'Pediatric and Internal Medicine',
     credentials: 'Board Certified Pediatrics and Internal Medicine',
     location: 'Tampa, FL',
-    photo: '/team/dr-drew-meriwether.png',
+    photo: '/team/dr-drew-meriwether.webp',
     bio: 'A USF Health Clinician of the Year, Dr. Meriwether brings exceptional versatility with dual board certifications in Pediatrics and Internal Medicine. A rare combination that allows him to provide seamless care for entire families from newborns to grandparents. His training across both specialties means fewer referrals, better coordination and a physician who understands how a child\'s health history connects to their care as an adult.'
   },
   {
@@ -33,7 +33,7 @@ var PHYSICIANS = [
     role: 'Sports and Family Medicine',
     credentials: 'Board Certified Family Medicine and Sports Medicine',
     location: 'Boca Raton, FL',
-    photo: '/team/dr-divino-dalessio.png',
+    photo: '/team/dr-divino-dalessio.webp',
     bio: "Dr. D'Alessio brings board-certified Family Medicine paired with advanced Sports Medicine training. He has served as team physician for NCAA Division I athletes at Coastal Carolina University and provided sideline coverage for regional high school programs. His clinical focus includes diagnostic musculoskeletal ultrasound, ultrasound-guided procedures and concussion management. He delivers athletic-medicine precision to active adults, athletes and families who want evidence-based care centered on performance, prevention and long-term health."
   },
   {
@@ -41,7 +41,7 @@ var PHYSICIANS = [
     role: 'Family and Preventive Medicine',
     credentials: 'Board Certified Family Medicine',
     location: 'St. Petersburg, FL',
-    photo: '/team/dr-ellen-howard.png',
+    photo: '/team/dr-ellen-howard.webp',
     bio: "Dr. Howard believes good medicine starts with knowing the person in front of you. A board-certified family physician with a Master's in Public Health, she brings a preventive, community-minded approach to concierge family medicine. She completed her residency in St. Petersburg and is proud to return to the community she considers home. Her clinical interests center on hormone therapy, weight management and GLP-1 therapy, and preventive lifestyle medicine."
   }
 ];

@@ -27,7 +27,7 @@ function Hero() {
       <Flex direction={{ base: 'column', lg: 'row' }} minH={{ lg: '88vh' }}>
         <Box w={{ base: '100%', lg: '62%' }} position="relative" overflow="hidden">
           <Box position="relative" pb={{ base: '72%', md: '60%', lg: '0' }} h={{ lg: '100%' }} minH={{ lg: '88vh' }}>
-            <Image src="/locations/tampa-office-main.png" alt="AnswersMD Tampa office" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" />
+            <Image src="/locations/tampa-office-main.webp" alt="AnswersMD Tampa office" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" />
             <Box position="absolute" top={0} left={0} right={0} h="120px" bg="linear-gradient(to bottom, rgba(250,250,247,0.55) 0%, transparent 100%)" />
           </Box>
         </Box>

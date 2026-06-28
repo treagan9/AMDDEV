@@ -33,7 +33,7 @@ function AdminSidebar({ onClose }) {
     <Box w="260px" bg="white" borderRight="1px solid" borderColor="#E8E2D8" minH="100vh" position={{ base: 'relative', lg: 'fixed' }} left={0} top={0} display="flex" flexDirection="column">
       <Flex align="center" justify="center" px={6} py={5} borderBottom="1px solid" borderColor="#E8E2D8">
         <ChakraLink as={Link} to="/" display="flex" alignItems="center">
-          <Image src="/logo-dark.png" alt="AnswersMD" h="26px" objectFit="contain" />
+          <Image src="/logo-dark.webp" alt="AnswersMD" h="26px" objectFit="contain" />
         </ChakraLink>
       </Flex>
 

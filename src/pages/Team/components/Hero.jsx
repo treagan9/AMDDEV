@@ -27,10 +27,10 @@ function Hero() {
     >
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
         <picture>
-          <source media="(max-width: 767px)" srcSet="/home/our-team-hero-mobile.png" />
-          <source media="(max-width: 991px)" srcSet="/home/our-team-hero-ipad.png" />
+          <source media="(max-width: 767px)" srcSet="/home/our-team-hero-mobile.webp" />
+          <source media="(max-width: 991px)" srcSet="/home/our-team-hero-ipad.webp" />
           <img
-            src="/home/our-team-hero-desktop.png"
+            src="/home/our-team-hero-desktop.webp"
             alt="AnswersMD concierge medicine care team"
             style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }}
           />

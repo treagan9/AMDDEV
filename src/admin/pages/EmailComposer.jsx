@@ -64,7 +64,7 @@ function EmailComposer() {
       + '<body style="margin:0;padding:0;background:#FAFAF7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;">'
       + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF7;padding:48px 16px;"><tr><td align="center">'
       + '<table width="480" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;">'
-      + '<tr><td align="center" style="padding-bottom:32px;"><img src="https://dev.answersmd.com/logo-dark.png" alt="AnswersMD" height="36" /></td></tr>'
+      + '<tr><td align="center" style="padding-bottom:32px;"><img src="https://dev.answersmd.com/logo-dark.webp" alt="AnswersMD" height="36" /></td></tr>'
       + '<tr><td style="background:#FFFFFF;border-radius:18px;border:1px solid #E8E2D8;padding:40px;">'
       + '<div style="font-size:16px;color:#2D2D2D;line-height:1.7;white-space:pre-wrap;">' + processedBody.replace(/\n/g, '<br>') + '</div>'
       + '</td></tr>'

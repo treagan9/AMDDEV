@@ -62,13 +62,13 @@ function ResetPassword() {
       <Box w="100%" maxW={{ base: '100%', md: '480px' }}>
         <Flex justify="center" mb={{ base: 0, md: 10 }} display={{ base: 'none', md: 'flex' }}>
           <ChakraLink as={Link} to="/">
-            <Image src="/logo-dark.png" alt="AnswersMD" h="48px" objectFit="contain" />
+            <Image src="/logo-dark.webp" alt="AnswersMD" h="48px" objectFit="contain" />
           </ChakraLink>
         </Flex>
         <Box bg={{ base: '#FAFAF7', md: 'white' }} borderRadius={{ base: '0', md: '24px' }} p={{ base: 6, md: 12 }} border={{ base: 'none', md: '1px solid' }} borderColor="#E8E2D8">
           <Box display={{ base: 'flex', md: 'none' }} justifyContent="center" mb={8}>
             <ChakraLink as={Link} to="/">
-              <Image src="/logo-dark.png" alt="AnswersMD" h="36px" objectFit="contain" />
+              <Image src="/logo-dark.webp" alt="AnswersMD" h="36px" objectFit="contain" />
             </ChakraLink>
           </Box>
           <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="#2D2D2D" mb={2} textAlign="center">Set new password</Text>

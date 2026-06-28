@@ -32,9 +32,9 @@ function HowItWorks() {
     <Box position="relative" py={{ base: 'sectionMobile', md: 'section' }} overflow="hidden" ref={ref}>
       <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
         <picture>
-          <source media="(max-width: 767px)" srcSet="/sections/why-our-members-stay-mobile.png" />
-          <source media="(max-width: 991px)" srcSet="/sections/why-our-members-stay-ipad.png" />
-          <img src="/sections/why-our-members-stay-desktop.png" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+          <source media="(max-width: 767px)" srcSet="/sections/why-our-members-stay-mobile.webp" />
+          <source media="(max-width: 991px)" srcSet="/sections/why-our-members-stay-ipad.webp" />
+          <img src="/sections/why-our-members-stay-desktop.webp" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
         </picture>
       </Box>
       <Box position="absolute" top={0} left={0} right={0} bottom={0} bg="rgba(250,250,247,0.12)" zIndex={1} />

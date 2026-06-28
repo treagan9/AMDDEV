@@ -18,15 +18,15 @@ import usePageContent from '../../../admin/lib/usePageContent.jsx';
 var MotionBox = motion(Box);
 
 var TEAM = [
-  { name: 'Sarah Juarez', role: 'Medical Assistant', photo: '/team/sarah-juarez.png' },
-  { name: 'Emma Maddox', role: 'Patient Coordinator', photo: '/team/emma-maddox.png' },
-  { name: 'Laura Gore', role: 'Nurse Manager', photo: '/team/laura-gore.png' },
-  { name: 'Dr. Ellen Howard', role: 'Family and Preventive Medicine', photo: '/team/dr-ellen-howard.png' },
-  { name: 'Dr. Douglas Shapiro', role: 'Founder and Lead Physician', photo: '/team/dr-doug-shapiro.png', featured: true },
-  { name: 'Dr. Drew Meriwether', role: 'Pediatric and Internal Medicine', photo: '/team/dr-drew-meriwether.png' },
-  { name: "Dr. Divino D'Alessio Jr.", role: 'Sports and Family Medicine', photo: '/team/dr-divino-dalessio.png' },
-  { name: 'Jamie Barber', role: 'Director of Operations', photo: '/team/jamie-barber.png' },
-  { name: 'Lauren Shapiro', role: 'Chief of Staff', photo: '/team/lauren-shapiro.png' }
+  { name: 'Sarah Juarez', role: 'Medical Assistant', photo: '/team/sarah-juarez.webp' },
+  { name: 'Emma Maddox', role: 'Patient Coordinator', photo: '/team/emma-maddox.webp' },
+  { name: 'Laura Gore', role: 'Nurse Manager', photo: '/team/laura-gore.webp' },
+  { name: 'Dr. Ellen Howard', role: 'Family and Preventive Medicine', photo: '/team/dr-ellen-howard.webp' },
+  { name: 'Dr. Douglas Shapiro', role: 'Founder and Lead Physician', photo: '/team/dr-doug-shapiro.webp', featured: true },
+  { name: 'Dr. Drew Meriwether', role: 'Pediatric and Internal Medicine', photo: '/team/dr-drew-meriwether.webp' },
+  { name: "Dr. Divino D'Alessio Jr.", role: 'Sports and Family Medicine', photo: '/team/dr-divino-dalessio.webp' },
+  { name: 'Jamie Barber', role: 'Director of Operations', photo: '/team/jamie-barber.webp' },
+  { name: 'Lauren Shapiro', role: 'Chief of Staff', photo: '/team/lauren-shapiro.webp' }
 ];
 
 var CENTER = 4;

@@ -25,7 +25,7 @@ function Prepare() {
       <Box display={{ base: 'block', lg: 'none' }}>
         <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" overflow="hidden">
           <Box position="relative" pb="100%">
-            <Image src="/new-patients/prepare-square.png" alt="Preparing for your visit" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">prepare-square.png (1200x1200)</Text></Box>} />
+            <Image src="/new-patients/prepare-square.webp" alt="Preparing for your visit" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">prepare-square.png (1200x1200)</Text></Box>} />
           </Box>
         </MotionBox>
         <Box py="sectionMobile" bg="white" px={6}>
@@ -67,7 +67,7 @@ function Prepare() {
         </Flex>
         <Box w="50%" overflow="hidden">
           <MotionBox initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ duration: 0.6 }} position="relative" pb="100%">
-            <Image src="/new-patients/prepare-square.png" alt="Preparing for your visit" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">prepare-square.png (1200x1200)</Text></Box>} />
+            <Image src="/new-patients/prepare-square.webp" alt="Preparing for your visit" objectFit="cover" objectPosition="center" position="absolute" top={0} left={0} w="100%" h="100%" fallback={<Box w="100%" h="100%" bg="#E8E2D8" display="flex" alignItems="center" justifyContent="center"><Text fontSize="sm" color="#B5AD9E">prepare-square.png (1200x1200)</Text></Box>} />
           </MotionBox>
         </Box>
       </Flex>

@@ -51,7 +51,7 @@ function MobileDrawer({ isOpen, onClose, currentPath }) {
         >
           <Flex justify="center" pt={7} mb={2} flexShrink={0}>
             <ChakraLink as={Link} to="/" onClick={onClose}>
-              <Image src="/logo-dark.png" alt="AnswersMD" h="32px" objectFit="contain" />
+              <Image src="/logo-dark.webp" alt="AnswersMD" h="32px" objectFit="contain" />
             </ChakraLink>
           </Flex>
 
