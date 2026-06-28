@@ -12,28 +12,36 @@ import {
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { HiArrowRight } from 'react-icons/hi';
- 
+
 var MotionBox = motion(Box);
- 
+
 var LAT = 27.9445;
 var LNG = -82.5106;
-var ADDRESS_LABEL = '4100 W Kennedy Blvd, Tampa, FL 33609';
-var DIRECTIONS_URL = 'https://www.google.com/maps/dir/?api=1&destination=4100+W+Kennedy+Blvd+Tampa+FL+33609';
- 
-var MAPBOX_TOKEN = '';
+var ADDRESS_QUERY = '4100 W Kennedy Blvd Tampa FL 33609';
+var GOOGLE_DIRECTIONS = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(ADDRESS_QUERY);
+var APPLE_DIRECTIONS = 'https://maps.apple.com/?daddr=' + encodeURIComponent(ADDRESS_QUERY);
+
+var MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 var MAPBOX_STYLE = 'mapbox/light-v11';
- 
+
+function isAppleDevice() {
+  if (typeof navigator === 'undefined') {
+    return false;
+  }
+  return /iPhone|iPad|iPod|Macintosh/.test(navigator.userAgent);
+}
+
 function buildMapUrl(width, height) {
   if (!MAPBOX_TOKEN) {
     return '';
   }
   var pin = 'pin-l+C9A86A(' + LNG + ',' + LAT + ')';
-  return 'https://api.mapbox.com/styles/v1/' + MAPBOX_STYLE + '/static/' + pin + '/' + LNG + ',' + LAT + ',14,0/' + width + 'x' + height + '@2x?access_token=' + MAPBOX_TOKEN;
+  return 'https://api.mapbox.com/styles/v1/' + MAPBOX_STYLE + '/static/' + pin + '/' + LNG + ',' + LAT + ',14.5,0/' + width + 'x' + height + '@2x?access_token=' + MAPBOX_TOKEN;
 }
- 
+
 function MapVisual() {
-  var url = buildMapUrl(800, 800);
- 
+  var url = buildMapUrl(900, 760);
+
   if (url) {
     return (
       <Box
@@ -48,12 +56,11 @@ function MapVisual() {
       />
     );
   }
- 
+
   return (
     <Box position="absolute" top={0} left={0} w="100%" h="100%" bg="brand.mist" overflow="hidden">
       <Box position="absolute" top="-10%" left="-10%" w="120%" h="120%" opacity={0.5} sx={{ background: 'repeating-linear-gradient(0deg, rgba(60,55,45,0.06) 0px, rgba(60,55,45,0.06) 1px, transparent 1px, transparent 56px), repeating-linear-gradient(90deg, rgba(60,55,45,0.06) 0px, rgba(60,55,45,0.06) 1px, transparent 1px, transparent 56px)' }} />
       <Box position="absolute" top="44%" left="-5%" w="110%" h="22px" bg="rgba(201,168,106,0.18)" transform="rotate(-8deg)" />
-      <Box position="absolute" top="20%" left="38%" w="14px" h="80%" bg="rgba(60,55,45,0.05)" transform="rotate(6deg)" />
       <Box position="absolute" top="50%" left="50%" transform="translate(-50%, -100%)">
         <Box w="18px" h="18px" borderRadius="full" bg="brand.champagne" border="3px solid white" boxShadow="0 4px 14px rgba(60,50,40,0.25)" />
         <Box w="2px" h="14px" bg="brand.champagne" mx="auto" />
@@ -61,10 +68,15 @@ function MapVisual() {
     </Box>
   );
 }
- 
+
 function MapDirections() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
- 
+  var apple = isAppleDevice();
+  var primaryUrl = apple ? APPLE_DIRECTIONS : GOOGLE_DIRECTIONS;
+  var primaryLabel = apple ? 'Directions in Apple Maps' : 'Directions in Google Maps';
+  var secondaryUrl = apple ? GOOGLE_DIRECTIONS : APPLE_DIRECTIONS;
+  var secondaryLabel = apple ? 'Google Maps' : 'Apple Maps';
+
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory" ref={ref}>
       <Box maxW={{ base: '100%', lg: '70%' }} mx="auto" px={{ base: 6, md: 4 }}>
@@ -74,7 +86,7 @@ function MapDirections() {
               <Box w={{ base: '100%', lg: '46%' }} p={{ base: 8, md: 12 }}>
                 <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Visit us</Text>
                 <Text as="h2" fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15} mb={8}>Right on West Kennedy</Text>
- 
+
                 <VStack align="flex-start" spacing={6} mb={9}>
                   <Box>
                     <Text fontSize="xs" fontWeight={700} letterSpacing="1px" textTransform="uppercase" color="brand.bodyLight" mb={1}>Address</Text>
@@ -91,12 +103,15 @@ function MapDirections() {
                     <Text fontSize="md" color="brand.champagne" fontWeight={500}>24/7 member access</Text>
                   </Box>
                 </VStack>
- 
-                <Button as={ChakraLink} href={DIRECTIONS_URL} isExternal variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />} w={{ base: '100%', sm: 'auto' }} _hover={{ textDecoration: 'none' }}>Get directions</Button>
+
+                <VStack align="stretch" spacing={3} w={{ base: '100%', sm: 'auto' }}>
+                  <Button as={ChakraLink} href={primaryUrl} isExternal variant="primary" size="lg" rightIcon={<Icon as={HiArrowRight} />} _hover={{ textDecoration: 'none' }}>{primaryLabel}</Button>
+                  <ChakraLink href={secondaryUrl} isExternal fontSize="sm" fontWeight={500} color="brand.bodyLight" _hover={{ color: 'brand.champagne' }} transition="color 0.2s ease" textAlign={{ base: 'center', sm: 'left' }}>or open in {secondaryLabel}</ChakraLink>
+                </VStack>
               </Box>
- 
+
               <Box w={{ base: '100%', lg: '54%' }} position="relative" minH={{ base: '240px', md: '320px', lg: 'auto' }}>
-                <ChakraLink href={DIRECTIONS_URL} isExternal display="block" position="absolute" top={0} left={0} w="100%" h="100%" role="group" aria-label={'Open directions to ' + ADDRESS_LABEL}>
+                <ChakraLink href={primaryUrl} isExternal display="block" position="absolute" top={0} left={0} w="100%" h="100%" role="group" aria-label={'Open directions to ' + ADDRESS_QUERY}>
                   <MapVisual />
                   <Box position="absolute" bottom={4} right={4} bg="white" borderRadius="full" px={4} py={2} boxShadow="0 4px 14px rgba(60,50,40,0.12)" opacity={0.95} _groupHover={{ opacity: 1 }} transition="opacity 0.2s ease">
                     <HStack spacing={2}>
@@ -113,5 +128,5 @@ function MapDirections() {
     </Box>
   );
 }
- 
+
 export default MapDirections;
