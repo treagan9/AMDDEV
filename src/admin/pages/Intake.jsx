@@ -76,7 +76,7 @@ function Intake() {
         details: { name: form.first_name + ' ' + form.last_name, created_by: teamMember ? teamMember.first_name + ' ' + teamMember.last_name : 'Unknown' }
       });
       toast({ title: 'Patient created', status: 'success', duration: 3000, position: 'top' });
-      navigate('/answersmd-admin/members/' + result.data.id + '/');
+      navigate('/answersmd-admin/patients/members/' + result.data.id + '/');
     } catch (err) {
       toast({ title: 'Error', description: err.message, status: 'error', duration: 4000, position: 'top' });
     }

@@ -140,7 +140,7 @@ function MemberDetail() {
   return (
     <Box>
       <Flex align="center" gap={4} mb={8} flexWrap="wrap">
-        <Box cursor="pointer" onClick={function () { navigate('/answersmd-admin/members/'); }} color="#6B6560" _hover={{ color: '#2D2D2D' }}>
+        <Box cursor="pointer" onClick={function () { navigate('/answersmd-admin/patients/'); }} color="#6B6560" _hover={{ color: '#2D2D2D' }}>
           <HiOutlineArrowLeft size={20} />
         </Box>
         <Flex align="center" gap={4} flex={1}>

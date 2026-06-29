@@ -118,7 +118,7 @@ function LeadDetail() {
   return (
     <Box>
       <Flex align="center" gap={4} mb={8} flexWrap="wrap">
-        <Box cursor="pointer" onClick={function () { navigate('/answersmd-admin/leads/'); }} color="#6B6560" _hover={{ color: '#2D2D2D' }}>
+        <Box cursor="pointer" onClick={function () { navigate('/answersmd-admin/patients/'); }} color="#6B6560" _hover={{ color: '#2D2D2D' }}>
           <HiOutlineArrowLeft size={20} />
         </Box>
         <Box flex={1} minW="0">

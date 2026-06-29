@@ -8,12 +8,12 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import RequestAccount from './pages/RequestAccount';
 import Dashboard from './pages/Dashboard';
-import Leads from './pages/Leads';
+import Calendar from './pages/Calendar';
+import Patients from './pages/Patients';
 import LeadDetail from './pages/LeadDetail';
-import Members from './pages/Members';
 import MemberDetail from './pages/MemberDetail';
 import Intake from './pages/Intake';
-import EmailComposer from './pages/EmailComposer';
+import Marketing from './pages/Marketing';
 import ContentEditor from './pages/ContentEditor';
 import Images from './pages/Images';
 import Deploy from './pages/Deploy';
@@ -29,12 +29,12 @@ function AdminApp() {
         <Route path="/request-account/" element={<RequestAccount />} />
         <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route path="/dashboard/" element={<Dashboard />} />
-          <Route path="/leads/" element={<Leads />} />
-          <Route path="/leads/:id/" element={<LeadDetail />} />
-          <Route path="/members/" element={<Members />} />
-          <Route path="/members/:id/" element={<MemberDetail />} />
-          <Route path="/intake/" element={<Intake />} />
-          <Route path="/email/" element={<EmailComposer />} />
+          <Route path="/calendar/" element={<Calendar />} />
+          <Route path="/patients/" element={<Patients />} />
+          <Route path="/patients/leads/:id/" element={<LeadDetail />} />
+          <Route path="/patients/members/:id/" element={<MemberDetail />} />
+          <Route path="/patients/new/" element={<Intake />} />
+          <Route path="/marketing/" element={<Marketing />} />
           <Route path="/content/" element={<ContentEditor />} />
           <Route path="/images/" element={<Images />} />
           <Route path="/deploy/" element={<Deploy />} />
