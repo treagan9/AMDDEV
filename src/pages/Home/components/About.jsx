@@ -1,5 +1,5 @@
 // src/pages/Home/components/About.jsx
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Flex,
@@ -49,6 +49,17 @@ function About() {
   var [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
   var activeMember = TEAM[activeIndex];
   var c = usePageContent('home', 'about', aboutDefaults);
+  var scrollRef = useRef(null);
+  var centerRef = useRef(null);
+
+  useEffect(function () {
+    if (centerRef.current && scrollRef.current) {
+      var container = scrollRef.current;
+      var el = centerRef.current;
+      var scrollLeft = el.offsetLeft - (container.offsetWidth / 2) + (el.offsetWidth / 2);
+      container.scrollTo({ left: scrollLeft, behavior: 'instant' });
+    }
+  }, []);
 
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref} overflow="hidden">
@@ -70,11 +81,12 @@ function About() {
           })}
         </Flex>
 
-        <Flex display={{ base: 'flex', md: 'none' }} gap={3} overflowX="auto" px={5} pt={2} pb={3} sx={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' }, WebkitOverflowScrolling: 'touch' }}>
+        <Flex ref={scrollRef} display={{ base: 'flex', md: 'none' }} gap={3} overflowX="auto" px={5} pt={2} pb={3} sx={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' }, WebkitOverflowScrolling: 'touch' }}>
           {TEAM.map(function (member, i) {
             var isActive = activeIndex === i;
+            var isFeatured = i === CENTER;
             return (
-              <MotionBox key={member.name} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }} onClick={function () { setActiveIndex(i); }} cursor="pointer" flexShrink={0} sx={{ scrollSnapAlign: 'center' }}>
+              <MotionBox key={member.name} ref={isFeatured ? centerRef : undefined} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }} onClick={function () { setActiveIndex(i); }} cursor="pointer" flexShrink={0} sx={{ scrollSnapAlign: 'center' }}>
                 <Box w={isActive ? '88px' : '72px'} h={isActive ? '88px' : '72px'} borderRadius="full" overflow="hidden" border={isActive ? '3px solid' : '2px solid'} borderColor={isActive ? 'brand.champagne' : '#D5D0C8'} transition="all 0.3s ease" bg="brand.ivory">
                   <Image src={member.photo} alt={member.name} objectFit="cover" objectPosition="top" w="100%" h="100%" opacity={isActive ? 1 : 0.65} transition="opacity 0.3s ease" />
                 </Box>
