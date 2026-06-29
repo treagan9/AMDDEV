@@ -53,7 +53,6 @@ function CtaGroup({ stretch }) {
 function Hero() {
   return (
     <Box as="section">
-      {/* DESKTOP and TABLET: text over image, text in the open negative space */}
       <Box display={{ base: 'none', md: 'block' }} position="relative" minH="100vh" overflow="hidden">
         <Box position="absolute" top={0} left={0} right={0} bottom={0} zIndex={0}>
           <picture>
@@ -93,7 +92,6 @@ function Hero() {
         </Box>
       </Box>
 
-      {/* MOBILE: stacked. Inset rounded photo, headline sits just below clear of the image, content on bone */}
       <Box display={{ base: 'block', md: 'none' }} bg="brand.ivory" pt={20} pb={16}>
         <Box px={5}>
           <MotionBox initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} position="relative">
@@ -102,8 +100,8 @@ function Hero() {
             </Box>
 
             <MotionBox initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} mt={5} position="relative" zIndex={2}>
-              <Text as="h1" fontFamily="heading" fontSize="4xl" fontWeight={700} color="brand.slate" lineHeight={1.02} whiteSpace="nowrap">{HERO.heading}</Text>
-              <Text fontFamily="heading" fontSize="6xl" fontWeight={700} color="brand.champagne" lineHeight={1.0} mt={1} letterSpacing="0.04em">{HERO.headingAccent}</Text>
+              <Text as="h1" fontFamily="heading" fontSize="3xl" fontWeight={700} color="brand.slate" lineHeight={1.05}>{HERO.heading}</Text>
+              <Text fontFamily="heading" fontSize="4xl" fontWeight={700} color="brand.champagne" lineHeight={1.0} mt={1} letterSpacing="0.04em">{HERO.headingAccent}</Text>
             </MotionBox>
           </MotionBox>
 

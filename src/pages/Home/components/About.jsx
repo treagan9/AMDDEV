@@ -52,7 +52,7 @@ function About() {
 
   return (
     <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white" ref={ref} overflow="hidden">
-      <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
+      <Box maxW="98%" mx="auto" px={{ base: 0, md: 4 }}>
         <Flex justify="center" align="flex-start" gap={{ base: 2, md: 3, lg: 4 }} display={{ base: 'none', md: 'flex' }} pt={4}>
           {TEAM.map(function (member, i) {
             var isActive = activeIndex === i;
@@ -70,22 +70,20 @@ function About() {
           })}
         </Flex>
 
-        <Flex justify="center" align="flex-end" gap={3} display={{ base: 'flex', md: 'none' }} pt={2} pb={2}>
-          {[3, 4, 5].map(function (i) {
-            var member = TEAM[i];
-            var isCenter = i === 4;
+        <Flex display={{ base: 'flex', md: 'none' }} gap={3} overflowX="auto" px={5} pt={2} pb={3} sx={{ scrollSnapType: 'x mandatory', scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' }, WebkitOverflowScrolling: 'touch' }}>
+          {TEAM.map(function (member, i) {
             var isActive = activeIndex === i;
             return (
-              <MotionBox key={member.name} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.2 + Math.abs(i - 4) * 0.1 }} onClick={function () { setActiveIndex(i); }} cursor="pointer">
-                <Box w={isCenter ? '120px' : '88px'} h={isCenter ? '120px' : '88px'} borderRadius="full" overflow="hidden" border={isCenter || isActive ? '3px solid' : '2px solid'} borderColor={isCenter || isActive ? 'brand.champagne' : '#D5D0C8'} transition="all 0.3s ease" bg="brand.ivory" mb={isCenter ? 0 : 2}>
-                  <Image src={member.photo} alt={member.name} objectFit="cover" objectPosition="top" w="100%" h="100%" />
+              <MotionBox key={member.name} initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }} onClick={function () { setActiveIndex(i); }} cursor="pointer" flexShrink={0} sx={{ scrollSnapAlign: 'center' }}>
+                <Box w={isActive ? '88px' : '72px'} h={isActive ? '88px' : '72px'} borderRadius="full" overflow="hidden" border={isActive ? '3px solid' : '2px solid'} borderColor={isActive ? 'brand.champagne' : '#D5D0C8'} transition="all 0.3s ease" bg="brand.ivory">
+                  <Image src={member.photo} alt={member.name} objectFit="cover" objectPosition="top" w="100%" h="100%" opacity={isActive ? 1 : 0.65} transition="opacity 0.3s ease" />
                 </Box>
               </MotionBox>
             );
           })}
         </Flex>
 
-        <MotionBox initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.6 }} textAlign="center" mt={{ base: 5, md: 6 }} mb={{ base: 10, md: 14 }} minH="56px">
+        <MotionBox initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5, delay: 0.6 }} textAlign="center" mt={{ base: 4, md: 6 }} mb={{ base: 10, md: 14 }} minH="56px" px={{ base: 5, md: 0 }}>
           <AnimatePresence mode="wait">
             <MotionBox key={activeIndex} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.2 }}>
               <Text fontSize={{ base: 'lg', md: 'xl' }} fontWeight={600} color="brand.slate">{activeMember.name}</Text>
@@ -94,7 +92,7 @@ function About() {
           </AnimatePresence>
         </MotionBox>
 
-        <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.7 }}>
+        <MotionBox initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.7 }} px={{ base: 5, md: 0 }}>
           <VStack spacing={5} textAlign="center" maxW="660px" mx="auto">
             <Text as="h2" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="brand.slate" lineHeight={1.1}>{c.heading}</Text>
             <Text fontSize={{ base: 'md', md: 'lg' }} color="brand.body" lineHeight={1.8} maxW="560px">{c.body}</Text>
