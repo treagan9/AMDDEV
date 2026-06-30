@@ -15,6 +15,7 @@ import Stories from './pages/Stories';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import LocationsIndex from './pages/Locations/Index';
+import PhysicianProfile from './pages/Team/PhysicianProfile';
 import Tampa from './pages/Locations/Tampa';
 import StPete from './pages/Locations/StPete';
 import BocaRaton from './pages/Locations/BocaRaton';
@@ -26,6 +27,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/team/" element={<Team />} />
+        <Route path="/team/:slug/" element={<PhysicianProfile />} />
         <Route path="/services/" element={<Services />} />
         <Route path="/new-patients/" element={<NewPatients />} />
         <Route path="/contact/" element={<Contact />} />
