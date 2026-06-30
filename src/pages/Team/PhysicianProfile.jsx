@@ -49,7 +49,7 @@ var PHYSICIANS = {
     specialties: ['Comprehensive Primary Care', 'Preventive Medicine', 'Chronic Disease Management', 'Cardiovascular Health', 'Weight Management', 'House Calls'],
     quote: "My patients know they can reach me because I take their care personally. That's the trust I work to earn every day.",
     meta: {
-      title: 'Dr. Douglas Shapiro, DO | Founder | AnswersMD',
+      title: 'Dr. Douglas Shapiro \u2022 AnswersMD',
       description: 'Dr. Douglas Shapiro founded AnswersMD to practice medicine the way it should be. Board certified family medicine in Tampa, FL.',
       image: 'https://dev.answersmd.com/team/dr-doug-shapiro.webp'
     }
@@ -81,7 +81,7 @@ var PHYSICIANS = {
     specialties: ['Pediatric Primary Care', 'Adult Internal Medicine', 'Family Care for All Ages', 'Preventive and Wellness Care', 'Childhood Development', 'Chronic Disease Management'],
     quote: "Concierge medicine allows me to focus on prevention, individualized care and truly knowing my patients. By keeping my panel intentionally small, I can be thoughtful, responsive and proactive. I see myself as a long-term partner in my patients' health, not just someone they see when something goes wrong.",
     meta: {
-      title: 'Dr. Drew Meriwether, MD | AnswersMD',
+      title: 'Dr. Drew Meriwether \u2022 AnswersMD',
       description: 'Dr. Drew Meriwether brings dual board certifications in Pediatrics and Internal Medicine to AnswersMD in Tampa, FL. USF Health Clinician of the Year.',
       image: 'https://dev.answersmd.com/team/dr-drew-meriwether.webp'
     }
@@ -107,7 +107,7 @@ var PHYSICIANS = {
     specialties: ['Sports Medicine', 'Musculoskeletal Ultrasound', 'Concussion Management', 'Performance Optimization', 'Preventive Care', 'Family Medicine'],
     quote: '',
     meta: {
-      title: "Dr. Divino D'Alessio Jr., MD | AnswersMD",
+      title: "Dr. Divino D'Alessio \u2022 AnswersMD",
       description: "Dr. Divino D'Alessio Jr. brings board certified Family and Sports Medicine to AnswersMD in Boca Raton, FL. Former NCAA Division I team physician.",
       image: 'https://dev.answersmd.com/team/dr-divino-dalessio.webp'
     }
@@ -135,7 +135,7 @@ var PHYSICIANS = {
     specialties: ['Hormone Therapy', 'Weight Management and GLP-1 Therapy', 'Preventive and Lifestyle Medicine', 'Family Medicine for All Ages', 'Office Procedures and Minor Surgery', 'Chronic Disease Management'],
     quote: '',
     meta: {
-      title: 'Dr. Ellen Howard, MD, MPH | AnswersMD',
+      title: 'Dr. Ellen Howard \u2022 AnswersMD',
       description: 'Dr. Ellen Howard brings board certified family medicine and a preventive approach to AnswersMD in St. Petersburg, FL. Hormone therapy, GLP-1 and lifestyle medicine.',
       image: 'https://dev.answersmd.com/team/dr-ellen-howard.webp'
     }

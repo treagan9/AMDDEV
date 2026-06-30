@@ -14,3 +14,7 @@
   to = "/index.html"
   status = 200
   force = false
+
+[[edge_functions]]
+  function = "og-physician"
+  path = "/team/dr-*"
