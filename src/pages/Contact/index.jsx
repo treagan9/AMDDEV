@@ -107,9 +107,9 @@ function Contact() {
               <Flex w="64px" h="64px" borderRadius="full" bg="#F0EDE8" align="center" justify="center" mx="auto" mb={6}>
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C4A265" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
               </Flex>
-              <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="#2D2D2D" lineHeight={1.15} mb={4}>We received your inquiry</Text>
-              <Text fontSize="md" color="#3D3832" lineHeight={1.8} mb={2}>A member of our team will reach out within one business day to schedule your consultation.</Text>
-              <Text fontSize="md" color="#3D3832" lineHeight={1.8}>In the meantime, feel free to call us directly.</Text>
+              <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="#2D2D2D" lineHeight={1.15} mb={4}>Thank you for reaching out</Text>
+              <Text fontSize="md" color="#3D3832" lineHeight={1.8} mb={2}>We sent a confirmation to your email. A member of our team will reach out within one business day to schedule your complimentary consultation.</Text>
+              <Text fontSize="md" color="#3D3832" lineHeight={1.8}>We are excited to learn more about your health goals.</Text>
               <Box mt={8}>
                 <ChakraLink href="tel:8137273233" fontSize="lg" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease">813-727-3233</ChakraLink>
               </Box>
