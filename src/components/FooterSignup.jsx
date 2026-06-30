@@ -26,21 +26,19 @@ function FooterSignup() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.trim(), first_name: firstName.trim(), source: 'footer' })
       });
-      if (!result.ok) throw new Error('Failed to subscribe');
+      if (!result.ok) throw new Error('Failed');
       setSubmitted(true);
-      setEmail('');
-      setFirstName('');
     } catch (err) {
-      toast({ title: 'Something went wrong', description: 'Please try again.', status: 'error', duration: 3000, position: 'top' });
+      toast({ title: 'Something went wrong. Please try again.', status: 'error', duration: 3000, position: 'top' });
     }
     setSubmitting(false);
   }
 
   if (submitted) {
     return (
-      <Box bg="brand.ivory" py={{ base: 12, md: 16 }}>
+      <Box bg="brand.mist" py={{ base: 14, md: 20 }}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }} textAlign="center">
-          <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={3}>You are on the list.</Text>
+          <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" mb={3}>You are on the list.</Text>
           <Text fontSize="md" color="brand.body" lineHeight={1.8}>We will be in touch with updates and wellness insights.</Text>
         </Box>
       </Box>
@@ -48,23 +46,22 @@ function FooterSignup() {
   }
 
   return (
-    <Box bg="brand.ivory" py={{ base: 12, md: 16 }}>
+    <Box bg="brand.mist" py={{ base: 14, md: 20 }}>
       <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-        <Flex direction={{ base: 'column', md: 'row' }} align={{ base: 'flex-start', md: 'center' }} justify="space-between" gap={{ base: 6, md: 12 }} maxW={{ lg: '70%' }} mx="auto">
-          <Box flex={1}>
-            <Text fontFamily="heading" fontSize={{ base: 'xl', md: '2xl' }} fontWeight={700} color="brand.slate" mb={2}>Stay connected</Text>
-            <Text fontSize="md" color="brand.body" lineHeight={1.7}>Health insights and practice updates from our physicians.</Text>
-          </Box>
-          <Box w={{ base: '100%', md: 'auto' }}>
-            <form onSubmit={handleSubmit}>
-              <Flex gap={2} direction={{ base: 'column', sm: 'row' }}>
-                <Input value={firstName} onChange={function (e) { setFirstName(e.target.value); }} placeholder="First name" bg="white" border="1px solid" borderColor="#D5D0C8" borderRadius="8px" h="48px" px={4} fontSize="md" w={{ base: '100%', sm: '140px' }} _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px #C4A265' }} _placeholder={{ color: '#9B9488' }} />
-                <Input value={email} onChange={function (e) { setEmail(e.target.value); }} placeholder="Email address" type="email" required bg="white" border="1px solid" borderColor="#D5D0C8" borderRadius="8px" h="48px" px={4} fontSize="md" w={{ base: '100%', sm: '220px' }} _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px #C4A265' }} _placeholder={{ color: '#9B9488' }} />
-                <Button type="submit" variant="primary" size="lg" h="48px" px={8} flexShrink={0} isLoading={submitting} loadingText="...">Subscribe</Button>
-              </Flex>
-            </form>
-          </Box>
-        </Flex>
+        <Box maxW={{ lg: '64%' }} mx="auto" textAlign={{ base: 'left', md: 'center' }}>
+          <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="brand.champagne" mb={4}>Stay connected</Text>
+          <Text fontFamily="heading" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={700} color="brand.slate" lineHeight={1.15} mb={3}>Wellness insights from our physicians</Text>
+          <Text fontSize="md" color="brand.body" lineHeight={1.8} mb={8} maxW="480px" mx={{ md: 'auto' }}>Health tips, practice updates and membership availability delivered to your inbox.</Text>
+
+          <form onSubmit={handleSubmit}>
+            <Flex gap={3} direction={{ base: 'column', sm: 'row' }} maxW="520px" mx={{ md: 'auto' }}>
+              <Input value={firstName} onChange={function (e) { setFirstName(e.target.value); }} placeholder="First name" bg="white" border="1px solid" borderColor="brand.border" borderRadius="btn" h="52px" px={5} fontSize="md" _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px #C4A265' }} _placeholder={{ color: '#B5AD9E' }} />
+              <Input value={email} onChange={function (e) { setEmail(e.target.value); }} placeholder="Email address" type="email" required bg="white" border="1px solid" borderColor="brand.border" borderRadius="btn" h="52px" px={5} fontSize="md" flex={1.4} _focus={{ borderColor: 'brand.champagne', boxShadow: '0 0 0 1px #C4A265' }} _placeholder={{ color: '#B5AD9E' }} />
+              <Button type="submit" variant="primary" h="52px" px={8} flexShrink={0} isLoading={submitting} loadingText="..." borderRadius="btn">Subscribe</Button>
+            </Flex>
+            <Text fontSize="xs" color="brand.warmGray" mt={3} textAlign={{ base: 'left', md: 'center' }}>No spam. Unsubscribe anytime.</Text>
+          </form>
+        </Box>
       </Box>
     </Box>
   );
