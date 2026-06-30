@@ -17,17 +17,19 @@ var theme = extendTheme({
       mist: '#F0EDE8',
       white: '#FFFFFF',
       slate: '#2D2D2D',
-      body: '#4A4540',
-      bodyLight: '#6B6560',
-      warmGrayLight: '#9A9590',
-      border: '#E8E4DE',
-      borderLight: '#F0ECE6',
+      charcoal: '#2A2A2A',
+      body: '#3D3832',
+      bodyLight: '#5C5650',
+      warmGray: '#9A9590',
+      warmGrayLight: '#B5AD9E',
+      border: '#D5D0C8',
+      borderLight: '#E8E2D8',
       overlay: 'rgba(27, 58, 52, 0.85)'
     }
   },
   fonts: {
     heading: '"Libre Baskerville", Georgia, serif',
-    body: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+    body: '"Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
   },
   fontSizes: {
     xs: '0.75rem',
@@ -42,15 +44,31 @@ var theme = extendTheme({
     '6xl': '4rem',
     '7xl': '5rem'
   },
+  fontWeights: {
+    light: 300,
+    normal: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700
+  },
   radii: {
     btn: '8px',
     card: '18px',
     image: '24px',
-    panel: '28px'
+    panel: '28px',
+    pill: '32px'
   },
   space: {
     section: '120px',
     sectionMobile: '80px'
+  },
+  shadows: {
+    card: '0 8px 32px rgba(60, 50, 40, 0.05)',
+    cardHover: '0 16px 44px rgba(60, 50, 40, 0.09)',
+    button: '0 8px 24px rgba(27, 58, 52, 0.2)',
+    buttonLight: '0 8px 24px rgba(27, 58, 52, 0.15)',
+    soft: '0 4px 12px rgba(27, 58, 52, 0.04)',
+    elevated: '0 12px 32px rgba(27, 58, 52, 0.16)'
   },
   styles: {
     global: {
@@ -64,6 +82,8 @@ var theme = extendTheme({
         fontFamily: 'body',
         fontSize: 'md',
         lineHeight: 1.7,
+        fontWeight: 400,
+        letterSpacing: '-0.01em',
         WebkitFontSmoothing: 'antialiased',
         MozOsxFontSmoothing: 'grayscale',
         overflowX: 'hidden',
@@ -81,7 +101,7 @@ var theme = extendTheme({
         fontWeight: 700,
         lineHeight: 1.15
       },
-      a: {
+      'a': {
         color: 'inherit',
         textDecoration: 'none',
         transition: 'color 0.2s ease'
@@ -96,7 +116,8 @@ var theme = extendTheme({
     Button: {
       baseStyle: {
         fontFamily: 'body',
-        fontWeight: 500,
+        fontWeight: 600,
+        letterSpacing: '-0.01em',
         transition: 'all 0.3s ease'
       },
       variants: {
@@ -110,7 +131,7 @@ var theme = extendTheme({
           _hover: {
             bg: 'brand.evergreenLight',
             transform: 'translateY(-2px)',
-            shadow: '0 8px 24px rgba(27, 58, 52, 0.2)'
+            shadow: 'button'
           },
           _active: {
             transform: 'translateY(0)'
@@ -150,14 +171,41 @@ var theme = extendTheme({
           _hover: {
             bg: 'brand.ivory',
             transform: 'translateY(-2px)',
-            shadow: '0 8px 24px rgba(27, 58, 52, 0.15)'
+            shadow: 'buttonLight'
           }
         }
       },
       sizes: {
         lg: { px: 10, py: 7, fontSize: 'md' },
         md: { px: 8, py: 6, fontSize: 'sm' },
-        sm: { px: 6, py: 5, fontSize: 'md' }
+        sm: { px: 6, py: 5, fontSize: 'sm' }
+      }
+    },
+    Input: {
+      baseStyle: {
+        field: {
+          fontFamily: 'body',
+          letterSpacing: '-0.01em'
+        }
+      }
+    },
+    Textarea: {
+      baseStyle: {
+        fontFamily: 'body',
+        letterSpacing: '-0.01em'
+      }
+    },
+    Select: {
+      baseStyle: {
+        field: {
+          fontFamily: 'body',
+          letterSpacing: '-0.01em'
+        }
+      }
+    },
+    Text: {
+      baseStyle: {
+        letterSpacing: '-0.01em'
       }
     }
   },
