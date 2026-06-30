@@ -12,12 +12,13 @@ import {
   Badge,
   Select,
   Image,
+  Checkbox,
   useToast
 } from '@chakra-ui/react';
 import supabase from '../lib/supabase.jsx';
 import useAuth from '../lib/useAuth.jsx';
 import TEMPLATES from '../lib/emailTemplates.js';
-import { HiOutlinePaperClip, HiOutlineEye, HiOutlineArrowLeft, HiOutlineX } from 'react-icons/hi';
+import { HiOutlinePaperClip, HiOutlineEye, HiOutlineArrowLeft, HiOutlineX, HiOutlineSearch, HiOutlineTrash, HiOutlinePencil, HiOutlineCheck } from 'react-icons/hi';
 
 var inputStyles = {
   bg: 'white', border: '1px solid', borderColor: '#E8E2D8', borderRadius: '8px',
@@ -43,7 +44,6 @@ function TemplateCard({ template, onClick }) {
 
 function PreviewModal({ subject, body, attachmentName, onClose, onSend, sending }) {
   var previewBody = body.replace(/\{\{first_name\}\}/g, 'Sarah').replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
-
   return (
     <Box position="fixed" top={0} left={0} right={0} bottom={0} bg="rgba(0,0,0,0.5)" zIndex={200} display="flex" alignItems="center" justifyContent="center" px={4}>
       <Box bg="#FAFAF7" borderRadius="18px" maxW="640px" w="100%" maxH="90vh" overflow="auto">
@@ -60,7 +60,7 @@ function PreviewModal({ subject, body, attachmentName, onClose, onSend, sending 
           <Box borderRadius="12px" overflow="hidden" border="1px solid" borderColor="#E8E2D8">
             <Image src="/answersmd-sms-1200x630.png" alt="AnswersMD" w="100%" />
             <Box bg="white" px={{ base: 5, md: 8 }} py={8}>
-              <Box fontSize="sm" color="#4A4540" lineHeight={1.8} dangerouslySetInnerHTML={{ __html: previewBody }} />
+              <Box fontSize="sm" color="#3D3832" lineHeight={1.8} dangerouslySetInnerHTML={{ __html: previewBody }} />
               {attachmentName && (
                 <Flex mt={5} bg="#FAFAF7" borderRadius="8px" border="1px solid" borderColor="#E8E2D8" px={4} py={3} align="center" gap={2}>
                   <Text fontSize="xs" color="#2D2D2D" fontWeight={500}>{'\uD83D\uDCCE'} {attachmentName}</Text>
@@ -76,6 +76,44 @@ function PreviewModal({ subject, body, attachmentName, onClose, onSend, sending 
         </Box>
       </Box>
     </Box>
+  );
+}
+
+function EditableRow({ item, type, onSave, onDelete }) {
+  var [editing, setEditing] = useState(false);
+  var [firstName, setFirstName] = useState(item.first_name || '');
+  var [email, setEmail] = useState(item.email || '');
+
+  function handleSave() {
+    onSave(item.id, { first_name: firstName.trim(), email: email.trim().toLowerCase() });
+    setEditing(false);
+  }
+
+  if (editing) {
+    return (
+      <Flex align="center" gap={2} px={5} py={3} borderBottom="1px solid" borderColor="#F0EDE8" bg="#FAFAF7">
+        <Input value={firstName} onChange={function (e) { setFirstName(e.target.value); }} placeholder="Name" bg="white" border="1px solid" borderColor="#D5D0C8" borderRadius="6px" h="36px" px={3} fontSize="sm" w="140px" flexShrink={0} />
+        <Input value={email} onChange={function (e) { setEmail(e.target.value); }} placeholder="Email" bg="white" border="1px solid" borderColor="#D5D0C8" borderRadius="6px" h="36px" px={3} fontSize="sm" flex={1} />
+        <Flex gap={1}>
+          <Flex w="32px" h="32px" borderRadius="6px" align="center" justify="center" cursor="pointer" onClick={handleSave} color="#22C55E" _hover={{ bg: '#F0EDE8' }}><HiOutlineCheck size={16} /></Flex>
+          <Flex w="32px" h="32px" borderRadius="6px" align="center" justify="center" cursor="pointer" onClick={function () { setEditing(false); }} color="#9A9590" _hover={{ bg: '#F0EDE8' }}><HiOutlineX size={16} /></Flex>
+        </Flex>
+      </Flex>
+    );
+  }
+
+  return (
+    <Flex align="center" gap={3} px={5} py={3} borderBottom="1px solid" borderColor="#F0EDE8" _hover={{ bg: '#FAFAF7' }} transition="background 0.15s ease">
+      <Box flex={1} minW="0">
+        <Text fontSize="sm" fontWeight={500} color="#2D2D2D">{item.first_name || '\u2014'}{type === 'lead' && item.last_name ? ' ' + item.last_name : ''}</Text>
+        <Text fontSize="xs" color="#9A9590" noOfLines={1}>{item.email}{item.source ? ' \u00B7 ' + item.source : ''}</Text>
+      </Box>
+      <Text fontSize="xs" color="#B5AD9E" display={{ base: 'none', md: 'block' }}>{new Date(item.created_at || item.subscribed_at).toLocaleDateString()}</Text>
+      <Flex gap={1}>
+        <Flex w="28px" h="28px" borderRadius="6px" align="center" justify="center" cursor="pointer" onClick={function () { setEditing(true); }} color="#9A9590" _hover={{ bg: '#F0EDE8', color: '#6B6560' }} transition="all 0.15s ease"><HiOutlinePencil size={14} /></Flex>
+        <Flex w="28px" h="28px" borderRadius="6px" align="center" justify="center" cursor="pointer" onClick={function () { onDelete(item.id); }} color="#9A9590" _hover={{ bg: '#F0EDE8', color: '#E85D5D' }} transition="all 0.15s ease"><HiOutlineTrash size={14} /></Flex>
+      </Flex>
+    </Flex>
   );
 }
 
@@ -95,6 +133,7 @@ function Marketing() {
   var [subscribers, setSubscribers] = useState([]);
   var [campaigns, setCampaigns] = useState([]);
   var [tab, setTab] = useState('templates');
+  var [listSearch, setListSearch] = useState('');
   var { teamMember } = useAuth();
   var toast = useToast();
   var fileRef = useRef(null);
@@ -102,9 +141,9 @@ function Marketing() {
   useEffect(function () { fetchData(); }, []);
 
   async function fetchData() {
-    var m = await supabase.from('members').select('id, first_name, last_name, email').order('first_name');
+    var m = await supabase.from('members').select('id, first_name, last_name, email, created_at').order('first_name');
     setMembers(m.data || []);
-    var l = await supabase.from('leads').select('id, first_name, last_name, email').order('first_name');
+    var l = await supabase.from('leads').select('id, first_name, last_name, email, source, created_at').order('created_at', { ascending: false });
     setLeads(l.data || []);
     var s = await supabase.from('email_subscribers').select('*').is('unsubscribed_at', null).order('created_at', { ascending: false });
     setSubscribers(s.data || []);
@@ -151,10 +190,41 @@ function Marketing() {
     if (fileRef.current) fileRef.current.value = '';
   }
 
+  async function saveSubscriber(id, updates) {
+    await supabase.from('email_subscribers').update(updates).eq('id', id);
+    toast({ title: 'Updated', status: 'success', duration: 2000, position: 'top' });
+    fetchData();
+  }
+
+  async function deleteSubscriber(id) {
+    await supabase.from('email_subscribers').update({ unsubscribed_at: new Date().toISOString() }).eq('id', id);
+    toast({ title: 'Removed', status: 'success', duration: 2000, position: 'top' });
+    fetchData();
+  }
+
+  async function saveLead(id, updates) {
+    await supabase.from('leads').update(updates).eq('id', id);
+    toast({ title: 'Updated', status: 'success', duration: 2000, position: 'top' });
+    fetchData();
+  }
+
+  async function deleteLead(id) {
+    await supabase.from('leads').delete().eq('id', id);
+    toast({ title: 'Deleted', status: 'success', duration: 2000, position: 'top' });
+    fetchData();
+  }
+
+  function filterList(items) {
+    if (!listSearch) return items;
+    var s = listSearch.toLowerCase();
+    return items.filter(function (item) {
+      return ((item.first_name || '') + ' ' + (item.last_name || '') + ' ' + (item.email || '')).toLowerCase().includes(s);
+    });
+  }
+
   function getRecipients() {
     var all = [];
     var seen = {};
-
     function addUnique(list) {
       list.forEach(function (item) {
         if (item.email && !seen[item.email.toLowerCase()]) {
@@ -163,7 +233,6 @@ function Marketing() {
         }
       });
     }
-
     if (recipient === 'all') {
       addUnique(members);
       addUnique(leads);
@@ -178,7 +247,6 @@ function Marketing() {
       var found = members.find(function (m) { return m.id === recipient; }) || leads.find(function (l) { return l.id === recipient; });
       if (found) all.push(found);
     }
-
     return all;
   }
 
@@ -192,52 +260,31 @@ function Marketing() {
       toast({ title: 'No recipients found', status: 'error', duration: 3000, position: 'top' });
       return;
     }
-
     setSending(true);
     try {
       var campaignResult = await supabase.from('email_campaigns').insert({
         template_slug: activeTemplate ? activeTemplate.slug : null,
-        subject: subject,
-        body: body,
-        attachment_url: attachmentUrl,
-        attachment_name: attachment,
-        audience: recipient,
-        sent_by: teamMember ? teamMember.id : null,
-        sent_at: new Date().toISOString(),
-        recipient_count: recipients.length,
-        status: 'sent'
+        subject: subject, body: body, attachment_url: attachmentUrl, attachment_name: attachment,
+        audience: recipient, sent_by: teamMember ? teamMember.id : null,
+        sent_at: new Date().toISOString(), recipient_count: recipients.length, status: 'sent'
       }).select().single();
-
       var campaignId = campaignResult.data ? campaignResult.data.id : null;
 
       for (var i = 0; i < recipients.length; i++) {
         var r = recipients[i];
         var personalBody = body.replace(/\{\{first_name\}\}/g, r.first_name || 'there');
-
         var subResult = await supabase.from('email_subscribers').select('unsubscribe_token').eq('email', r.email.toLowerCase()).single();
         var unsubUrl = subResult.data ? 'https://dev.answersmd.com/.netlify/functions/unsubscribe?token=' + subResult.data.unsubscribe_token : '';
 
         await fetch('/.netlify/functions/send-campaign', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            to: r.email,
-            subject: subject,
-            body: personalBody,
-            attachment_url: attachmentUrl,
-            attachment_name: attachment,
-            unsubscribe_url: unsubUrl
-          })
+          body: JSON.stringify({ to: r.email, subject: subject, body: personalBody, attachment_url: attachmentUrl, attachment_name: attachment, unsubscribe_url: unsubUrl })
         });
-
         await supabase.from('email_sends').insert({
-          recipient_email: r.email,
-          recipient_name: (r.first_name || '') + ' ' + (r.last_name || ''),
-          subject: subject,
-          body: personalBody,
-          attachment_url: attachmentUrl,
-          sent_by: teamMember ? teamMember.id : null,
-          campaign_id: campaignId
+          recipient_email: r.email, recipient_name: (r.first_name || '') + ' ' + (r.last_name || ''),
+          subject: subject, body: personalBody, attachment_url: attachmentUrl,
+          sent_by: teamMember ? teamMember.id : null, campaign_id: campaignId
         });
       }
 
@@ -252,17 +299,25 @@ function Marketing() {
   }
 
   var recipientCount = getRecipients().length;
+  var filteredSubscribers = filterList(subscribers);
+  var filteredLeads = filterList(leads.filter(function (l) { return l.email; }));
 
   return (
     <Box>
       {view === 'grid' && (
         <>
-          <Flex bg="white" borderRadius="10px" border="1px solid" borderColor="#E8E2D8" overflow="hidden" mb={6} w="fit-content">
-            <Box px={5} py={2.5} cursor="pointer" bg={tab === 'templates' ? '#2D2D2D' : 'transparent'} color={tab === 'templates' ? 'white' : '#6B6560'} fontSize="sm" fontWeight={600} onClick={function () { setTab('templates'); }}>Templates</Box>
-            <Box px={5} py={2.5} cursor="pointer" bg={tab === 'sent' ? '#2D2D2D' : 'transparent'} color={tab === 'sent' ? 'white' : '#6B6560'} fontSize="sm" fontWeight={600} onClick={function () { setTab('sent'); }}>
-              Sent
-              {campaigns.length > 0 && <Badge ml={2} bg={tab === 'sent' ? 'whiteAlpha.300' : '#E8E2D8'} color={tab === 'sent' ? 'white' : '#9A9590'} borderRadius="full" px={1.5} fontSize="10px">{campaigns.length}</Badge>}
-            </Box>
+          <Flex bg="white" borderRadius="10px" border="1px solid" borderColor="#E8E2D8" overflow="hidden" mb={6} w="fit-content" flexWrap="wrap">
+            {['templates', 'subscribers', 'leads', 'sent'].map(function (t) {
+              var isActive = tab === t;
+              var label = t.charAt(0).toUpperCase() + t.slice(1);
+              var count = t === 'subscribers' ? subscribers.length : t === 'leads' ? leads.filter(function (l) { return l.email; }).length : t === 'sent' ? campaigns.length : 0;
+              return (
+                <Box key={t} px={{ base: 4, md: 5 }} py={2.5} cursor="pointer" bg={isActive ? '#2D2D2D' : 'transparent'} color={isActive ? 'white' : '#6B6560'} fontSize="sm" fontWeight={600} onClick={function () { setTab(t); setListSearch(''); }} transition="all 0.15s ease">
+                  {label}
+                  {count > 0 && <Badge ml={2} bg={isActive ? 'whiteAlpha.300' : '#E8E2D8'} color={isActive ? 'white' : '#9A9590'} borderRadius="full" px={1.5} fontSize="10px">{count}</Badge>}
+                </Box>
+              );
+            })}
           </Flex>
 
           {tab === 'templates' && (
@@ -271,6 +326,52 @@ function Marketing() {
                 return <TemplateCard key={t.slug} template={t} onClick={function () { selectTemplate(t); }} />;
               })}
             </SimpleGrid>
+          )}
+
+          {tab === 'subscribers' && (
+            <Box>
+              <Flex gap={3} mb={4} flexWrap="wrap">
+                <Box position="relative" flex={1} minW="200px">
+                  <Box position="absolute" left={4} top="50%" transform="translateY(-50%)" color="#9A9590" zIndex={1}><HiOutlineSearch size={16} /></Box>
+                  <Input value={listSearch} onChange={function (e) { setListSearch(e.target.value); }} placeholder="Search subscribers..." bg="white" border="1px solid" borderColor="#E8E2D8" borderRadius="8px" h="42px" pl={10} pr={4} fontSize="sm" _focus={{ borderColor: '#C4A265', boxShadow: '0 0 0 1px #C4A265' }} _placeholder={{ color: '#B5AD9E' }} />
+                </Box>
+                <Text fontSize="sm" color="#9A9590" alignSelf="center">{filteredSubscribers.length} subscriber{filteredSubscribers.length !== 1 ? 's' : ''}</Text>
+              </Flex>
+              <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" overflow="hidden">
+                {filteredSubscribers.length === 0 ? (
+                  <Box px={5} py={10} textAlign="center"><Text fontSize="sm" color="#9A9590">No subscribers yet. They will appear here when people join from the footer.</Text></Box>
+                ) : (
+                  <VStack spacing={0} align="stretch">
+                    {filteredSubscribers.map(function (sub) {
+                      return <EditableRow key={sub.id} item={sub} type="subscriber" onSave={saveSubscriber} onDelete={deleteSubscriber} />;
+                    })}
+                  </VStack>
+                )}
+              </Box>
+            </Box>
+          )}
+
+          {tab === 'leads' && (
+            <Box>
+              <Flex gap={3} mb={4} flexWrap="wrap">
+                <Box position="relative" flex={1} minW="200px">
+                  <Box position="absolute" left={4} top="50%" transform="translateY(-50%)" color="#9A9590" zIndex={1}><HiOutlineSearch size={16} /></Box>
+                  <Input value={listSearch} onChange={function (e) { setListSearch(e.target.value); }} placeholder="Search leads..." bg="white" border="1px solid" borderColor="#E8E2D8" borderRadius="8px" h="42px" pl={10} pr={4} fontSize="sm" _focus={{ borderColor: '#C4A265', boxShadow: '0 0 0 1px #C4A265' }} _placeholder={{ color: '#B5AD9E' }} />
+                </Box>
+                <Text fontSize="sm" color="#9A9590" alignSelf="center">{filteredLeads.length} lead{filteredLeads.length !== 1 ? 's' : ''} with email</Text>
+              </Flex>
+              <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" overflow="hidden">
+                {filteredLeads.length === 0 ? (
+                  <Box px={5} py={10} textAlign="center"><Text fontSize="sm" color="#9A9590">No leads with email addresses yet.</Text></Box>
+                ) : (
+                  <VStack spacing={0} align="stretch">
+                    {filteredLeads.map(function (lead) {
+                      return <EditableRow key={lead.id} item={lead} type="lead" onSave={saveLead} onDelete={deleteLead} />;
+                    })}
+                  </VStack>
+                )}
+              </Box>
+            </Box>
           )}
 
           {tab === 'sent' && (
@@ -303,7 +404,6 @@ function Marketing() {
             <Flex w="32px" h="32px" borderRadius="8px" align="center" justify="center" cursor="pointer" onClick={resetComposer} color="#6B6560" _hover={{ bg: '#F0EDE8' }}><HiOutlineArrowLeft size={18} /></Flex>
             {activeTemplate && <Text fontSize="md" fontWeight={600} color="#2D2D2D">{activeTemplate.name}</Text>}
           </Flex>
-
           <Flex direction={{ base: 'column', lg: 'row' }} gap={6}>
             <Box flex={1} minW="0">
               <Box bg="white" borderRadius="18px" border="1px solid" borderColor="#E8E2D8" p={5}>
@@ -346,7 +446,6 @@ function Marketing() {
                 </VStack>
               </Box>
             </Box>
-
             <Box w={{ base: '100%', lg: '260px' }} flexShrink={0}>
               <Box bg="white" borderRadius="14px" border="1px solid" borderColor="#E8E2D8" p={5}>
                 <Text fontSize="xs" fontWeight={600} color="#6B6560" mb={3} letterSpacing="0.5px" textTransform="uppercase">Template info</Text>
