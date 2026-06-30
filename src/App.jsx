@@ -42,8 +42,8 @@ function App() {
         <Route path="/location-tampa/" element={<Tampa />} />
         <Route path="/location-st-pete/" element={<StPete />} />
         <Route path="/location-boca-raton/" element={<BocaRaton />} />
+        <Route path="/signup/" element={<Signup />} />
       </Route>
-      <Route path="/signup/" element={<Signup />} />
       <Route path="/answersmd-admin/*" element={<AdminApp />} />
     </Routes>
   );

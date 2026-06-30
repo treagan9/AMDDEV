@@ -14,6 +14,7 @@ import {
   Link as ChakraLink,
   useToast
 } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 
@@ -43,40 +44,14 @@ var fieldStyles = {
   _focus: { borderColor: '#C4A265', boxShadow: '0 0 0 1px #C4A265' }
 };
 
-var selectStyles = {
-  width: '100%',
-  height: '52px',
-  padding: '0 44px 0 16px',
-  fontSize: '17px',
-  backgroundColor: 'white',
-  border: '1px solid #D5D0C8',
-  borderRadius: '8px',
-  appearance: 'none',
-  WebkitAppearance: 'none',
-  MozAppearance: 'none',
-  outline: 'none',
-  cursor: 'pointer',
-  fontFamily: 'inherit',
-  letterSpacing: '-0.01em',
-  backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%239A9590\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'%3E%3Cpolyline points=\'6 9 12 15 18 9\'/%3E%3C/svg%3E")',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'right 16px center',
-  backgroundSize: '14px'
-};
-
-function StyledSelect({ name, value, onChange, placeholder, children }) {
+function RadioOption({ label, selected, onClick }) {
   return (
-    <select
-      name={name}
-      value={value}
-      onChange={onChange}
-      style={Object.assign({}, selectStyles, { color: value ? '#2D2D2D' : '#B5AD9E' })}
-      onFocus={function (e) { e.target.style.borderColor = '#C4A265'; e.target.style.boxShadow = '0 0 0 1px #C4A265'; }}
-      onBlur={function (e) { e.target.style.borderColor = '#D5D0C8'; e.target.style.boxShadow = 'none'; }}
-    >
-      <option value="" disabled>{placeholder}</option>
-      {children}
-    </select>
+    <Flex align="center" gap={3} cursor="pointer" onClick={onClick} py={1}>
+      <Flex w="18px" h="18px" borderRadius="full" border="2px solid" borderColor={selected ? '#C4A265' : '#D5D0C8'} align="center" justify="center" flexShrink={0} transition="border-color 0.2s ease">
+        {selected && <Box w="8px" h="8px" borderRadius="full" bg="#C4A265" />}
+      </Flex>
+      <Text fontSize="md" color={selected ? '#2D2D2D' : '#5C5650'} fontWeight={selected ? 600 : 400} transition="all 0.2s ease">{label}</Text>
+    </Flex>
   );
 }
 
@@ -95,6 +70,10 @@ function Contact() {
     var value = e.target.value;
     if (name === 'phone') value = formatPhone(value);
     setForm(function (prev) { return Object.assign({}, prev, { [name]: value }); });
+  }
+
+  function setField(key, value) {
+    setForm(function (prev) { return Object.assign({}, prev, { [key]: value }); });
   }
 
   async function handleSubmit(e) {
@@ -121,9 +100,7 @@ function Contact() {
   if (submitted) {
     return (
       <>
-        <Helmet>
-          <title>Thank You | AnswersMD&trade;</title>
-        </Helmet>
+        <Helmet><title>Thank You | AnswersMD&trade;</title></Helmet>
         <Box pt={{ base: 32, md: 40 }} pb={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory">
           <Box maxW="560px" mx="auto" px={6} textAlign="center">
             <MotionBox initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
@@ -152,7 +129,7 @@ function Contact() {
 
       <Box bg="brand.ivory" pt={{ base: 28, md: 36 }} pb={{ base: 12, md: 16 }}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
-          <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} maxW="640px" mx="auto" textAlign="center">
+          <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} maxW="640px">
             <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={4}>Get in touch</Text>
             <Text as="h1" fontFamily="heading" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={700} color="#2D2D2D" lineHeight={1.08} mb={4}>Let's start a conversation</Text>
             <Text fontSize={{ base: 'md', md: 'lg' }} color="#3D3832" lineHeight={1.8}>No commitment, no pressure. Just a chance to learn if concierge medicine is right for you.</Text>
@@ -163,12 +140,11 @@ function Contact() {
       <Box bg="white" py={{ base: 12, md: 16 }}>
         <Box maxW="98%" mx="auto" px={{ base: 6, md: 4 }}>
           <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}>
-            <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 12, lg: 0 }} maxW="1100px" mx="auto">
+            <form onSubmit={handleSubmit}>
+              <Flex direction={{ base: 'column', lg: 'row' }} gap={{ base: 10, lg: 16 }} maxW="1100px">
 
-              <Box flex={1} pr={{ base: 0, lg: 14 }}>
-                <form onSubmit={handleSubmit}>
+                <Box flex={1}>
                   <VStack spacing={5} align="stretch">
-
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                       <FormControl isRequired>
                         <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>First name</FormLabel>
@@ -191,25 +167,28 @@ function Contact() {
                       </FormControl>
                     </SimpleGrid>
 
-                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-                      <FormControl isRequired>
-                        <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>Preferred location</FormLabel>
-                        <StyledSelect name="location" value={form.location} onChange={handleChange} placeholder="Select a location">
-                          <option value="tampa">Tampa</option>
-                          <option value="st-pete">St. Petersburg</option>
-                          <option value="boca-raton">Boca Raton</option>
-                        </StyledSelect>
-                      </FormControl>
-                      <FormControl>
-                        <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>I'm interested in</FormLabel>
-                        <StyledSelect name="interest" value={form.interest} onChange={handleChange} placeholder="Select an option">
-                          <option value="individual">Individual membership</option>
-                          <option value="family">Family membership</option>
-                          <option value="corporate">Corporate program</option>
-                          <option value="learn">Just learning more</option>
-                        </StyledSelect>
-                      </FormControl>
-                    </SimpleGrid>
+                    {/* Mobile: radios inline */}
+                    <Box display={{ base: 'block', lg: 'none' }}>
+                      <SimpleGrid columns={2} spacing={8}>
+                        <Box>
+                          <Text fontSize="sm" fontWeight={600} color="#2D2D2D" mb={3}>Preferred location</Text>
+                          <VStack spacing={2} align="flex-start">
+                            <RadioOption label="Tampa" selected={form.location === 'tampa'} onClick={function () { setField('location', 'tampa'); }} />
+                            <RadioOption label="St. Petersburg" selected={form.location === 'st-pete'} onClick={function () { setField('location', 'st-pete'); }} />
+                            <RadioOption label="Boca Raton" selected={form.location === 'boca-raton'} onClick={function () { setField('location', 'boca-raton'); }} />
+                          </VStack>
+                        </Box>
+                        <Box>
+                          <Text fontSize="sm" fontWeight={600} color="#2D2D2D" mb={3}>I'm interested in</Text>
+                          <VStack spacing={2} align="flex-start">
+                            <RadioOption label="Individual" selected={form.interest === 'individual'} onClick={function () { setField('interest', 'individual'); }} />
+                            <RadioOption label="Family" selected={form.interest === 'family'} onClick={function () { setField('interest', 'family'); }} />
+                            <RadioOption label="Corporate" selected={form.interest === 'corporate'} onClick={function () { setField('interest', 'corporate'); }} />
+                            <RadioOption label="Learning more" selected={form.interest === 'learn'} onClick={function () { setField('interest', 'learn'); }} />
+                          </VStack>
+                        </Box>
+                      </SimpleGrid>
+                    </Box>
 
                     <FormControl>
                       <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>
@@ -251,7 +230,7 @@ function Contact() {
                         fontSize="md"
                         fontWeight={600}
                         w={{ base: '100%', md: 'auto' }}
-                        px={10}
+                        px={12}
                         h="54px"
                         isLoading={submitting}
                         loadingText="Sending..."
@@ -263,64 +242,61 @@ function Contact() {
 
                     <Text fontSize="xs" color="#9A9590">We respond within one business day. Your information is never shared.</Text>
                   </VStack>
-                </form>
-              </Box>
+                </Box>
 
-              <Box w={{ base: '100%', lg: '320px' }} flexShrink={0} borderLeft={{ base: 'none', lg: '1px solid' }} borderTop={{ base: '1px solid', lg: 'none' }} borderColor="#E8E2D8" pl={{ base: 0, lg: 10 }} pt={{ base: 10, lg: 0 }}>
-                <VStack align="flex-start" spacing={8}>
-
-                  <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={4}>Call us</Text>
-                    <Box mb={4}>
-                      <ChakraLink href="tel:8137273233" fontSize="lg" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease" display="block">813-727-3233</ChakraLink>
-                      <Text fontSize="sm" color="#5C5650" mt={1}>Tampa and St. Petersburg</Text>
+                {/* Desktop sidebar */}
+                <Box w="320px" flexShrink={0} display={{ base: 'none', lg: 'block' }} borderLeft="1px solid" borderColor="#E8E2D8" pl={10}>
+                  <Box position="sticky" top="120px">
+                    <Box mb={10}>
+                      <Text fontSize="sm" fontWeight={600} color="#2D2D2D" mb={4}>Preferred location</Text>
+                      <VStack spacing={3} align="flex-start">
+                        <RadioOption label="Tampa" selected={form.location === 'tampa'} onClick={function () { setField('location', 'tampa'); }} />
+                        <RadioOption label="St. Petersburg" selected={form.location === 'st-pete'} onClick={function () { setField('location', 'st-pete'); }} />
+                        <RadioOption label="Boca Raton" selected={form.location === 'boca-raton'} onClick={function () { setField('location', 'boca-raton'); }} />
+                      </VStack>
                     </Box>
-                    <Box>
-                      <ChakraLink href="tel:5619333333" fontSize="lg" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease" display="block">561-933-3333</ChakraLink>
-                      <Text fontSize="sm" color="#5C5650" mt={1}>Boca Raton</Text>
+
+                    <Box mb={10}>
+                      <Text fontSize="sm" fontWeight={600} color="#2D2D2D" mb={4}>I'm interested in</Text>
+                      <VStack spacing={3} align="flex-start">
+                        <RadioOption label="Individual membership" selected={form.interest === 'individual'} onClick={function () { setField('interest', 'individual'); }} />
+                        <RadioOption label="Family membership" selected={form.interest === 'family'} onClick={function () { setField('interest', 'family'); }} />
+                        <RadioOption label="Corporate program" selected={form.interest === 'corporate'} onClick={function () { setField('interest', 'corporate'); }} />
+                        <RadioOption label="Just learning more" selected={form.interest === 'learn'} onClick={function () { setField('interest', 'learn'); }} />
+                      </VStack>
                     </Box>
-                  </Box>
 
-                  <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={4}>Email</Text>
-                    <ChakraLink href="mailto:info@answersmd.com" fontSize="md" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease">info@answersmd.com</ChakraLink>
-                  </Box>
+                    <Box w="32px" h="2px" bg="#E8E2D8" mb={5} />
 
-                  <Box>
-                    <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={4}>Hours</Text>
-                    <Text fontSize="sm" color="#2D2D2D" fontWeight={500}>24/7 member access</Text>
-                    <Text fontSize="sm" color="#5C5650" mt={1}>Office hours Mon through Fri</Text>
-                    <Text fontSize="sm" color="#5C5650">8am to 5pm</Text>
-                  </Box>
+                    <VStack align="flex-start" spacing={6}>
+                      <Box>
+                        <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={3}>Call us</Text>
+                        <Box mb={3}>
+                          <ChakraLink href="tel:8137273233" fontSize="md" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease" display="block">813-727-3233</ChakraLink>
+                          <Text fontSize="xs" color="#9A9590" mt={1}>Tampa and St. Petersburg</Text>
+                        </Box>
+                        <Box>
+                          <ChakraLink href="tel:5619333333" fontSize="md" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease" display="block">561-933-3333</ChakraLink>
+                          <Text fontSize="xs" color="#9A9590" mt={1}>Boca Raton</Text>
+                        </Box>
+                      </Box>
 
-                  <Box bg="#FAFAF7" borderRadius="18px" p={6} w="100%">
-                    <Text fontFamily="heading" fontSize="md" fontWeight={700} color="#2D2D2D" mb={4}>What happens next?</Text>
-                    <VStack align="flex-start" spacing={4}>
-                      <Flex gap={3} align="flex-start">
-                        <Flex w="24px" h="24px" borderRadius="full" bg="#C4A265" align="center" justify="center" flexShrink={0} mt={0.5}>
-                          <Text fontSize="xs" fontWeight={700} color="white">1</Text>
-                        </Flex>
-                        <Text fontSize="sm" color="#3D3832" lineHeight={1.6}>We review your inquiry and reach out within one business day</Text>
-                      </Flex>
-                      <Flex gap={3} align="flex-start">
-                        <Flex w="24px" h="24px" borderRadius="full" bg="#C4A265" align="center" justify="center" flexShrink={0} mt={0.5}>
-                          <Text fontSize="xs" fontWeight={700} color="white">2</Text>
-                        </Flex>
-                        <Text fontSize="sm" color="#3D3832" lineHeight={1.6}>A complimentary phone consultation to discuss your needs</Text>
-                      </Flex>
-                      <Flex gap={3} align="flex-start">
-                        <Flex w="24px" h="24px" borderRadius="full" bg="#C4A265" align="center" justify="center" flexShrink={0} mt={0.5}>
-                          <Text fontSize="xs" fontWeight={700} color="white">3</Text>
-                        </Flex>
-                        <Text fontSize="sm" color="#3D3832" lineHeight={1.6}>If it feels right, we welcome you into the practice</Text>
-                      </Flex>
+                      <Box>
+                        <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={3}>Email</Text>
+                        <ChakraLink href="mailto:info@answersmd.com" fontSize="md" fontWeight={600} color="#2D2D2D" _hover={{ color: '#C4A265' }} transition="color 0.2s ease">info@answersmd.com</ChakraLink>
+                      </Box>
+
+                      <Box>
+                        <Text fontSize="xs" fontWeight={600} letterSpacing="2px" textTransform="uppercase" color="#C4A265" mb={3}>Hours</Text>
+                        <Text fontSize="sm" color="#2D2D2D" fontWeight={500}>24/7 member access</Text>
+                        <Text fontSize="xs" color="#9A9590" mt={1}>Office Mon through Fri, 8am to 5pm</Text>
+                      </Box>
                     </VStack>
                   </Box>
+                </Box>
 
-                </VStack>
-              </Box>
-
-            </Flex>
+              </Flex>
+            </form>
           </MotionBox>
         </Box>
       </Box>
