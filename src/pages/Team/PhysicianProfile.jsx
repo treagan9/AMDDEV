@@ -23,7 +23,7 @@ var PHYSICIANS = {
     name: 'Douglas Shapiro, DO',
     shortName: 'Dr. Shapiro',
     title: 'Founder and Lead Physician',
-    credentialsFull: 'Diplomate, American Board of Family Medicine',
+    credentialsFull: 'DABFM \u2014 Diplomate, American Board of Family Medicine',
     location: 'Tampa, FL',
     patients: 'Adults and Families',
     experience: '6+ Years',
@@ -51,38 +51,38 @@ var PHYSICIANS = {
     name: 'Drew Meriwether, MD',
     shortName: 'Dr. Meriwether',
     title: 'Pediatric and Internal Medicine',
-    credentialsFull: 'Board Certified Pediatrics and Internal Medicine',
+    credentialsFull: 'FAAP, DABIM \u2014 Fellow, American Academy of Pediatrics; Diplomate, American Board of Internal Medicine',
     location: 'Tampa, FL',
-    patients: 'All Ages',
-    experience: 'USF Health Clinician of the Year',
+    patients: 'All Ages (Pediatric to Adult)',
+    experience: '12+ Years',
     photo: '/team/dr-drew-meriwether.webp',
     badges: [],
     bio: [
-      'A USF Health Clinician of the Year, Dr. Meriwether brings exceptional versatility with dual board certifications in Pediatrics and Internal Medicine. A rare combination that allows him to provide seamless care for entire families from newborns to grandparents.',
-      "His training across both specialties means fewer referrals, better coordination and a physician who understands how a child's health history connects to their care as an adult."
+      'Dr. Drew Meriwether brings a unique dual expertise to AnswersMD, being board-certified in both pediatrics and internal medicine. This rare combination allows him to provide seamless care for entire families, from newborns to grandparents.',
+      "Dr. Meriwether's approach combines the latest evidence-based medicine with genuine, compassionate care. He believes that understanding a patient's complete picture, their family, their lifestyle and their concerns, is essential to providing truly excellent healthcare."
     ],
     education: [],
-    certifications: ['Doctor of Medicine (MD)', 'Board Certified Pediatrics', 'Board Certified Internal Medicine', 'Florida Medical License'],
-    specialties: ['Pediatric Care', 'Internal Medicine', 'Family Health Coordination', 'Preventive Wellness', 'Chronic Disease Management'],
-    quote: '',
+    certifications: ['Doctor of Medicine (MD)', 'Board Certified Pediatrics', 'Board Certified Internal Medicine', 'FAAP', 'DABIM', 'Florida Medical License'],
+    specialties: ['Pediatric Primary Care', 'Adult Internal Medicine', 'Family Care (All Ages)', 'Preventive and Wellness Care', 'Childhood Development', 'Chronic Disease Management'],
+    quote: "There's something special about caring for an entire family, from the newborn to the teenager to the parents to the grandparents. You understand the family dynamics, the medical history that spans generations and you can provide truly comprehensive care. That's what drew me to AnswersMD. It's medicine the way it should be.",
     meta: { title: 'Dr. Drew Meriwether, MD | AnswersMD', description: 'Meet Dr. Drew Meriwether, dual board certified in Pediatrics and Internal Medicine at AnswersMD in Tampa, FL.' }
   },
   'dr-divino-dalessio': {
     name: "Divino D'Alessio Jr., MD",
     shortName: "Dr. D'Alessio",
     title: 'Sports and Family Medicine',
-    credentialsFull: 'Board Certified Family Medicine and Sports Medicine',
+    credentialsFull: 'ABFM \u2014 Diplomate, American Board of Family Medicine',
     location: 'Boca Raton, FL',
-    patients: 'Athletes and Families',
-    experience: 'NCAA Division I Team Physician',
+    patients: 'Adults, Adolescents and Athletes',
+    experience: '3+ Years',
     photo: '/team/dr-divino-dalessio.webp',
     badges: [],
     bio: [
-      "Dr. D'Alessio brings board-certified Family Medicine paired with advanced Sports Medicine training. He has served as team physician for NCAA Division I athletes at Coastal Carolina University and provided sideline coverage for regional high school programs.",
-      'His clinical focus includes diagnostic musculoskeletal ultrasound, ultrasound-guided procedures and concussion management. He delivers athletic-medicine precision to active adults, athletes and families who want evidence-based care centered on performance, prevention and long-term health.'
+      "Dr. Divino D'Alessio Jr. blends comprehensive Family Medicine with advanced Sports Medicine training, providing patients with evidence-based care focused on performance, injury prevention and safe return to activity.",
+      "Dr. D'Alessio has served as team physician for NCAA Division I athletes at Coastal Carolina University and provided sideline coverage for regional high school programs, combat sports, beach volleyball and surfing competitions. He brings that same athletic-medicine rigor to the daily care of weekend warriors and active families at AnswersMD Boca Raton."
     ],
     education: [],
-    certifications: ['Doctor of Medicine (MD)', 'Board Certified Family Medicine', 'Board Certified Sports Medicine', 'Florida Medical License'],
+    certifications: ['Doctor of Medicine (MD)', 'Board Certified Family Medicine', 'Sports Medicine Training', 'ABFM', 'ACLS, BLS, PALS', 'Diagnostic MSK Ultrasound'],
     specialties: ['Sports Medicine', 'Musculoskeletal Ultrasound', 'Concussion Management', 'Performance Optimization', 'Preventive Care', 'Family Medicine'],
     quote: '',
     meta: { title: "Dr. Divino D'Alessio Jr., MD | AnswersMD", description: "Meet Dr. Divino D'Alessio Jr., board certified in Family and Sports Medicine at AnswersMD in Boca Raton, FL." }
@@ -91,19 +91,19 @@ var PHYSICIANS = {
     name: 'Ellen Howard, MD, MPH',
     shortName: 'Dr. Howard',
     title: 'Family and Preventive Medicine',
-    credentialsFull: 'Board Certified Family Medicine',
+    credentialsFull: 'ABFM \u2014 Diplomate, American Board of Family Medicine; Master of Public Health',
     location: 'St. Petersburg, FL',
-    patients: 'Adults and Families',
-    experience: "Master's in Public Health",
+    patients: 'Women, Men and Families (All Ages)',
+    experience: '3+ Years',
     photo: '/team/dr-ellen-howard.webp',
     badges: [],
     bio: [
-      "Dr. Howard believes good medicine starts with knowing the person in front of you. A board-certified family physician with a Master's in Public Health, she brings a preventive, community-minded approach to concierge family medicine.",
-      'She completed her residency in St. Petersburg and is proud to return to the community she considers home. Her clinical interests center on hormone therapy, weight management and GLP-1 therapy and preventive lifestyle medicine.'
+      "Dr. Ellen Howard believes good medicine starts with knowing the person in front of you. A board-certified family physician with a Master's in Public Health, she brings a preventive, community-minded approach to concierge family medicine.",
+      'She completed her Family Medicine residency here in St. Petersburg and is proud to return to the community she considers home. Her clinical interests center on hormone therapy, weight management and GLP-1 therapy and preventive lifestyle medicine. A long-time yoga instructor who has worked with Division I athletes, Dr. Howard meets each patient where they are and builds trusted, individualized plans rooted in science, compassion and sustainable change.'
     ],
     education: [],
-    certifications: ['Doctor of Medicine (MD)', "Master's in Public Health (MPH)", 'Board Certified Family Medicine', 'Florida Medical License'],
-    specialties: ['Hormone Therapy', 'Weight Management', 'GLP-1 Therapy', 'Preventive Lifestyle Medicine', 'Community Health', 'Family Medicine'],
+    certifications: ['Doctor of Medicine (MD)', 'Master of Public Health (MPH)', 'Board Certified Family Medicine', 'ABFM', 'AAFP Member', 'The Menopause Society', 'NY and FL Medical Licenses'],
+    specialties: ['Hormone Therapy', 'Weight Management and GLP-1 Therapy', 'Preventive and Lifestyle Medicine', 'Family Medicine (All Ages)', 'Office Procedures and Minor Surgery', 'Chronic Disease Management'],
     quote: '',
     meta: { title: 'Dr. Ellen Howard, MD, MPH | AnswersMD', description: 'Meet Dr. Ellen Howard, board certified family physician with an MPH at AnswersMD in St. Petersburg, FL.' }
   }
@@ -122,7 +122,6 @@ function PhysicianProfile() {
         <meta name="description" content={doc.meta.description} />
       </Helmet>
 
-      {/* Hero */}
       <Box bg="brand.ivory" pt={{ base: 24, md: 32 }}>
         <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 5, md: 4 }}>
           <MotionBox initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -174,7 +173,6 @@ function PhysicianProfile() {
         </Box>
       </Box>
 
-      {/* Credentials and Specialties */}
       <Box py={{ base: 'sectionMobile', md: 'section' }} bg="white">
         <Box maxW={{ base: '98%', lg: '70%' }} mx="auto" px={{ base: 5, md: 4 }}>
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 12, md: 16 }}>
@@ -223,7 +221,6 @@ function PhysicianProfile() {
         </Box>
       </Box>
 
-      {/* Quote */}
       {doc.quote && (
         <Box py={{ base: 'sectionMobile', md: 'section' }} bg="brand.ivory">
           <Box maxW={{ base: '98%', lg: '60%' }} mx="auto" px={{ base: 5, md: 4 }} textAlign="center">
