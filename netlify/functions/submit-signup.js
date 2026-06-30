@@ -55,7 +55,7 @@ function buildClientEmail(firstName) {
 
     // Hero
     + '<tr><td style="padding:0;">'
-    + '<img src="https://dev.answersmd.com/answersmd-sms-1200x630.png" alt="AnswersMD" style="width:100%;height:auto;display:block;border-radius:12px 12px 0 0;" />'
+    + '<img src="https://dev.answersmd.com/social/home.png" alt="AnswersMD" style="width:100%;height:auto;display:block;border-radius:12px 12px 0 0;" />'
     + '</td></tr>'
 
     // Content

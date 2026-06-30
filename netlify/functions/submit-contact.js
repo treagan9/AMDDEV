@@ -59,7 +59,7 @@ function buildClientEmail(firstName) {
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
 
     + '<tr><td style="padding:0;">'
-    + '<img src="https://dev.answersmd.com/answersmd-sms-1200x630.png" alt="AnswersMD" style="width:100%;height:auto;display:block;border-radius:12px 12px 0 0;" />'
+    + '<img src="https://dev.answersmd.com/social/home.png" alt="AnswersMD" style="width:100%;height:auto;display:block;border-radius:12px 12px 0 0;" />'
     + '</td></tr>'
 
     + '<tr><td style="background:#ffffff;padding:44px 40px 36px 40px;border-left:1px solid #E8E2D8;border-right:1px solid #E8E2D8;">'

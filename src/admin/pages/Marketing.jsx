@@ -58,9 +58,9 @@ function PreviewModal({ subject, body, attachmentName, onClose, onSend, sending 
           <Text fontSize="xs" color="#9A9590" mb={1}>Subject</Text>
           <Text fontSize="sm" fontWeight={600} color="#2D2D2D" mb={5}>{subject}</Text>
           <Box borderRadius="12px" overflow="hidden" border="1px solid" borderColor="#E8E2D8">
-            <Image src="/answersmd-sms-1200x630.png" alt="AnswersMD" w="100%" />
+            <Image src="/social/home.png" alt="AnswersMD" w="100%" />
             <Box bg="white" px={{ base: 5, md: 8 }} py={8}>
-              <Box fontSize="sm" color="#3D3832" lineHeight={1.8} dangerouslySetInnerHTML={{ __html: previewBody }} />
+              <Box fontSize="md" color="#3D3832" lineHeight={1.8} dangerouslySetInnerHTML={{ __html: previewBody }} />
               {attachmentName && (
                 <Flex mt={5} bg="#FAFAF7" borderRadius="8px" border="1px solid" borderColor="#E8E2D8" px={4} py={3} align="center" gap={2}>
                   <Text fontSize="xs" color="#2D2D2D" fontWeight={500}>{'\uD83D\uDCCE'} {attachmentName}</Text>
@@ -154,9 +154,12 @@ function Marketing() {
   function selectTemplate(template) {
     setActiveTemplate(template);
     supabase.from('email_templates').select('*').eq('slug', template.slug).single().then(function (result) {
-      if (result.data) {
+      if (result.data && result.data.subject_default) {
         setSubject(result.data.subject_default);
         setBody(result.data.body_default);
+      } else {
+        setSubject(template.subjectDefault || '');
+        setBody(template.bodyDefault || '');
       }
     });
     setView('compose');
