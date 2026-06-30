@@ -4,42 +4,63 @@ var { Resend } = require('resend');
 var resend = new Resend(process.env.RESEND_API_KEY);
 
 function buildEmail(subject, body, attachmentUrl, attachmentName, unsubscribeUrl) {
-  var ctaMatch = body.match(/Schedule a (consultation|complimentary consultation)/i);
-  var ctaText = ctaMatch ? ctaMatch[0] : '';
-  var ctaUrl = 'https://dev.answersmd.com/contact/';
-
   var bodyHtml = body
-    .replace(/\n\n/g, '</p><p style="margin:0 0 16px 0;font-size:16px;line-height:1.8;color:#4A4540;">')
-    .replace(/\n/g, '<br>');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 
-  if (ctaText) {
-    bodyHtml = bodyHtml.replace(
-      ctaText,
-      '<a href="' + ctaUrl + '" style="display:inline-block;background:#1B3A34;color:#ffffff;padding:14px 32px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;margin:8px 0;">' + ctaText + '</a>'
-    );
-  }
+  // Convert double newlines to paragraph breaks
+  var paragraphs = bodyHtml.split('\n\n');
+  bodyHtml = paragraphs.map(function (p) {
+    return '<p style="margin:0 0 18px 0;font-size:17px;line-height:1.8;color:#3D3832;font-family:Plus Jakarta Sans,-apple-system,sans-serif;">' + p.replace(/\n/g, '<br>') + '</p>';
+  }).join('');
+
+  // Convert "Schedule a consultation" or similar phrases to CTA buttons
+  bodyHtml = bodyHtml.replace(
+    /Schedule a (complimentary )?consultation/gi,
+    function (match) {
+      return '</p><table cellpadding="0" cellspacing="0" style="margin:8px 0 24px 0;"><tr><td>'
+        + '<a href="https://dev.answersmd.com/contact/" style="display:inline-block;background:#1B3A34;color:#ffffff;padding:16px 36px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;font-family:Plus Jakarta Sans,-apple-system,sans-serif;">' + match + '</a>'
+        + '</td></tr></table><p style="margin:0 0 18px 0;font-size:17px;line-height:1.8;color:#3D3832;font-family:Plus Jakarta Sans,-apple-system,sans-serif;">';
+    }
+  );
 
   var attachmentHtml = '';
   if (attachmentUrl && attachmentName) {
-    attachmentHtml = '<table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;"><tr><td style="background:#FAFAF7;border:1px solid #E8E2D8;border-radius:8px;padding:16px 20px;"><a href="' + attachmentUrl + '" style="color:#1B3A34;font-weight:600;font-size:14px;text-decoration:none;">\uD83D\uDCCE ' + attachmentName + '</a></td></tr></table>';
+    attachmentHtml = '<table width="100%" cellpadding="0" cellspacing="0" style="margin:24px 0;">'
+      + '<tr><td style="background:#FAFAF7;border:1px solid #E8E2D8;border-radius:8px;padding:16px 20px;">'
+      + '<a href="' + attachmentUrl + '" style="color:#1B3A34;font-weight:600;font-size:14px;text-decoration:none;font-family:Plus Jakarta Sans,-apple-system,sans-serif;">&#128206; ' + attachmentName + '</a>'
+      + '</td></tr></table>';
   }
 
-  return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head><body style="margin:0;padding:0;background:#FAFAF7;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">'
+  return '<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>'
+    + '<body style="margin:0;padding:0;background:#FAFAF7;font-family:Plus Jakarta Sans,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">'
     + '<table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAF7;"><tr><td align="center" style="padding:32px 16px;">'
     + '<table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">'
-    + '<tr><td style="padding:0 0 0 0;">'
+
+    // Hero image
+    + '<tr><td style="padding:0;">'
     + '<img src="https://dev.answersmd.com/answersmd-sms-1200x630.png" alt="AnswersMD" style="width:100%;height:auto;display:block;border-radius:12px 12px 0 0;" />'
     + '</td></tr>'
-    + '<tr><td style="background:#ffffff;padding:40px 40px 32px 40px;border-left:1px solid #E8E2D8;border-right:1px solid #E8E2D8;">'
-    + '<p style="margin:0 0 16px 0;font-size:16px;line-height:1.8;color:#4A4540;">' + bodyHtml + '</p>'
+
+    // Content
+    + '<tr><td style="background:#ffffff;padding:44px 40px 32px 40px;border-left:1px solid #E8E2D8;border-right:1px solid #E8E2D8;">'
+    + bodyHtml
     + attachmentHtml
     + '</td></tr>'
+
+    // Footer
     + '<tr><td style="background:#2A2A2A;padding:32px 40px;border-radius:0 0 12px 12px;">'
-    + '<p style="margin:0 0 8px 0;font-size:14px;color:rgba(255,255,255,0.7);">AnswersMD \u2022 Concierge Medicine, Simplified.</p>'
-    + '<p style="margin:0 0 4px 0;font-size:13px;color:rgba(255,255,255,0.5);">Tampa \u2022 St. Petersburg \u2022 Boca Raton</p>'
-    + '<p style="margin:0 0 4px 0;font-size:13px;color:rgba(255,255,255,0.5);"><a href="tel:8137273233" style="color:rgba(255,255,255,0.5);text-decoration:none;">813-727-3233</a> \u2022 <a href="mailto:info@answersmd.com" style="color:rgba(255,255,255,0.5);text-decoration:none;">info@answersmd.com</a></p>'
-    + '<p style="margin:16px 0 0 0;font-size:12px;"><a href="' + (unsubscribeUrl || '#') + '" style="color:rgba(255,255,255,0.35);text-decoration:underline;">Unsubscribe</a></p>'
+    + '<p style="margin:0 0 6px 0;font-size:15px;color:rgba(255,255,255,0.7);font-family:Plus Jakarta Sans,-apple-system,sans-serif;">AnswersMD</p>'
+    + '<p style="margin:0 0 4px 0;font-size:13px;color:rgba(255,255,255,0.45);font-family:Plus Jakarta Sans,-apple-system,sans-serif;">Concierge Medicine, Simplified.</p>'
+    + '<p style="margin:0 0 4px 0;font-size:13px;color:rgba(255,255,255,0.45);font-family:Plus Jakarta Sans,-apple-system,sans-serif;">Tampa &bull; St. Petersburg &bull; Boca Raton</p>'
+    + '<p style="margin:0 0 4px 0;font-size:13px;color:rgba(255,255,255,0.45);font-family:Plus Jakarta Sans,-apple-system,sans-serif;">'
+    + '<a href="tel:8137273233" style="color:rgba(255,255,255,0.45);text-decoration:none;">813-727-3233</a>'
+    + ' &bull; <a href="mailto:info@answersmd.com" style="color:rgba(255,255,255,0.45);text-decoration:none;">info@answersmd.com</a></p>'
+    + '<p style="margin:20px 0 0 0;font-size:12px;font-family:Plus Jakarta Sans,-apple-system,sans-serif;">'
+    + '<a href="' + (unsubscribeUrl || 'https://dev.answersmd.com') + '" style="color:rgba(255,255,255,0.3);text-decoration:underline;">Unsubscribe</a></p>'
     + '</td></tr>'
+
     + '</table>'
     + '</td></tr></table>'
     + '</body></html>';

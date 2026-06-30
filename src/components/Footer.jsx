@@ -34,9 +34,9 @@ var LOCATIONS = [
   { city: 'Boca Raton', phone: '561-933-3333', tel: '5619333333', fax: '844-670-8963' }
 ];
 
-function PulseIcon({ size }) {
+function PulseIcon() {
   return (
-    <svg width={size || 14} height={size || 14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
     </svg>
   );
@@ -82,7 +82,7 @@ function Footer() {
       <Box as="footer">
         <Box bg="white" display={{ base: 'none', lg: 'block' }} pt={6} pb={6}>
           <Box maxW="98%" mx="auto" px={4}>
-            <Box bg="brand.charcoal" borderRadius="panel" px={16} pt={20} pb={12}>
+            <Box bg="#2A2A2A" borderRadius="28px" px={16} pt={20} pb={12}>
               <Flex gap={20} mb={16}>
                 <Box maxW="320px" flexShrink={0}>
                   <Image src="/answersmd-footer-white.webp" alt="AnswersMD" maxW="260px" objectFit="contain" mb={8} />
@@ -135,7 +135,7 @@ function Footer() {
               <Box h="1px" bg="whiteAlpha.100" mb={8} />
               <Flex justify="space-between" align="center">
                 <Text fontSize="xs" color="whiteAlpha.400">&copy; {new Date().getFullYear()} AnswersMD&trade; All rights reserved.</Text>
-                <HStack spacing={6}>
+                <HStack spacing={6} align="center">
                   <ChakraLink as={Link} to="/privacy/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Privacy</ChakraLink>
                   <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Terms of Service</ChakraLink>
                   <ChakraLink href="/sitemap.xml" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Sitemap</ChakraLink>
@@ -143,9 +143,8 @@ function Footer() {
                     <AIIcon />
                     llms.txt
                   </ChakraLink>
-                  <ChakraLink as={Link} to="/answersmd-admin/" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.700" fontWeight={500} _hover={{ color: 'white' }} transition="color 0.2s ease">
-                    <PulseIcon size={13} />
-                    Pulse
+                  <ChakraLink as={Link} to="/answersmd-admin/" color="whiteAlpha.500" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">
+                    <PulseIcon />
                   </ChakraLink>
                 </HStack>
               </Flex>
@@ -153,7 +152,7 @@ function Footer() {
           </Box>
         </Box>
 
-        <Box bg="brand.charcoal" display={{ base: 'block', lg: 'none' }} px={6} pt={14} pb={10}>
+        <Box bg="#2A2A2A" display={{ base: 'block', lg: 'none' }} px={6} pt={14} pb={10}>
           <Box mb={10}>
             <Image src="/answersmd-footer-white.webp" alt="AnswersMD" maxW="220px" objectFit="contain" mb={8} />
             <Text fontSize="md" color="whiteAlpha.700" lineHeight={1.85} mb={8}>
@@ -204,7 +203,7 @@ function Footer() {
           <Box h="1px" bg="whiteAlpha.100" mb={8} />
           <Flex direction="column" gap={4}>
             <Text fontSize="xs" color="whiteAlpha.400">&copy; {new Date().getFullYear()} AnswersMD&trade; All rights reserved.</Text>
-            <HStack spacing={5} flexWrap="wrap">
+            <HStack spacing={5} flexWrap="wrap" align="center">
               <ChakraLink as={Link} to="/privacy/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Privacy</ChakraLink>
               <ChakraLink as={Link} to="/terms/" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Terms</ChakraLink>
               <ChakraLink href="/sitemap.xml" fontSize="xs" color="whiteAlpha.400" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">Sitemap</ChakraLink>
@@ -212,9 +211,8 @@ function Footer() {
                 <AIIcon />
                 llms.txt
               </ChakraLink>
-              <ChakraLink as={Link} to="/answersmd-admin/" display="flex" alignItems="center" gap={1.5} fontSize="xs" color="whiteAlpha.700" fontWeight={500} _hover={{ color: 'white' }} transition="color 0.2s ease">
-                <PulseIcon size={13} />
-                Pulse
+              <ChakraLink as={Link} to="/answersmd-admin/" color="whiteAlpha.500" _hover={{ color: 'whiteAlpha.700' }} transition="color 0.2s ease">
+                <PulseIcon />
               </ChakraLink>
             </HStack>
           </Flex>
