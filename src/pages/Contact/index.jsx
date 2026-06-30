@@ -169,15 +169,16 @@ function Contact() {
                 <form onSubmit={handleSubmit}>
                   <VStack spacing={5} align="stretch">
 
-                    <FormControl isRequired>
-                      <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>First name</FormLabel>
-                      <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="Jane" {...fieldStyles} />
-                    </FormControl>
-
-                    <FormControl isRequired>
-                      <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>Last name</FormLabel>
-                      <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Smith" {...fieldStyles} />
-                    </FormControl>
+                    <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+                      <FormControl isRequired>
+                        <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>First name</FormLabel>
+                        <Input name="firstName" value={form.firstName} onChange={handleChange} placeholder="Jane" {...fieldStyles} />
+                      </FormControl>
+                      <FormControl isRequired>
+                        <FormLabel fontSize="sm" fontWeight={600} color="#2D2D2D" mb={2}>Last name</FormLabel>
+                        <Input name="lastName" value={form.lastName} onChange={handleChange} placeholder="Smith" {...fieldStyles} />
+                      </FormControl>
+                    </SimpleGrid>
 
                     <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
                       <FormControl isRequired>
