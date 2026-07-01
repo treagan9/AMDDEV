@@ -51,7 +51,7 @@ var PHYSICIANS = {
     meta: {
       title: 'Dr. Douglas Shapiro \u2022 AnswersMD',
       description: 'Dr. Douglas Shapiro founded AnswersMD to practice medicine the way it should be. Board certified family medicine in Tampa, FL.',
-      image: 'https://dev.answersmd.com/team/dr-doug-shapiro.webp'
+      image: 'https://dev.answersmd.com/social/team.png'
     }
   },
   'dr-drew-meriwether': {
@@ -83,7 +83,7 @@ var PHYSICIANS = {
     meta: {
       title: 'Dr. Drew Meriwether \u2022 AnswersMD',
       description: 'Dr. Drew Meriwether brings dual board certifications in Pediatrics and Internal Medicine to AnswersMD in Tampa, FL. USF Health Clinician of the Year.',
-      image: 'https://dev.answersmd.com/team/dr-drew-meriwether.webp'
+      image: 'https://dev.answersmd.com/social/team.png'
     }
   },
   'dr-divino-dalessio': {
@@ -109,7 +109,7 @@ var PHYSICIANS = {
     meta: {
       title: "Dr. Divino D'Alessio \u2022 AnswersMD",
       description: "Dr. Divino D'Alessio Jr. brings board certified Family and Sports Medicine to AnswersMD in Boca Raton, FL. Former NCAA Division I team physician.",
-      image: 'https://dev.answersmd.com/team/dr-divino-dalessio.webp'
+      image: 'https://dev.answersmd.com/social/team.png'
     }
   },
   'dr-ellen-howard': {
@@ -138,7 +138,7 @@ var PHYSICIANS = {
     meta: {
       title: 'Dr. Ellen Howard \u2022 AnswersMD',
       description: 'Dr. Ellen Howard brings board certified family medicine and a preventive approach to AnswersMD in St. Petersburg, FL. Hormone therapy, GLP-1 and lifestyle medicine.',
-      image: 'https://dev.answersmd.com/team/dr-ellen-howard.webp'
+      image: 'https://dev.answersmd.com/social/team.png'
     }
   }
 };
